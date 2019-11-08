@@ -148,4 +148,46 @@ public class Game : MonoBehaviour
             row = gridPosition % worldGridsHigh;
         return string.Format("{0}/{1}", ColumnToLetter(col + 1), row + 1);
     }
+
+    ///
+    /// Get the center position of the specified grid position.
+    ///
+    public Vector3 GetCenterPositionForGrid(int gridPosition)
+    {
+        // TODO: This is a problem with negative grid numbers. Probably should just set world boundaries.
+        int xStart = gridPosition / worldGridsWide,
+            zStart = gridPosition % worldGridsWide;
+        return new Vector3(
+            xStart * gridWidth + gridWidth / 2f,
+            Camera.main.transform.position.y,
+            zStart * gridHeight + gridHeight / 2f
+        );
+    }
+
+    ///
+    /// Get the bounding area of the specified grid position.
+    ///
+    public Rect GetBoundsForGrid(int gridPosition)
+    {
+        var centerPos = GetCenterPositionForGrid(gridPosition);
+        centerPos.x -= gridWidth / 2f;
+        centerPos.z -= gridHeight / 2f;
+        centerPos.y = centerPos.z;
+        return new Rect(
+            centerPos,
+            new Vector2(gridWidth, gridHeight)
+        );
+    }
+
+    ///
+    /// Get a position that is outside of the world bounds.
+    ///
+    public Vector3 GetOutOfBoundsPosition()
+    {
+        return new Vector3(
+            WorldBoundaries.x - 1000,
+            0,
+            WorldBoundaries.y - 1000
+        );
+    }
 }
