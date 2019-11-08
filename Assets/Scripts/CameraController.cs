@@ -19,11 +19,12 @@ public class CameraController : MonoBehaviour
         if (cameraGrid != objGrid)
         {
             Camera.main.transform.position = GetCameraPositionForGrid(objGrid);
-            // Camera.main.rect = new Rect(
-            //     Camera.main.transform.position,
-            //     new Vector2(Game.Instance.singleGridSize, Game.Instance.singleGridSize)
-            // );
         }
+    }
+
+    public void CenterCameraOn(Transform transform)
+    {
+        Camera.main.transform.position = GetCameraPositionForGrid(Game.Instance.GetGrid(transform.position));
     }
 
     Vector3 GetCameraPositionForGrid(int gridNum)
@@ -32,9 +33,9 @@ public class CameraController : MonoBehaviour
         int xStart = gridNum / Game.Instance.worldGridsWide,
             zStart = gridNum % Game.Instance.worldGridsWide;
         return new Vector3(
-            xStart * Game.Instance.singleGridSize + Game.Instance.singleGridSize / 2f,
+            xStart * Game.Instance.gridWidth + Game.Instance.gridWidth / 2f,
             Camera.main.transform.position.y,
-            zStart * Game.Instance.singleGridSize + Game.Instance.singleGridSize / 2f
+            zStart * Game.Instance.gridHeight + Game.Instance.gridHeight / 2f
         );
     }
 }

@@ -6,7 +6,7 @@ public class PlayerShip : MonoBehaviour
 {
     Rigidbody body;
 
-    public float moveSpeed = 150, maxSpeed = 200;
+    public float moveSpeed = 150, rotateSpeed = 50, maxSpeed = 200;
     float vertForce, horzForce;
     
     // Start is called before the first frame update
@@ -19,19 +19,7 @@ public class PlayerShip : MonoBehaviour
     void Update()
     {
         this.vertForce = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-        this.horzForce = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-    }
-
-    void FixedUpdate()
-    {
-        transform.Rotate(0, this.horzForce, 0, Space.World);
-
-        Vector3 movementForce = transform.forward * this.vertForce;
-        body.drag = moveSpeed / maxSpeed;
-        body.AddForce(
-            movementForce,
-            ForceMode.Acceleration
-        );
+        this.horzForce = Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
 
         Rect bound = Game.Instance.WorldBoundaries;
         var pos = transform.position;
@@ -56,7 +44,26 @@ public class PlayerShip : MonoBehaviour
         if (pos != transform.position)
         {
             transform.position = pos;
-            Debug.Log("leaps and !!!__BOUNDS__!!!");
+            this.vertForce = 0;
+            body.velocity = Vector3.zero;
+
+            var rot = body.transform.rotation;
+            rot.x = rot.z = 0;
+            body.transform.rotation = rot;
+            Debug.Log("BOUNDS");
         }
+    }
+
+    void FixedUpdate()
+    {
+        Vector3 movementForce = transform.forward * this.vertForce;
+        body.drag = moveSpeed / maxSpeed;
+        body.AddForce(
+            movementForce,
+            ForceMode.Acceleration
+        );
+        
+        var delta = Vector3.up * this.horzForce - body.angularVelocity;
+        body.AddRelativeTorque(delta);
     }
 }
