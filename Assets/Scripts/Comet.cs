@@ -39,7 +39,7 @@ public class Comet : MonoBehaviour
                             bool startHigh = Random.Range(0, 1f) > .5f;
 
                             shootTimer = 0;
-                            Rect worldCameraBounds = Game.Instance.GetBoundsForGrid(Game.Instance.GetGrid(Camera.main.transform.position));
+                            Rect worldCameraBounds = Game.Instance.GetBoundsForGrid(Game.Instance.GetCurrentGrid());
                             start = new Vector3(
                                 Random.Range(worldCameraBounds.xMin, worldCameraBounds.xMax),
                                 0,

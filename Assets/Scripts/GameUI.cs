@@ -18,8 +18,7 @@ public class GameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int gridNum = Game.Instance.GetGrid(Camera.main.transform.position);
-        //string sectorStr = (gridNum + 1).ToString("x8");
+        int gridNum = Game.Instance.GetCurrentGrid();
         labelSector.text = "Sector: " + Game.Instance.GetSectorName(gridNum);
     }
 }

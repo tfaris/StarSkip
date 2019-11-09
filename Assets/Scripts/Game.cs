@@ -12,6 +12,8 @@ public class Game : MonoBehaviour
     public Rect WorldBoundaries { get; private set; }
     [HideInInspector]
     public float gridWidth, gridHeight;
+    [HideInInspector]
+    public int gameSeed;
 
     float lastAspectRatio;
     bool placedPlayer;
@@ -27,6 +29,7 @@ public class Game : MonoBehaviour
 
     void Start()
     {
+        gameSeed = Random.Range(0, int.MaxValue);
         _instance = this;
         cameraController = FindObjectOfType<CameraController>();
     }
@@ -127,6 +130,11 @@ public class Game : MonoBehaviour
         int col = (int)Mathf.Floor(position.x / gridWidth),
          row = (int)Mathf.Floor(position.z / gridHeight);
         return worldGridsWide * col + row;
+    }
+
+    public int GetCurrentGrid()
+    {
+        return GetGrid(playerShip.transform.position);
     }
 
     string ColumnToLetter(int column) 
