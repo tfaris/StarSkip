@@ -14,6 +14,9 @@ public class MapMesh : MonoBehaviour
     bool _generated;
     int _pixelsPerGrid = 10;
 
+    Color explored = Color.white;
+    Color playerCurrent = Color.yellow;// new Color(255f/265f, 255f/165f, 0);
+
     void Start()
     {
         _mFilter = GetComponent<MeshFilter>();
@@ -26,10 +29,12 @@ public class MapMesh : MonoBehaviour
             int currentGrid = Game.Instance.GetCurrentGrid();
             if (currentGrid != _lastGrid)
             {
-                _lastGrid = currentGrid;
                 var gs = Game.Instance.GetGridState(currentGrid);
+                var lastGridState = Game.Instance.GetGridState(_lastGrid);
                 gs.explored = true;
+                UpdateMap(_lastGrid, lastGridState);
                 UpdateMap(currentGrid, gs);
+                _lastGrid = currentGrid;
             }
         }
     }
@@ -42,9 +47,27 @@ public class MapMesh : MonoBehaviour
         int xPix = x * _pixelsPerGrid, yPix = y * _pixelsPerGrid;
         int xEnd = xPix + _pixelsPerGrid, yEnd = yPix + _pixelsPerGrid;
         Color[] pixels = new Color[_pixelsPerGrid * _pixelsPerGrid];
-        for (int i=0; i < pixels.Length; i++)
+
+        for (int row=0; row < _pixelsPerGrid; row++)
         {
-            pixels[i] = Color.white;
+            for (int col=0; col < _pixelsPerGrid; col++)
+            {
+                int i = col * _pixelsPerGrid + row;
+                Color c;
+                if (gridPos == Game.Instance.GetCurrentGrid())
+                {
+                    c = playerCurrent;
+                }
+                else if (row == 0 || row == yEnd - 1 || col == 0 || col == xEnd - 1)
+                {
+                    c = Color.black;
+                }
+                else
+                {
+                    c = explored;
+                }
+                pixels[i] = c;
+            }
         }
 
         int w = (int)(x * _tex.width / (float)Game.Instance.worldGridsWide), h = (int)(y * _tex.height / (float)Game.Instance.worldGridsHigh);
