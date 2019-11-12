@@ -16,8 +16,10 @@ public class Game : MonoBehaviour
     public int gameSeed;
 
     float lastAspectRatio;
-    bool placedPlayer;
+    bool placedPlayer, firstGen = true;
     CameraController cameraController;
+
+    System.Collections.Generic.Dictionary<int, GridState> gridStates;
 
     private static Game _instance;
     public static Game Instance
@@ -30,6 +32,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         gameSeed = Random.Range(0, int.MaxValue);
+        gridStates = new Dictionary<int, GridState>();
         _instance = this;
         cameraController = FindObjectOfType<CameraController>();
     }
@@ -66,6 +69,11 @@ public class Game : MonoBehaviour
                 Camera.main.transform.position.z
             );
 
+            if (firstGen)
+            {
+                FindObjectOfType<MapMesh>().GenerateMapMesh();
+            }
+
             if (!placedPlayer)
             {
                 // Randomly place the player.
@@ -76,6 +84,8 @@ public class Game : MonoBehaviour
                 );
                 placedPlayer = true;
             }
+            
+            firstGen = false;
         }
         
         // for (int x=0; x < worldGridsWide; x++)
@@ -197,5 +207,14 @@ public class Game : MonoBehaviour
             0,
             WorldBoundaries.y - 1000
         );
+    }
+
+    public GridState GetGridState(int gridPos)
+    {
+        if (!gridStates.TryGetValue(gridPos, out GridState gs))
+        {
+            gs = gridStates[gridPos] = new GridState();
+        }
+        return gs;
     }
 }
