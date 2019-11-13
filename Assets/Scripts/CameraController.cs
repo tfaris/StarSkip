@@ -18,12 +18,15 @@ public class CameraController : MonoBehaviour
             objGrid = Game.Instance.GetGrid(trackThis.transform.position);
         if (cameraGrid != objGrid)
         {
-            Camera.main.transform.position = Game.Instance.GetCenterPositionForGrid(objGrid);
+            CenterCameraOn(trackThis.transform);
         }
     }
 
     public void CenterCameraOn(Transform transform)
     {
-        Camera.main.transform.position = Game.Instance.GetCenterPositionForGrid(Game.Instance.GetGrid(transform.position));
+        float tmpY = Camera.main.transform.position.y;
+        var pos = Game.Instance.GetCenterPositionForGrid(Game.Instance.GetGrid(transform.position));
+        pos.y = tmpY;
+        Camera.main.transform.position = pos;
     }
 }

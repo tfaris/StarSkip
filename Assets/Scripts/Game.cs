@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class Game : MonoBehaviour
 
     Vector2 worldOrigin = new Vector2(0, 0);
     public Rect WorldBoundaries { get; private set; }
+    public List<PredefinedStuff> predefinedStuff;
     [HideInInspector]
     public float gridWidth, gridHeight;
     [HideInInspector]
@@ -31,7 +33,7 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        gameSeed = Random.Range(0, int.MaxValue);
+        gameSeed = UnityEngine.Random.Range(0, int.MaxValue);
         gridStates = new Dictionary<int, GridState>();
         _instance = this;
         cameraController = FindObjectOfType<CameraController>();
@@ -71,16 +73,17 @@ public class Game : MonoBehaviour
 
             if (firstGen)
             {
-                FindObjectOfType<MapMesh>().GenerateMapMesh();
+                SpawnPredefinedObjects();
+                FindObjectOfType<Map>().GenerateMap();
             }
 
             if (!placedPlayer)
             {
                 // Randomly place the player.
                 playerShip.transform.position = new Vector3(
-                    Random.Range(WorldBoundaries.xMin + 1, WorldBoundaries.xMax - 1),
+                    UnityEngine.Random.Range(WorldBoundaries.xMin + 1, WorldBoundaries.xMax - 1),
                     playerShip.transform.position.y,
-                    Random.Range(WorldBoundaries.yMin + 1, WorldBoundaries.yMax - 1)
+                    UnityEngine.Random.Range(WorldBoundaries.yMin + 1, WorldBoundaries.yMax - 1)
                 );
                 placedPlayer = true;
             }
@@ -135,6 +138,38 @@ public class Game : MonoBehaviour
         // }
     }
 
+    ///
+    /// Create all of the predefined/prepositioned objects.
+    ///
+    private void SpawnPredefinedObjects()
+    {
+        GameObject predefinedContainer = new GameObject();
+        foreach (PredefinedStuff ps in predefinedStuff)
+        {
+            var gridState = GetGridState(ps.gridX, ps.gridZ);
+            var worldPos = GetCenterPositionForGrid(ps.gridX, ps.gridZ);
+            worldPos.x -= gridWidth / 2 - ps.xWithinGrid * gridWidth;
+            worldPos.z -= gridHeight / 2 - ps.zWithinGrid * gridHeight;
+            
+            if (ps.objectToSpawn != null)
+            {
+                var obj = GameObject.Instantiate(
+                    ps.objectToSpawn,
+                    worldPos,
+                    Quaternion.identity,
+                    predefinedContainer.transform
+                );
+
+                // Setup various grid states here after creation.
+                var asteroidSpawner = obj.GetComponent<AsteroidController>();
+                if (asteroidSpawner != null)
+                {
+                    gridState.asteroidSpawner = asteroidSpawner;
+                }
+            }
+        }
+    }
+
     public int GetGrid(Vector3 position)
     {
         int col = (int)Mathf.Floor(position.x / gridWidth),
@@ -148,6 +183,7 @@ public class Game : MonoBehaviour
     }
 
     string ColumnToLetter(int column) 
+
     {
         int temp = 0;
         string letter = "";
@@ -168,17 +204,25 @@ public class Game : MonoBehaviour
     }
 
     ///
-    /// Get the center position of the specified grid position.
+    /// Get the world center position of the specified grid position.
     ///
     public Vector3 GetCenterPositionForGrid(int gridPosition)
     {
+        int gridX = gridPosition / worldGridsWide,
+            gridZ = gridPosition % worldGridsWide;
+        return GetCenterPositionForGrid(gridX, gridZ);
+    }
+
+    ///
+    /// Get the world center position for the specified grid x and y.
+    ///
+    public Vector3 GetCenterPositionForGrid(int gridX, int gridZ)
+    {
         // TODO: This is a problem with negative grid numbers. Probably should just set world boundaries.
-        int xStart = gridPosition / worldGridsWide,
-            zStart = gridPosition % worldGridsWide;
         return new Vector3(
-            xStart * gridWidth + gridWidth / 2f,
-            Camera.main.transform.position.y,
-            zStart * gridHeight + gridHeight / 2f
+            gridX * gridWidth + gridWidth / 2f,
+            0,
+            gridZ * gridHeight + gridHeight / 2f
         );
     }
 
@@ -207,6 +251,11 @@ public class Game : MonoBehaviour
             0,
             WorldBoundaries.y - 1000
         );
+    }
+
+    public GridState GetGridState(int gridX, int gridZ)
+    {
+        return GetGridState(worldGridsWide * gridX + gridZ);
     }
 
     public GridState GetGridState(int gridPos)

@@ -15,6 +15,9 @@ public class Asteroid : MonoBehaviour
     public float spin;
     public Rigidbody rb;
 
+    [HideInInspector]
+    public AsteroidController spawner;
+
     float rh;
     float rv;
 
@@ -31,6 +34,22 @@ public class Asteroid : MonoBehaviour
         if (speedy)
         {
             speed = speed * 2;
+        }
+    }
+
+    void Update()
+    {
+        int playerGrid = Game.Instance.GetCurrentGrid();
+        int asteroidGrid = Game.Instance.GetGrid(this.transform.position);
+        // Don't despawn if we're on the same grid as the player.
+        if (playerGrid != asteroidGrid)
+        {
+            var dist = Mathf.Abs((this.transform.position - spawner.transform.position).magnitude);
+            if (dist > spawner.distanceToDespawn)
+            {
+                Debug.Log("Destroying asteroid " + this);
+                GameObject.Destroy(this.gameObject);
+            }
         }
     }
 

@@ -9,9 +9,6 @@ public class AsteroidController : MonoBehaviour
 
     public Game game;
 
-    GameObject asteroidObject;
-    Asteroid asteroid;
-
     public float spawnRate;
     public float averageSpd;
 
@@ -22,10 +19,13 @@ public class AsteroidController : MonoBehaviour
     public float zBoundary;
 
     public float weightedTwdsMid;
+    public float distanceToDespawn;
 
     float timer;
 
     Vector3 t;
+
+    List<GameObject> _spawnedAsteroids = new List<GameObject>();
 
     void Start()
     {
@@ -34,8 +34,8 @@ public class AsteroidController : MonoBehaviour
 
     void Update()
     {
-        xBoundary = game.gridWidth;
-        zBoundary = game.gridHeight;
+        xBoundary = Game.Instance.gridWidth;
+        zBoundary = Game.Instance.gridHeight;
 
         timer += .2f * Time.deltaTime;
 
@@ -43,6 +43,8 @@ public class AsteroidController : MonoBehaviour
         {
             int dirDie = Random.Range(0,4);
 
+            GameObject asteroidObject;
+            Asteroid asteroid;
             if (dirDie == 0)
             {
                 asteroidObject = Instantiate(asteroidPool[0], new Vector3(Random.Range(t.x, t.z + xBoundary), t.y, t.z), Random.rotation);
@@ -67,6 +69,7 @@ public class AsteroidController : MonoBehaviour
                 asteroid = asteroidObject.GetComponent<Asteroid>();
                 asteroid.goDirection = Direction.goRight;
             }
+            asteroid.spawner = this;
 
             timer = 0;
         }
@@ -79,5 +82,6 @@ public class AsteroidController : MonoBehaviour
         Gizmos.DrawLine(t, new Vector3(t.x, t.y, t.z + zBoundary));
         Gizmos.DrawLine(new Vector3 (t.x, t.y, t.z + zBoundary), new Vector3(t.x + xBoundary, t.y, t.z + zBoundary));
         Gizmos.DrawLine(new Vector3 (t.x + xBoundary, t.y, t.z), new Vector3(t.x + xBoundary, t.y, t.z + zBoundary));
+        Gizmos.DrawWireSphere(this.transform.position, distanceToDespawn);
     }
 }
