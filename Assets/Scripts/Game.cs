@@ -143,11 +143,23 @@ public class Game : MonoBehaviour
     ///
     private void SpawnPredefinedObjects()
     {
-        GameObject predefinedContainer = new GameObject();
+        GameObject predefinedContainer = new GameObject("SpecialObjects");
         foreach (PredefinedStuff ps in predefinedStuff)
         {
-            var gridState = GetGridState(ps.gridX, ps.gridZ);
-            var worldPos = GetCenterPositionForGrid(ps.gridX, ps.gridZ);
+            int gridX, gridZ; 
+            if (ps.spawnAtRandomPosition)
+            {
+                gridX = UnityEngine.Random.Range(0, worldGridsWide + 1);
+                gridZ = UnityEngine.Random.Range(0, worldGridsHigh + 1);
+            }
+            else
+            {
+                gridX = ps.gridX;
+                gridZ = ps.gridZ;
+            }
+
+            var gridState = GetGridState(gridX, gridZ);
+            var worldPos = GetCenterPositionForGrid(gridX, gridZ);
             worldPos.x -= gridWidth / 2 - ps.xWithinGrid * gridWidth;
             worldPos.z -= gridHeight / 2 - ps.zWithinGrid * gridHeight;
             

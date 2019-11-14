@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridX: 25
   gridZ: 25
+  spawnAtRandomPosition: 1
   xWithinGrid: 0.2
   zWithinGrid: 0.6
   objectToSpawn: {fileID: 6031583343903144762, guid: b26ac6293bf8f64419403ba52d7f0f5b,
