@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
     public Rect WorldBoundaries { get; private set; }
     public List<PredefinedStuff> predefinedStuff;
     [HideInInspector]
+    [NonSerialized]
     public float gridWidth, gridHeight;
     [HideInInspector]
     public int gameSeed;

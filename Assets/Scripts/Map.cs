@@ -7,10 +7,14 @@ using UnityEngine.UI;
 public class Map : MonoBehaviour
 {
     public RawImage image;
-    int _lastGrid;
+    int _lastGrid = -1;
     Texture2D _tex;
     bool _generated;
     int _pixelsPerGrid = 10;
+    bool _fullScreen;
+    Vector2 _tmpOffsetMin, _tmpOffsetMax, _tmpSizeDelta;
+    Vector3 _tmpPos;
+
 
     Color explored = Color.white;
     Color playerCurrent = Color.yellow;// new Color(255f/265f, 255f/165f, 0);
@@ -23,12 +27,49 @@ public class Map : MonoBehaviour
             int currentGrid = Game.Instance.GetCurrentGrid();
             if (currentGrid != _lastGrid)
             {
-                var lastGridState = Game.Instance.GetGridState(_lastGrid);
+                if (_lastGrid >= 0)
+                {
+                    var lastGridState = Game.Instance.GetGridState(_lastGrid);
+                    UpdateMap(_lastGrid, lastGridState);
+                }
+
                 var gs = Game.Instance.GetGridState(currentGrid);
                 gs.explored = true;
-                UpdateMap(_lastGrid, lastGridState);
                 UpdateMap(currentGrid, gs);
                 _lastGrid = currentGrid;
+            }
+
+            if (Input.GetButtonUp("Map"))
+            {
+                if (!_fullScreen)
+                {
+                    image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
+
+                    _tmpOffsetMin = image.rectTransform.offsetMin;
+                    _tmpOffsetMax = image.rectTransform.offsetMax;
+                    _tmpPos = image.rectTransform.position;
+                    _tmpSizeDelta = image.rectTransform.sizeDelta;
+
+                    image.rectTransform.anchorMin = new Vector2(0, 0);
+                    image.rectTransform.anchorMax = new Vector2(1, 1);
+                    image.rectTransform.offsetMax = new Vector2();
+                    image.rectTransform.offsetMin = new Vector2();
+                    
+                    _fullScreen = true;
+                }
+                else
+                {
+                    // Slightly transparent when mini
+                    image.color = new Color(image.color.r, image.color.g, image.color.b, .5f);
+
+                    image.rectTransform.anchorMin = new Vector2(1, 0);
+                    image.rectTransform.anchorMax = new Vector2(1, 0);
+                    image.rectTransform.offsetMax = _tmpOffsetMin;
+                    image.rectTransform.offsetMin = _tmpOffsetMin;
+                    image.rectTransform.sizeDelta = _tmpSizeDelta;
+                    image.rectTransform.position = _tmpPos;
+                    _fullScreen = false;
+                }
             }
         }
     }
@@ -39,41 +80,31 @@ public class Map : MonoBehaviour
         int y = gridPos % Game.Instance.worldGridsWide;
 
         int xPix = x * _pixelsPerGrid, yPix = y * _pixelsPerGrid;
-        int xEnd = xPix + _pixelsPerGrid, yEnd = yPix + _pixelsPerGrid;
-        Color[] pixels = new Color[_pixelsPerGrid * _pixelsPerGrid];
+        int xEnd = xPix + _pixelsPerGrid - 1, yEnd = yPix + _pixelsPerGrid - 1;
+        Color[] pixels = new Color[(_pixelsPerGrid - 1) * (_pixelsPerGrid - 1)];
 
         // Fill in all of the pixels at this grid position on 
         // the map.
-        
-        for (int row=0; row < _pixelsPerGrid; row++)
+        Color c;
+        if (gridPos == Game.Instance.GetCurrentGrid())
         {
-            for (int col=0; col < _pixelsPerGrid; col++)
-            {
-                int i = col * _pixelsPerGrid + row;
-                Color c;
-                if (gridPos == Game.Instance.GetCurrentGrid())
-                {
-                    c = playerCurrent;
-                }
-                else if (row == 0 || row == yEnd - 1 || col == 0 || col == xEnd - 1)
-                {
-                    c = Color.black;
-                }
-                else if (gs.asteroidSpawner != null)
-                {
-                    c = asteroidColor;
-                }
-                else
-                {
-                    c = explored;
-                }
-                pixels[i] = c;
-            }
+            c = playerCurrent;
+        }
+        else if (gs.asteroidSpawner != null)
+        {
+            c = asteroidColor;
+        }
+        else
+        {
+            c = explored;
         }
 
-        int w = (int)(x * _tex.width / (float)Game.Instance.worldGridsWide), h = (int)(y * _tex.height / (float)Game.Instance.worldGridsHigh);
+        for (int i=0; i < pixels.Length; i++)
+        {
+            pixels[i] = c;
+        }
 
-        _tex.SetPixels(xPix, yPix, _pixelsPerGrid, _pixelsPerGrid, pixels, 0);
+        _tex.SetPixels(xPix, yPix, _pixelsPerGrid - 1, _pixelsPerGrid - 1, pixels, 0);
         _tex.Apply();
         image.texture = _tex;
     }
@@ -81,11 +112,17 @@ public class Map : MonoBehaviour
     public void GenerateMap()
     {
         _tex = new Texture2D(
-            Game.Instance.worldGridsWide * _pixelsPerGrid,
-            Game.Instance.worldGridsHigh * _pixelsPerGrid
+            Game.Instance.worldGridsWide * _pixelsPerGrid + 2,
+            Game.Instance.worldGridsHigh * _pixelsPerGrid + 2
         );
-        _tex.SetPixels(new Color[_tex.width * _tex.height] );
+        var pix = new Color[_tex.width * _tex.height];
+        // for (int i=0; i < pix.Length; i++)
+        // {
+        //     pix[i] = Color.white;
+        // }
+        _tex.SetPixels(pix);
         image.texture = _tex;
+        image.color = new Color(image.color.r, image.color.g, image.color.b, .5f);
         _generated = true;
     }
 }
