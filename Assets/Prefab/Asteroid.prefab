@@ -96,6 +96,7 @@ MonoBehaviour:
   speedy: 0
   spin: 0
   rb: {fileID: 0}
+  spawner: {fileID: 0}
 --- !u!136 &214538720469380651
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -124,5 +125,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0

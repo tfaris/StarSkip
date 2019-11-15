@@ -162,8 +162,8 @@ MonoBehaviour:
   predefinedStuff:
   - {fileID: 11400000, guid: c13f9d33f5ccf2a4b8b444dbcf0199be, type: 2}
   - {fileID: 11400000, guid: 36f7dba9cd0c0b0438b75eb64cb0d424, type: 2}
-  gridWidth: 0
-  gridHeight: 0
+  worldAmbientAsteroidSpawner: {fileID: 5960077554059432320, guid: 7b30463866a50a54883a27eb91c35862,
+    type: 3}
   gameSeed: 0
 --- !u!4 &3949651
 Transform:

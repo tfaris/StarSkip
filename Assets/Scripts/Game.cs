@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     Vector2 worldOrigin = new Vector2(0, 0);
     public Rect WorldBoundaries { get; private set; }
     public List<PredefinedStuff> predefinedStuff;
+    public AsteroidController worldAmbientAsteroidSpawner;
     [HideInInspector]
     [NonSerialized]
     public float gridWidth, gridHeight;
@@ -75,6 +76,7 @@ public class Game : MonoBehaviour
             if (firstGen)
             {
                 SpawnPredefinedObjects();
+                StartCoroutine(SpawnAmbientAsteroids());
                 FindObjectOfType<Map>().GenerateMap();
             }
 
@@ -150,8 +152,8 @@ public class Game : MonoBehaviour
             int gridX, gridZ; 
             if (ps.spawnAtRandomPosition)
             {
-                gridX = UnityEngine.Random.Range(0, worldGridsWide + 1);
-                gridZ = UnityEngine.Random.Range(0, worldGridsHigh + 1);
+                gridX = UnityEngine.Random.Range(0, worldGridsWide);
+                gridZ = UnityEngine.Random.Range(0, worldGridsHigh);
             }
             else
             {
@@ -159,7 +161,7 @@ public class Game : MonoBehaviour
                 gridZ = ps.gridZ;
             }
 
-            var gridState = GetGridState(gridX, gridZ);
+            GridState gridState = GetGridState(gridX, gridZ);
             var worldPos = GetCenterPositionForGrid(gridX, gridZ);
             worldPos.x -= gridWidth / 2 - ps.xWithinGrid * gridWidth;
             worldPos.z -= gridHeight / 2 - ps.zWithinGrid * gridHeight;
@@ -179,6 +181,33 @@ public class Game : MonoBehaviour
                 {
                     gridState.asteroidSpawner = asteroidSpawner;
                 }
+            }
+        }
+    }
+
+    private IEnumerator SpawnAmbientAsteroids()
+    {
+        GameObject asteroidsContainer = new GameObject("ambient asteroids container");
+        for (int z = 0; z < worldGridsHigh; z++)
+        {
+            for (int x=0; x < worldGridsWide; x++)
+            {
+                bool asteroidsHere = UnityEngine.Random.Range(0f, 1f) >= .8f;
+                if (asteroidsHere)
+                {
+                    var worldPos = GetCenterPositionForGrid(x, z);
+                    float adjustX = UnityEngine.Random.Range(0, 1),
+                        adjustZ = UnityEngine.Random.Range(0, 1);
+                    worldPos.x -= gridWidth / 2 - adjustX * gridWidth;
+                    worldPos.z -= gridHeight / 2 - adjustZ * gridHeight;
+                    GameObject.Instantiate(
+                        worldAmbientAsteroidSpawner,
+                        worldPos,
+                        Quaternion.identity,
+                        asteroidsContainer.transform
+                    );
+                }
+                yield return null;
             }
         }
     }
