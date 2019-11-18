@@ -77,7 +77,6 @@ public class Game : MonoBehaviour
             {
                 SpawnPredefinedObjects();
                 StartCoroutine(SpawnAmbientAsteroids());
-                FindObjectOfType<Map>().GenerateMap();
             }
 
             if (!placedPlayer)
@@ -216,7 +215,7 @@ public class Game : MonoBehaviour
     {
         int col = (int)Mathf.Floor(position.x / gridWidth),
          row = (int)Mathf.Floor(position.z / gridHeight);
-        return worldGridsWide * col + row;
+        return worldGridsWide * row + col;
     }
 
     public int GetCurrentGrid()
@@ -225,7 +224,6 @@ public class Game : MonoBehaviour
     }
 
     string ColumnToLetter(int column) 
-
     {
         int temp = 0;
         string letter = "";
@@ -240,8 +238,8 @@ public class Game : MonoBehaviour
 
     public string GetSectorName(int gridPosition)
     {
-        int col = gridPosition / worldGridsWide,
-            row = gridPosition % worldGridsHigh;
+        int col = gridPosition % worldGridsWide,
+            row = gridPosition / worldGridsWide;
         return string.Format("{0}/{1}", ColumnToLetter(col + 1), row + 1);
     }
 
@@ -250,8 +248,8 @@ public class Game : MonoBehaviour
     ///
     public Vector3 GetCenterPositionForGrid(int gridPosition)
     {
-        int gridX = gridPosition / worldGridsWide,
-            gridZ = gridPosition % worldGridsWide;
+        int gridX = gridPosition % worldGridsWide,
+            gridZ = gridPosition / worldGridsWide;
         return GetCenterPositionForGrid(gridX, gridZ);
     }
 

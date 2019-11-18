@@ -18,6 +18,8 @@ public class PlayerShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Game.Instance.GetGridState(Game.Instance.GetCurrentGrid()).explored = true;
+
         this.vertForce = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
         this.horzForce = Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
 
