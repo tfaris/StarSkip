@@ -211,11 +211,28 @@ public class Game : MonoBehaviour
         }
     }
 
-    public int GetGrid(Vector3 position)
+    public int GetGrid(Vector3 worldPosition)
     {
-        int col = (int)Mathf.Floor(position.x / gridWidth),
-         row = (int)Mathf.Floor(position.z / gridHeight);
+        int col = (int)Mathf.Floor(worldPosition.x / gridWidth),
+         row = (int)Mathf.Floor(worldPosition.z / gridHeight);
         return worldGridsWide * row + col;
+    }
+
+    ///
+    /// Get the grid X and Z for the grid at the specified
+    /// world coordinates.
+    ///
+    public Vector3 GetGridXZ(Vector3 worldPosition)
+    {
+        return GetGridXZ(GetGrid(worldPosition));
+    }
+
+    ///
+    /// Get the grid X and Z for the specified grid position.
+    ///
+    public Vector3 GetGridXZ(int gridPosition)
+    {
+        return new Vector3(gridPosition % worldGridsWide, 0, gridPosition / worldGridsWide);
     }
 
     public int GetCurrentGrid()
@@ -291,6 +308,16 @@ public class Game : MonoBehaviour
             0,
             WorldBoundaries.y - 1000
         );
+    }
+
+    ///
+    /// Return true if the specified world position is outside
+    /// of the grid.
+    ///
+    public bool GetIsOutOfWorldBounds(Vector3 worldPosition)
+    {
+        var gridPos = GetGridXZ(worldPosition);        
+        return gridPos.x < 0 || gridPos.z < 0;
     }
 
     public GridState GetGridState(int gridX, int gridZ)

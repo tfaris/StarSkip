@@ -10,7 +10,7 @@ public class Asteroid : MonoBehaviour
 
     public bool speedy = false;
 
-    float speed = 4;
+    public float speed = 4;
 
     public float spin;
     public Rigidbody rb;
@@ -47,7 +47,11 @@ public class Asteroid : MonoBehaviour
             var dist = Mathf.Abs((this.transform.position - spawner.transform.position).magnitude);
             if (dist > spawner.distanceToDespawn)
             {
-                Debug.Log("Destroying asteroid " + this);
+                GameObject.Destroy(this.gameObject);
+            }
+
+            if (Game.Instance.GetIsOutOfWorldBounds(this.transform.position))
+            {
                 GameObject.Destroy(this.gameObject);
             }
         }
