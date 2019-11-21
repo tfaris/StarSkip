@@ -61,7 +61,7 @@ public class PlayerShip : Ship
         rot.x = rot.z = 0;
         body.transform.rotation = rot;
 
-        if (Input.GetButton("Fire1"))
+        if(Input.GetAxis("Fire1") > 0)
         {
             FireWeapon();
         }
