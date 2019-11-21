@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShip : MonoBehaviour
+public class PlayerShip : Ship
 {
     Rigidbody body;
 
@@ -16,8 +16,10 @@ public class PlayerShip : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         Game.Instance.GetGridState(Game.Instance.GetCurrentGrid()).explored = true;
 
         this.vertForce = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
@@ -48,11 +50,20 @@ public class PlayerShip : MonoBehaviour
             transform.position = pos;
             this.vertForce = 0;
             body.velocity = Vector3.zero;
+        }
+        
+        var delta = Vector3.up * this.horzForce - body.angularVelocity;
+        //body.AddRelativeTorque(delta);
+        this.transform.Rotate(delta);
+        
+        // Prevent rotation on other axes. RigidBody constraints aren't doing the job.
+        var rot = body.transform.rotation;
+        rot.x = rot.z = 0;
+        body.transform.rotation = rot;
 
-            var rot = body.transform.rotation;
-            rot.x = rot.z = 0;
-            body.transform.rotation = rot;
-            Debug.Log("BOUNDS");
+        if (Input.GetButton("Fire1"))
+        {
+            FireWeapon();
         }
     }
 
@@ -64,8 +75,7 @@ public class PlayerShip : MonoBehaviour
             movementForce,
             ForceMode.Acceleration
         );
-        
-        var delta = Vector3.up * this.horzForce - body.angularVelocity;
-        body.AddRelativeTorque(delta);
+        //var delta = Vector3.up * this.horzForce - body.angularVelocity;
+        //body.AddRelativeTorque(delta);
     }
 }
