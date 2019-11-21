@@ -48,5 +48,7 @@ public class FollowPlayer : MonoBehaviour
                 _body.MovePosition(transform.position - direction * speed * Time.deltaTime);
             }
         }
+
+        transform.rotation = Quaternion.LookRotation(direction, transform.up);
     }
 }
