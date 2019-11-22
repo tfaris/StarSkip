@@ -4,13 +4,16 @@ using UnityEngine;
 
 public enum Direction { goUp, goDown, goRight, goLeft };
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IDamageable
 {
     public Direction goDirection;
 
     public bool speedy = false;
 
     public float speed = 4;
+    [Tooltip("Amount of damage this asteroid does to things it hits.")]
+    public int damage = 10;
+    public int health = 10;
 
     public float spin;
     public Rigidbody rb;
@@ -85,6 +88,8 @@ public class Asteroid : MonoBehaviour
             }
             pushGo = false;
         }
+
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, 25);
     }
 
     void addSpin()
@@ -96,5 +101,47 @@ public class Asteroid : MonoBehaviour
     void addPush(float pushx, float pushz)
     {
         rb.AddForce(new Vector3(pushx,0,pushz) * speed, ForceMode.Impulse);
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        // Don't destroy other asteroids
+        if (other.gameObject.GetComponent<Asteroid>() != null)
+        {
+            other.rigidbody.AddForce(
+                rb.velocity,
+                ForceMode.Impulse
+            );
+        }
+        else
+        {
+            IDamageable dmg = other.gameObject.GetComponent<IDamageable>();
+            if (dmg != null)
+            {
+                var otherBody = other.gameObject.GetComponent<Rigidbody>();
+                if (otherBody != null)
+                {
+                    otherBody.AddForce(
+                        rb.velocity,
+                        ForceMode.Impulse
+                    );
+                }
+                dmg.ApplyDamage(this.gameObject, this.damage);
+            }
+        }
+    }
+
+    public void ApplyDamage(GameObject source, int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            if (Game.Instance.TrackingObject == this.gameObject)
+            {
+                Game.Instance.TrackingObject = source;
+            }
+
+            GameObject.Destroy(this.gameObject);
+        }
     }
 }

@@ -7,6 +7,7 @@ public class FollowPlayer : MonoBehaviour
     public float giveUpDistance;
     public float keepDistanceToPlayer;
     public float speed;
+    public GameObject trackThisObject;
 
     float _directionAdjustmentTimer;
     bool _movingTowards = true;
@@ -19,36 +20,39 @@ public class FollowPlayer : MonoBehaviour
 
     void Update()
     {
-        var playerT = Game.Instance.playerShip.transform;
-        var direction = playerT.position - transform.position;
-        var dist = Mathf.Abs(direction.magnitude);
-
-        if ((giveUpDistance == 0 || (dist < giveUpDistance)) && dist > keepDistanceToPlayer)
+        if (trackThisObject != null)
         {
-            if (!_movingTowards)
+            var playerT = trackThisObject.transform;
+            var direction = playerT.position - transform.position;
+            var dist = Mathf.Abs(direction.magnitude);
+
+            if ((giveUpDistance == 0 || (dist < giveUpDistance)) && dist > keepDistanceToPlayer)
             {
-                _movingTowards = true;
+                if (!_movingTowards)
+                {
+                    _movingTowards = true;
+                }
+
+                if (_movingTowards)
+                {
+                    _body.MovePosition(transform.position + direction * speed * Time.deltaTime);
+                }
+            }
+            // .2f for fudge
+            else if (dist + .2f <= keepDistanceToPlayer)
+            {
+                if (_movingTowards)
+                {
+                    _movingTowards = false;
+                }
+
+                if (!_movingTowards)
+                {
+                    _body.MovePosition(transform.position - direction * speed * Time.deltaTime);
+                }
             }
 
-            if (_movingTowards)
-            {
-                _body.MovePosition(transform.position + direction * speed * Time.deltaTime);
-            }
+            transform.rotation = Quaternion.LookRotation(direction, transform.up);
         }
-        // .2f for fudge
-        else if (dist + .2f <= keepDistanceToPlayer)
-        {
-            if (_movingTowards)
-            {
-                _movingTowards = false;
-            }
-
-            if (!_movingTowards)
-            {
-                _body.MovePosition(transform.position - direction * speed * Time.deltaTime);
-            }
-        }
-
-        transform.rotation = Quaternion.LookRotation(direction, transform.up);
     }
 }

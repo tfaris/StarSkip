@@ -78,4 +78,14 @@ public class PlayerShip : Ship
         //var delta = Vector3.up * this.horzForce - body.angularVelocity;
         //body.AddRelativeTorque(delta);
     }
+
+    public override void ApplyDamage(GameObject source, int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Game.Instance.TrackingObject = source;
+            GameObject.Destroy(this.gameObject);
+        }
+    }
 }

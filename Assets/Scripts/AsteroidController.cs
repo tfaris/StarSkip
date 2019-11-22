@@ -42,7 +42,7 @@ public class AsteroidController : MonoBehaviour
         if (timer > spawnRate)
         {
             // Don't spawn if player isn't close
-            float distToPlayer = Mathf.Abs((Game.Instance.playerShip.transform.position - transform.position).magnitude);
+            float distToPlayer = Mathf.Abs((Game.Instance.TrackingObject.transform.position - transform.position).magnitude);
             if (distToPlayer <= distanceToDespawn * 1.5f)
             {
                 int dirDie = Random.Range(0,4);
@@ -88,7 +88,7 @@ public class AsteroidController : MonoBehaviour
         Gizmos.DrawLine(new Vector3 (t.x, t.y, t.z + zBoundary), new Vector3(t.x + xBoundary, t.y, t.z + zBoundary));
         Gizmos.DrawLine(new Vector3 (t.x + xBoundary, t.y, t.z), new Vector3(t.x + xBoundary, t.y, t.z + zBoundary));
 
-        Gizmos.DrawLine(Game.Instance.playerShip.transform.position, transform.position);
+        Gizmos.DrawLine(Game.Instance.TrackingObject.transform.position, transform.position);
 
         Gizmos.DrawWireSphere(this.transform.position, distanceToDespawn);
     }

@@ -33,12 +33,23 @@ public class Game : MonoBehaviour
         }
     }
 
+    ///
+    /// The object the game is currently tracking. Will normally
+    /// be the players ship.
+    ///
+    public GameObject TrackingObject
+    {
+        get => cameraController.trackThis;
+        set => cameraController.trackThis = value;
+    }
+
     void Start()
     {
         gameSeed = UnityEngine.Random.Range(0, int.MaxValue);
         gridStates = new Dictionary<int, GridState>();
         _instance = this;
         cameraController = FindObjectOfType<CameraController>();
+        TrackingObject = playerShip.gameObject;
     }
 
     void Update()
@@ -65,7 +76,7 @@ public class Game : MonoBehaviour
             float camHeight = .5f * gridHeight / cameraView;
             //
 
-            cameraController.CenterCameraOn(playerShip.transform);
+            cameraController.CenterCameraOn(TrackingObject.transform);
 
             Camera.main.transform.position = new Vector3(
                 Camera.main.transform.position.x,
@@ -206,8 +217,8 @@ public class Game : MonoBehaviour
                         asteroidsContainer.transform
                     );
                 }
-                yield return null;
             }
+            yield return null;
         }
     }
 
@@ -237,7 +248,7 @@ public class Game : MonoBehaviour
 
     public int GetCurrentGrid()
     {
-        return GetGrid(playerShip.transform.position);
+        return GetGrid(TrackingObject.transform.position);
     }
 
     string ColumnToLetter(int column) 

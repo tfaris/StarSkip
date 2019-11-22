@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
     [Tooltip("Despawn when this far away from the player.")]
     public float despawnDistance = 500;
     public float cooldownTimer;
+    [Tooltip("The amount of damage this weapon does.")]
+    public int damage;
 
     public bool IsInCooldown 
     {
@@ -103,5 +105,20 @@ public class Weapon : MonoBehaviour
     protected virtual void OnUpgraded(int oldLevel, int currentLevel)
     {
         //
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        var dmg = other.GetComponent<IDamageable>();
+        if (dmg != null)
+        {
+            OnDamageableCollision(dmg);
+        }
+    }
+
+    protected virtual void OnDamageableCollision(IDamageable damageable)
+    {
+        damageable.ApplyDamage(this.gameObject, this.damage);
+        GameObject.Destroy(this.gameObject);
     }
 }

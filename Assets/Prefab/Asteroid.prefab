@@ -96,6 +96,7 @@ MonoBehaviour:
   goDirection: 0
   speedy: 0
   speed: 4
+  damage: 10
   spin: 0
   rb: {fileID: 0}
   spawner: {fileID: 0}
