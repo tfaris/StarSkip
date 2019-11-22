@@ -9,9 +9,9 @@ public class PlayerShip : Ship
     public float moveSpeed = 150, rotateSpeed = 50, maxSpeed = 200;
     float vertForce, horzForce;
     
-    // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         body = this.GetComponent<Rigidbody>();
     }
 
@@ -75,8 +75,6 @@ public class PlayerShip : Ship
             movementForce,
             ForceMode.Acceleration
         );
-        //var delta = Vector3.up * this.horzForce - body.angularVelocity;
-        //body.AddRelativeTorque(delta);
     }
 
     public override void ApplyDamage(GameObject source, int damage)
@@ -84,7 +82,15 @@ public class PlayerShip : Ship
         health -= damage;
         if (health <= 0)
         {
-            Game.Instance.TrackingObject = source;
+            var weapon = source.GetComponent<Weapon>();
+            if (weapon != null)
+            {
+                Game.Instance.TrackingObject = weapon.FromShip.gameObject;
+            }
+            else
+            {
+                Game.Instance.TrackingObject = source;
+            }
             GameObject.Destroy(this.gameObject);
         }
     }

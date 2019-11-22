@@ -16,8 +16,9 @@ GameObject:
   - component: {fileID: 1939446477542537133}
   - component: {fileID: 1939446477542537131}
   - component: {fileID: 1939446477542537130}
+  - component: {fileID: 7245214446388541520}
   m_Layer: 0
-  m_Name: SomeEnemy
+  m_Name: Enemy - NeverGivesUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,6 +159,21 @@ MonoBehaviour:
   health: 20
   weapons:
   - {fileID: 2978051181582597549, guid: 63f0f2c63b1b17d478ce9b66e4ef2070, type: 3}
+--- !u!114 &7245214446388541520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939446477542537122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5c989892352384fa2af0348fe78253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackThis: {fileID: 0}
+  maxDistanceOfAttack: 15
+  attackSpeed: 1
 --- !u!1 &1939446478265778407
 GameObject:
   m_ObjectHideFlags: 0

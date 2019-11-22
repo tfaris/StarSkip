@@ -89,7 +89,7 @@ public class Asteroid : MonoBehaviour, IDamageable
             pushGo = false;
         }
 
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, 25);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, 15);
     }
 
     void addSpin()

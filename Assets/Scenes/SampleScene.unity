@@ -5425,6 +5425,28 @@ PrefabInstance:
       propertyPath: trackThisObject
       value: 
       objectReference: {fileID: 931600382}
+    - target: {fileID: 1939446477542537130, guid: cae2d3ac8f391214e80cf80c18a49f40,
+        type: 3}
+      propertyPath: weaponPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1939446477542537130, guid: cae2d3ac8f391214e80cf80c18a49f40,
+        type: 3}
+      propertyPath: weapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33,
+        type: 3}
+    - target: {fileID: 1939446477542537130, guid: cae2d3ac8f391214e80cf80c18a49f40,
+        type: 3}
+      propertyPath: weaponPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33,
+        type: 3}
+    - target: {fileID: 7245214446388541520, guid: cae2d3ac8f391214e80cf80c18a49f40,
+        type: 3}
+      propertyPath: attackThis
+      value: 
+      objectReference: {fileID: 931600382}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
 --- !u!1 &739992014
@@ -14986,8 +15008,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  weapons:
-  - {fileID: 2978051181582597549, guid: 63f0f2c63b1b17d478ce9b66e4ef2070, type: 3}
+  weaponPrefabs:
+  - {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33, type: 3}
   moveSpeed: 1000
   rotateSpeed: 350
   maxSpeed: 1000
