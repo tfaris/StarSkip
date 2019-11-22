@@ -7,6 +7,8 @@ public class AttackPlayer : MonoBehaviour
     public GameObject attackThis;
     public float maxDistanceOfAttack;
     public float attackSpeed;
+    [Range(0, 100)]
+    public float precision = 100;
     Ship _ship;
     bool _attacking;
 
@@ -41,6 +43,11 @@ public class AttackPlayer : MonoBehaviour
             this.transform.position,
             weapon.speed
         );
+
+        float maxPrecision = 100;
+        float randomRange = maxPrecision - precision;
+        target.x += Random.Range(-randomRange, randomRange);
+        target.z += Random.Range(-randomRange, randomRange);
 
         this.transform.rotation = Quaternion.LookRotation(
             target,

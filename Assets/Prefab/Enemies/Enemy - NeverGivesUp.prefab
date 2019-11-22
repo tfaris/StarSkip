@@ -157,8 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  weapons:
-  - {fileID: 2978051181582597549, guid: 63f0f2c63b1b17d478ce9b66e4ef2070, type: 3}
+  weaponPrefabs: []
 --- !u!114 &7245214446388541520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +173,7 @@ MonoBehaviour:
   attackThis: {fileID: 0}
   maxDistanceOfAttack: 15
   attackSpeed: 1
+  precision: 92
 --- !u!1 &1939446478265778407
 GameObject:
   m_ObjectHideFlags: 0
