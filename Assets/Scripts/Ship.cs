@@ -34,6 +34,7 @@ public class Ship : MonoBehaviour, IDamageable
                 }
             }
         }
+        Game.Instance.CheckWorldWrap(this.transform);
     }
 
     ///

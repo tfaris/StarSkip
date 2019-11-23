@@ -24,36 +24,8 @@ public class PlayerShip : Ship
 
         this.vertForce = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
         this.horzForce = Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
-
-        Rect bound = Game.Instance.WorldBoundaries;
-        var pos = transform.position;
-        if (pos.x <= bound.xMin + 1)
-        {
-            pos.x = bound.xMin + 1;
-        }
-        else if (pos.x >= bound.xMax - 1)
-        {
-            pos.x = bound.xMax - 1;
-        }
-        
-        if (pos.z <= bound.yMin + 1)
-        {
-            pos.z = bound.yMin + 1;
-        }
-        else if (pos.z >= bound.yMax - 1)
-        {
-            pos.z = bound.yMax - 1;
-        }
-
-        if (pos != transform.position)
-        {
-            transform.position = pos;
-            this.vertForce = 0;
-            body.velocity = Vector3.zero;
-        }
         
         var delta = Vector3.up * this.horzForce - body.angularVelocity;
-        //body.AddRelativeTorque(delta);
         this.transform.Rotate(delta);
         
         // Prevent rotation on other axes. RigidBody constraints aren't doing the job.

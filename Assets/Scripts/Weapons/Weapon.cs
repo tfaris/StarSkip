@@ -94,6 +94,7 @@ public class Weapon : MonoBehaviour
     ///
     public virtual IEnumerator ProjectileUpdate(GameObject projectileObj, Vector3 startingPoint)
     {
+        Game.Instance.CheckWorldWrap(projectileObj.transform);
         CheckDestroy(projectileObj, startingPoint);
         yield return null;
     }
@@ -105,7 +106,7 @@ public class Weapon : MonoBehaviour
     {
         if (Launched)
         {
-            if (Mathf.Abs((startingPoint - projectileObj.transform.position).magnitude) >= despawnDistance)
+            if (Mathf.Abs(MathUtil.ToroidalDistance(startingPoint, projectileObj.transform.position).magnitude) >= despawnDistance)
             {
                 GameObject.Destroy(projectileObj);
             }

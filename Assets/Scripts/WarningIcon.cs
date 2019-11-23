@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Doesn't work with wrapping.
 public class WarningIcon : MonoBehaviour
 {
     public GameObject warningIcon;
     public float stopWarningWhenThisFarFromGridEdge = 15;
     GameObject _warningIcon;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -22,11 +17,6 @@ public class WarningIcon : MonoBehaviour
         
         if (playerGrid != thisObjectGrid)
         {
-            Vector3 
-                playerGridXZ = Game.Instance.GetGridXZ(playerGrid),
-                thisGridXZ = Game.Instance.GetGridXZ(thisObjectGrid),
-                gridDistance = playerGridXZ - thisGridXZ;
-
             Rect worldGridBounds = Game.Instance.GetBoundsForGrid(playerGrid);
 
             // Find intersecting point of the line between the center of the grid space
@@ -47,6 +37,7 @@ public class WarningIcon : MonoBehaviour
                 _warningIcon.transform.position = pos;
 
                 var rot = Quaternion.LookRotation(pos - this.transform.position, Vector3.up);
+                rot.x = rot.z = 0;
                 _warningIcon.transform.rotation = rot;
             }
             else

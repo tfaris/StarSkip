@@ -5452,6 +5452,11 @@ PrefabInstance:
       propertyPath: precision
       value: 92.4
       objectReference: {fileID: 0}
+    - target: {fileID: 7245214446388541520, guid: cae2d3ac8f391214e80cf80c18a49f40,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
 --- !u!1 &739992014

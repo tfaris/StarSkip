@@ -52,12 +52,8 @@ public class Asteroid : MonoBehaviour, IDamageable
             {
                 GameObject.Destroy(this.gameObject);
             }
-
-            if (Game.Instance.GetIsOutOfWorldBounds(this.transform.position))
-            {
-                GameObject.Destroy(this.gameObject);
-            }
         }
+        Game.Instance.CheckWorldWrap(this.transform);
     }
 
     void FixedUpdate()

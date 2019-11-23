@@ -13,8 +13,7 @@ public class StandardShot : Weapon
         while (projectileObj != null)
         {
             projectileObj.transform.position += direction * speed * Time.deltaTime;
-            CheckDestroy(projectileObj, startingPoint);
-            yield return null;
+            yield return base.ProjectileUpdate(projectileObj, startingPoint);
         }
     }
 

@@ -344,4 +344,40 @@ public class Game : MonoBehaviour
         }
         return gs;
     }
+
+    ///
+    /// Check whether the specified transform is outside of world bounds.
+    /// If so, moves the transform to the other side of the world and
+    /// returns true. Otherwise returns false.
+    ///
+    public bool CheckWorldWrap(Transform transform)
+    {
+        bool changed = false;
+        var pos = transform.position;
+        if (pos.x < WorldBoundaries.xMin)
+        {
+            changed = true;
+            pos.x = WorldBoundaries.xMax;
+        }
+        else if (pos.x > WorldBoundaries.xMax)
+        {
+            changed = true;
+            pos.x = WorldBoundaries.xMin;
+        }
+        if (pos.z < WorldBoundaries.yMin)
+        {
+            changed = true;
+            pos.z = WorldBoundaries.yMax;
+        }
+        else if (pos.z > WorldBoundaries.yMax)
+        {
+            changed = true;
+            pos.z = WorldBoundaries.yMin;
+        }
+        if (changed)
+        {
+            transform.position = pos;
+        }
+        return changed;
+    }
 }

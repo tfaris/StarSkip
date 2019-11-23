@@ -16,16 +16,15 @@ public class FollowPlayer : MonoBehaviour
     void Start()
     {
         _body = GetComponent<Rigidbody>();
+
     }
 
     void Update()
     {
         if (trackThisObject != null)
         {
-            var playerT = trackThisObject.transform;
-            var direction = playerT.position - transform.position;
+            var direction = MathUtil.ToroidalDistance(trackThisObject.transform.position, transform.position);
             var dist = Mathf.Abs(direction.magnitude);
-
             if ((giveUpDistance == 0 || (dist < giveUpDistance)) && dist > keepDistanceToPlayer)
             {
                 if (!_movingTowards)
