@@ -23,7 +23,6 @@ public class StarSpawner : MonoBehaviour
         int currentGrid = Game.Instance.GetCurrentGrid();
         if (lastGenGrid != currentGrid)
         {
-            Debug.Log("Spawning stars for sector " + Game.Instance.GetSectorName(currentGrid));
             foreach (GameObject oldStar in lastSpawnedStars)
             {
                 GameObject.Destroy(oldStar);

@@ -7,6 +7,9 @@ public class FollowPlayer : MonoBehaviour
     public float giveUpDistance;
     public float keepDistanceToPlayer;
     public float speed;
+    // Corrects for jerky movement when keeping distance.
+    public float distanceDeadzone = 1f;
+    public bool slowOnApproach = true;
     public GameObject trackThisObject;
 
     float _directionAdjustmentTimer;
@@ -16,30 +19,39 @@ public class FollowPlayer : MonoBehaviour
     void Start()
     {
         _body = GetComponent<Rigidbody>();
-
     }
 
     void Update()
     {
         if (trackThisObject != null)
         {
+            float maxKeepDist = keepDistanceToPlayer + distanceDeadzone, minKeepDist = keepDistanceToPlayer - distanceDeadzone;
             var direction = MathUtil.ToroidalDistance(trackThisObject.transform.position, transform.position);
             var dist = Mathf.Abs(direction.magnitude);
-            if ((giveUpDistance == 0 || (dist < giveUpDistance)) && dist > keepDistanceToPlayer)
-            {
-                if (!_movingTowards)
-                {
-                    _movingTowards = true;
-                }
 
-                if (_movingTowards)
+            bool inDeadzone = dist >= minKeepDist && dist <= maxKeepDist;
+
+            float nowSpeed = speed;
+            if (slowOnApproach)
+            {
+                float maxDistForMaxSpeed = 100;
+                if ( dist > maxDistForMaxSpeed)
                 {
-                    _body.MovePosition(transform.position + direction * speed * Time.deltaTime);
+                    nowSpeed = speed;
+                }
+                else
+                {                
+                    var distRatio=(dist - keepDistanceToPlayer)/(maxDistForMaxSpeed - keepDistanceToPlayer);            
+                    // This is the extra speed above min speed he can go up too            
+                    var diffSpeed = speed;
+                    // Final calc 
+                    nowSpeed = (distRatio * diffSpeed);
                 }
             }
-            // .2f for fudge
-            else if (dist + .2f <= keepDistanceToPlayer)
+            
+            if (!inDeadzone && (dist < keepDistanceToPlayer && keepDistanceToPlayer != 0))
             {
+                // Move away
                 if (_movingTowards)
                 {
                     _movingTowards = false;
@@ -47,7 +59,34 @@ public class FollowPlayer : MonoBehaviour
 
                 if (!_movingTowards)
                 {
-                    _body.MovePosition(transform.position - direction * speed * Time.deltaTime);
+                    if (_body != null)
+                    {
+                        _body.MovePosition(transform.position - direction.normalized * -nowSpeed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        transform.position -= direction.normalized * -nowSpeed * Time.deltaTime;
+                    }
+                }
+            }
+            else if ((giveUpDistance == 0 || dist < giveUpDistance) && !inDeadzone)
+            {
+                // Move towards
+                if (!_movingTowards)
+                {
+                    _movingTowards = true;
+                }
+
+                if (_movingTowards)
+                {
+                    if (_body != null)
+                    {
+                        _body.MovePosition(transform.position + direction.normalized * nowSpeed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        transform.position += direction.normalized * nowSpeed * Time.deltaTime;
+                    }
                 }
             }
 

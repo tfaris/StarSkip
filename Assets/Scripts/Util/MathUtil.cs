@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class MathUtil
@@ -38,4 +39,25 @@ public static class MathUtil
         }
         return direction;
     }
+
+    public static Transform GetClosest(Vector3 startPoint, IEnumerable<Transform> objs, System.Func<Transform, bool> shouldCompare = null)
+    {
+        Transform closest = null;
+        float minDist = float.MaxValue;
+        foreach (var t in objs)
+        {
+            // Don't target yaself...
+            if (shouldCompare == null || shouldCompare(t))
+            {
+                var dist = Mathf.Abs(MathUtil.ToroidalDistance(t.transform.position, startPoint).magnitude);
+                if (dist < minDist)
+                {
+                    closest = t;
+                    minDist = dist;
+                }
+            }
+        }
+        return closest;
+    }
+    
 }

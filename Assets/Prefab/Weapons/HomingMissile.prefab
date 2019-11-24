@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2291828101625725532
+--- !u!1 &4077672617601906562
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2291828101625725534}
-  - component: {fileID: 2291828101625725533}
+  - component: {fileID: 4077672617601906564}
+  - component: {fileID: 4077672617601906563}
   m_Layer: 0
-  m_Name: StandardShot
+  m_Name: HomingMissile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2291828101625725534
+--- !u!4 &4077672617601906564
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2291828101625725532}
+  m_GameObject: {fileID: 4077672617601906562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,22 +31,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2291828101625725533
+--- !u!114 &4077672617601906563
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2291828101625725532}
+  m_GameObject: {fileID: 4077672617601906562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b192611693c8c474f8ebeac859257c65, type: 3}
+  m_Script: {fileID: 11500000, guid: 257b3f278d25b5243842a8b8ef963f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnDistance: 300
-  despawnTimer: 10
-  cooldownTimer: 0.8
-  damage: 10
-  speed: 30
+  despawnDistance: 500
+  cooldownTimer: 2
+  damage: 25
+  speed: 20
   projectilePrefab: {fileID: 8278625875665442383, guid: 615752178d54a8047aa80d60e9c3b717,
     type: 3}
+  maximumHomingDistance: 100
+  despawnTimer: 10
+  retargetTimer: 5

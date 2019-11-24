@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939446477542537122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.32, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1939446478265778406}
@@ -111,7 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   giveUpDistance: 0
   keepDistanceToPlayer: 15
-  speed: 1
+  speed: 50
+  distanceDeadzone: 1
+  slowOnApproach: 1
   trackThisObject: {fileID: 0}
 --- !u!54 &1939446477542537133
 Rigidbody:
@@ -157,7 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  weaponPrefabs: []
+  weaponPrefabs:
+  - {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33, type: 3}
+  missileWeaponPrefab: {fileID: 0}
 --- !u!114 &7245214446388541520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackThis: {fileID: 0}
-  maxDistanceOfAttack: 15
+  maxDistanceOfAttack: 20
   attackSpeed: 1
   precision: 92
 --- !u!1 &1939446478265778407

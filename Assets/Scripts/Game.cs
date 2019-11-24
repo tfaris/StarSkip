@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
 {
     public int worldGridsWide = 10, worldGridsHigh = 10;
     public float singleGridSize = 20;
+    public bool spawnAmbientAsteroids = true;
     public PlayerShip playerShip;
 
     Vector2 worldOrigin = new Vector2(0, 0);
@@ -87,7 +88,10 @@ public class Game : MonoBehaviour
             if (firstGen)
             {
                 SpawnPredefinedObjects();
-                StartCoroutine(SpawnAmbientAsteroids());
+                if (spawnAmbientAsteroids)
+                {
+                    StartCoroutine(SpawnAmbientAsteroids());
+                }
             }
 
             if (!placedPlayer)

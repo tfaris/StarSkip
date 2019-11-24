@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
     public Ship FromShip {get;set;}
     [Tooltip("Despawn when this far away from the player.")]
     public float despawnDistance = 500;
+    [Tooltip("Amount of time (seconds) before weapon despawns. Leave 0 for no timer.")]
+    public float despawnTimer = 0;
     public float cooldownTimer;
     [Tooltip("The amount of damage this weapon does.")]
     public int damage;
@@ -31,7 +33,7 @@ public class Weapon : MonoBehaviour
     /// Public float the amount of time it takes for this weapon
     /// to cooldown.
     ///
-    public float CooldownTimer { get => _coolDownTimerTmp; set => _coolDownTimerTmp = value; }
+    public float CooldownTimer { get => cooldownTimer; set => cooldownTimer = value; }
 
     ///
     /// The amount of time this weapon has been in cooldown.
@@ -43,16 +45,24 @@ public class Weapon : MonoBehaviour
 
     int _previousUpgradeLevel = 1;
     bool _isInCooldown;
-    float _coolDownTimerTmp;
     public bool Launched { get; set; }
     
     // Start is called before the first frame update
-    public void Start()
+    protected virtual void Start()
     {
-        _coolDownTimerTmp = cooldownTimer;
     }
 
-    void Update()
+    protected virtual void Update()
+    {
+        CheckCooldown();
+        if (_previousUpgradeLevel != UpgradeLevel)
+        {
+            OnUpgraded(_previousUpgradeLevel, UpgradeLevel);
+            _previousUpgradeLevel = UpgradeLevel;
+        }
+    }
+
+    protected virtual void CheckCooldown()
     {
         if (IsInCooldown)
         {
@@ -62,11 +72,6 @@ public class Weapon : MonoBehaviour
                 IsInCooldown = false;
             }
         }
-        if (_previousUpgradeLevel != UpgradeLevel)
-        {
-            OnUpgraded(_previousUpgradeLevel, UpgradeLevel);
-            _previousUpgradeLevel = UpgradeLevel;
-        }
     }
 
     ///
@@ -74,7 +79,7 @@ public class Weapon : MonoBehaviour
     ///
     public virtual void FireWeapon(Ship fromShip)
     {
-        if (!IsInCooldown)
+        if (GetCanFire())
         {
             FromShip = fromShip;
             this.IsInCooldown = true;
@@ -85,8 +90,17 @@ public class Weapon : MonoBehaviour
             // Use game instance to start, because once the ship that's using this weapon is destroyed,
             // its coroutines will stop.
             Game.Instance.StartCoroutine(ProjectileUpdate(projectileObj, fromShip.transform.position));
+            Game.Instance.StartCoroutine(CheckDestroy(projectileObj, fromShip.transform.position));
             Launched = true;
         }
+    }
+
+    ///
+    /// Get whether the weapon can currently fire
+    ///
+    public virtual bool GetCanFire()
+    {
+        return !IsInCooldown;
     }
 
     ///
@@ -95,21 +109,34 @@ public class Weapon : MonoBehaviour
     public virtual IEnumerator ProjectileUpdate(GameObject projectileObj, Vector3 startingPoint)
     {
         Game.Instance.CheckWorldWrap(projectileObj.transform);
-        CheckDestroy(projectileObj, startingPoint);
         yield return null;
     }
 
     ///
     /// Check if a fired projectile should be destroyed.
     ///
-    public virtual void CheckDestroy(GameObject projectileObj, Vector3 startingPoint)
+    public virtual IEnumerator CheckDestroy(GameObject projectileObj, Vector3 startingPoint)
     {
-        if (Launched)
+        float despawnTimerCounter = 0;
+        while (projectileObj != null)
         {
-            if (Mathf.Abs(MathUtil.ToroidalDistance(startingPoint, projectileObj.transform.position).magnitude) >= despawnDistance)
+            if (Launched)
             {
-                GameObject.Destroy(projectileObj);
+                if (Mathf.Abs(MathUtil.ToroidalDistance(startingPoint, projectileObj.transform.position).magnitude) >= despawnDistance)
+                {
+                    GameObject.Destroy(projectileObj);
+                }
+
+                if (despawnTimer != 0)
+                {
+                    despawnTimerCounter += Time.deltaTime;
+                    if (despawnTimerCounter >= despawnTimer)
+                    {
+                        GameObject.Destroy(projectileObj);
+                    }
+                }
             }
+            yield return null;
         }
     }
 
@@ -152,7 +179,7 @@ public class Weapon : MonoBehaviour
     ///
     protected virtual void OnDamageableCollision(GameObject sourceObject, IDamageable damageable)
     {
-        damageable.ApplyDamage(this.gameObject, this.damage);
+        damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null , this.damage);
         GameObject.Destroy(sourceObject);
     }
 }

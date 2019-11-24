@@ -33,9 +33,16 @@ public class PlayerShip : Ship
         rot.x = rot.z = 0;
         body.transform.rotation = rot;
 
-        if(Input.GetAxis("Fire1") > 0)
+        if(Input.GetAxis("Fire Main Weapon") > 0)
         {
             FireWeapon();
+        }
+        if (Input.GetAxis("Fire Missile") > 0)
+        {
+            if (missileWeaponInstance)
+            {
+                missileWeaponInstance.FireWeapon(this);
+            }
         }
     }
 
@@ -54,14 +61,17 @@ public class PlayerShip : Ship
         health -= damage;
         if (health <= 0)
         {
-            var weapon = source.GetComponent<Weapon>();
-            if (weapon != null)
+            if (source != null)
             {
-                Game.Instance.TrackingObject = weapon.FromShip.gameObject;
-            }
-            else
-            {
-                Game.Instance.TrackingObject = source;
+                var weapon = source.GetComponent<Weapon>();
+                if (weapon != null)
+                {
+                    Game.Instance.TrackingObject = weapon.FromShip.gameObject;
+                }
+                else
+                {
+                    Game.Instance.TrackingObject = source;
+                }
             }
             GameObject.Destroy(this.gameObject);
         }

@@ -12,6 +12,12 @@ public class AttackPlayer : MonoBehaviour
     Ship _ship;
     bool _attacking;
 
+    ///
+    /// Get whether the script is currently attacking its target.
+    /// Attacking is different than following.
+    ///
+    public bool IsAttacking {get => _attacking;}
+
     // Start is called before the first frame update
     void Start()
     {

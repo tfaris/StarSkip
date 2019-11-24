@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour, IDamageable
+public class Ship : MonoBehaviour, IDamageable, IAmAttacking
 {
     public int health;
     public List<Weapon> weaponPrefabs;
+    public HomingMissile missileWeaponPrefab;
     int _currentWeaponIndex;
     List<Weapon> _weapons;
+    protected HomingMissile missileWeaponInstance;
+    AttackPlayer _attack;
+
+    public virtual GameObject AttackingThis { get => GetCurrentTarget(); }
 
     protected virtual void Start()
     {
@@ -18,23 +23,26 @@ public class Ship : MonoBehaviour, IDamageable
         {
             _weapons.Add(GameObject.Instantiate(wpf, this.transform));
         }
+        if (missileWeaponPrefab)
+        {
+            missileWeaponInstance = GameObject.Instantiate(missileWeaponPrefab, this.transform);
+        }
+        _attack = GetComponent<AttackPlayer>();
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        foreach (Weapon weapon in _weapons)
-        {
-            if (weapon.IsInCooldown)
-            {
-                weapon.CooldownCounter += Time.deltaTime;
-                if (weapon.CooldownCounter >= weapon.CooldownTimer)
-                {
-                    weapon.IsInCooldown = false;
-                }
-            }
-        }
         Game.Instance.CheckWorldWrap(this.transform);
+    }
+
+    public virtual GameObject GetCurrentTarget()
+    {
+        if (_attack != null && _attack.IsAttacking)
+        {
+            return _attack.attackThis;
+        }
+        return null;
     }
 
     ///
