@@ -49,6 +49,8 @@ public class HomingMissile : Weapon
         Vector3 direction = FromShip.transform.forward,
             previousPos = projectileObj.transform.position;
         
+        projectileObj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        
         bool removedFromCount = false;
         float homingCounter = 0, nonHomingCounter = 0, homingAttempts = 0;
 

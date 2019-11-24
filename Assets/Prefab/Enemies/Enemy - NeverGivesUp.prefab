@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1939446477542537131}
   - component: {fileID: 1939446477542537130}
   - component: {fileID: 7245214446388541520}
+  - component: {fileID: 8858225119954138782}
   m_Layer: 0
   m_Name: Enemy - NeverGivesUp
   m_TagString: Untagged
@@ -93,7 +94,7 @@ BoxCollider:
   m_GameObject: {fileID: 1939446477542537122}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -162,6 +163,7 @@ MonoBehaviour:
   weaponPrefabs:
   - {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33, type: 3}
   missileWeaponPrefab: {fileID: 0}
+  minesWeaponPrefab: {fileID: 0}
 --- !u!114 &7245214446388541520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +180,19 @@ MonoBehaviour:
   maxDistanceOfAttack: 20
   attackSpeed: 1
   precision: 92
+--- !u!135 &8858225119954138782
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939446477542537122}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.3367069
+  m_Center: {x: 0, y: 0, z: -0.0073268414}
 --- !u!1 &1939446478265778407
 GameObject:
   m_ObjectHideFlags: 0
