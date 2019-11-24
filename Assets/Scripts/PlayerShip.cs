@@ -37,6 +37,7 @@ public class PlayerShip : Ship
         {
             FireWeapon();
         }
+        
         if (Input.GetAxis("Fire Missile") > 0)
         {
             if (missileWeaponInstance)
