@@ -165,7 +165,7 @@ public class HomingMissile : Weapon
             homingTimer = 1f;
             nonHomingTimer = .3f;
             speed *= 1.5f;
-            maximumHomingDistance = 2;
+            maxHomingAttempts = 2;
         }
         else if (newLevel == 5)
         {

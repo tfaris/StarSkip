@@ -63,6 +63,15 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
         }
     }
 
+    public void CycleMainWeapon()
+    {
+        _currentWeaponIndex++;
+        if (_currentWeaponIndex >= _weapons.Count)
+        {
+            _currentWeaponIndex = 0;
+        }
+    }
+
     ///
     /// Get the current weapon.
     ///

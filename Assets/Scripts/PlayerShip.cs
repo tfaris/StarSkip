@@ -37,7 +37,6 @@ public class PlayerShip : Ship
         {
             FireWeapon();
         }
-        
         if (Input.GetAxis("Fire Missile") > 0)
         {
             if (missileWeaponInstance)
@@ -51,6 +50,10 @@ public class PlayerShip : Ship
             {
                 minesWeaponInstance.FireWeapon(this);
             }
+        }
+        if (Input.GetButtonUp("Swap Main Weapon"))
+        {
+            CycleMainWeapon();
         }
     }
 
