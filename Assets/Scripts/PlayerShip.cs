@@ -44,6 +44,13 @@ public class PlayerShip : Ship
                 missileWeaponInstance.FireWeapon(this);
             }
         }
+        if (Input.GetAxis("Lay Mine") > 0)
+        {
+            if (minesWeaponInstance)
+            {
+                minesWeaponInstance.FireWeapon(this);
+            }
+        }
     }
 
     void FixedUpdate()

@@ -19,6 +19,6 @@ public class StandardShot : Weapon
 
     protected override void OnUpgraded(int oldLevel, int newLevel)
     {
-        CooldownTimer -= .5f;
+        CooldownTimer -= .15f;
     }
 }

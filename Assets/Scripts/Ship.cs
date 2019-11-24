@@ -7,9 +7,11 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     public int health;
     public List<Weapon> weaponPrefabs;
     public HomingMissile missileWeaponPrefab;
+    public Mines minesWeaponPrefab;
     int _currentWeaponIndex;
     List<Weapon> _weapons;
     protected HomingMissile missileWeaponInstance;
+    protected Mines minesWeaponInstance;
     AttackPlayer _attack;
 
     public virtual GameObject AttackingThis { get => GetCurrentTarget(); }
@@ -26,6 +28,10 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
         if (missileWeaponPrefab)
         {
             missileWeaponInstance = GameObject.Instantiate(missileWeaponPrefab, this.transform);
+        }
+        if (minesWeaponPrefab)
+        {
+            minesWeaponInstance = GameObject.Instantiate(minesWeaponPrefab, this.transform);
         }
         _attack = GetComponent<AttackPlayer>();
     }
@@ -69,11 +75,21 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
         return null;
     }
 
-    [ContextMenu("Upgrade current weapon by one")]
+    [ContextMenu("Upgrade all weapons by one")]
     void BumpWeaponUpgradeLevel()
     {
-        _weapons[_currentWeaponIndex].UpgradeLevel++;
-        Debug.Log("Upgrade level of " + _weapons[_currentWeaponIndex] + " is now " + _weapons[_currentWeaponIndex].UpgradeLevel);
+        foreach (var weapon in _weapons)
+        {
+            weapon.UpgradeLevel++;
+        }
+        if (minesWeaponInstance)
+        {
+            minesWeaponInstance.UpgradeLevel++;
+        }
+        if (missileWeaponInstance)
+        {
+            missileWeaponInstance.UpgradeLevel++;
+        }
     }
 
     ///
