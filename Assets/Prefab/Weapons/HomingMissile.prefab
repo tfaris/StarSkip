@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDistance: 500
+  despawnTimer: 10
   cooldownTimer: 2
   damage: 25
   speed: 20
-  projectilePrefab: {fileID: 8278625875665442383, guid: 615752178d54a8047aa80d60e9c3b717,
+  projectilePrefab: {fileID: 1821712754267971820, guid: bda7fd5dc9b888744a402629f693655a,
     type: 3}
   maximumHomingDistance: 100
-  despawnTimer: 10
   retargetTimer: 5
