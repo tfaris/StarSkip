@@ -20338,7 +20338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57747263d53886c4193a926f3d527820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackThis: {fileID: 0}
+  trackThis: {fileID: 2033310392}
 --- !u!114 &1732654756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20355,7 +20355,7 @@ MonoBehaviour:
   worldGridsHigh: 3
   singleGridSize: 100
   spawnAmbientAsteroids: 0
-  playerShip: {fileID: 0}
+  playerShip: {fileID: 2033310394}
   predefinedStuff: []
   worldAmbientAsteroidSpawner: {fileID: 5960077554059432320, guid: 7b30463866a50a54883a27eb91c35862,
     type: 3}
@@ -20672,3 +20672,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2033310392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8322186740554954982, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
+    type: 3}
+  m_PrefabInstance: {fileID: 411257845}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2033310394 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8322186740554954980, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
+    type: 3}
+  m_PrefabInstance: {fileID: 411257845}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033310392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292a70488e085e44ca09472f22a3e39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
