@@ -361,22 +361,22 @@ public class Game : MonoBehaviour
         if (pos.x < WorldBoundaries.xMin)
         {
             changed = true;
-            pos.x = WorldBoundaries.xMax;
+            pos.x = WorldBoundaries.xMax - 1;
         }
         else if (pos.x > WorldBoundaries.xMax)
         {
             changed = true;
-            pos.x = WorldBoundaries.xMin;
+            pos.x = WorldBoundaries.xMin + 1;
         }
         if (pos.z < WorldBoundaries.yMin)
         {
             changed = true;
-            pos.z = WorldBoundaries.yMax;
+            pos.z = WorldBoundaries.yMax - 1;
         }
         else if (pos.z > WorldBoundaries.yMax)
         {
             changed = true;
-            pos.z = WorldBoundaries.yMin;
+            pos.z = WorldBoundaries.yMin + 1;
         }
         if (changed)
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerShip : Ship
 {
     Rigidbody body;
+    WarpJump _jump;
 
     public float moveSpeed = 150, rotateSpeed = 50, maxSpeed = 200;
     float vertForce, horzForce;
@@ -13,6 +14,7 @@ public class PlayerShip : Ship
     {
         base.Start();
         body = this.GetComponent<Rigidbody>();
+        _jump = GetComponent<WarpJump>();
     }
 
     // Update is called once per frame
@@ -22,38 +24,45 @@ public class PlayerShip : Ship
 
         Game.Instance.GetGridState(Game.Instance.GetCurrentGrid()).explored = true;
 
-        this.vertForce = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-        this.horzForce = Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
-        
-        var delta = Vector3.up * this.horzForce - body.angularVelocity;
-        this.transform.Rotate(delta);
-        
-        // Prevent rotation on other axes. RigidBody constraints aren't doing the job.
-        var rot = body.transform.rotation;
-        rot.x = rot.z = 0;
-        body.transform.rotation = rot;
+        if (!_jump.IsJumping)
+        {
+            this.vertForce = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+            this.horzForce = Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
+            
+            var delta = Vector3.up * this.horzForce - body.angularVelocity;
+            this.transform.Rotate(delta);
+            
+            // Prevent rotation on other axes. RigidBody constraints aren't doing the job.
+            var rot = body.transform.rotation;
+            rot.x = rot.z = 0;
+            body.transform.rotation = rot;
 
-        if(Input.GetAxis("Fire Main Weapon") > 0)
-        {
-            FireWeapon();
-        }
-        if (Input.GetAxis("Fire Missile") > 0)
-        {
-            if (missileWeaponInstance)
+            if(Input.GetAxis("Fire Main Weapon") > 0)
             {
-                missileWeaponInstance.FireWeapon(this);
+                FireWeapon();
+            }
+            if (Input.GetAxis("Fire Missile") > 0)
+            {
+                if (missileWeaponInstance)
+                {
+                    missileWeaponInstance.FireWeapon(this);
+                }
+            }
+            if (Input.GetAxis("Lay Mine") > 0)
+            {
+                if (minesWeaponInstance)
+                {
+                    minesWeaponInstance.FireWeapon(this);
+                }
+            }
+            if (Input.GetButtonUp("Swap Main Weapon"))
+            {
+                CycleMainWeapon();
             }
         }
-        if (Input.GetAxis("Lay Mine") > 0)
+        else
         {
-            if (minesWeaponInstance)
-            {
-                minesWeaponInstance.FireWeapon(this);
-            }
-        }
-        if (Input.GetButtonUp("Swap Main Weapon"))
-        {
-            CycleMainWeapon();
+            body.velocity = Vector3.zero;
         }
     }
 

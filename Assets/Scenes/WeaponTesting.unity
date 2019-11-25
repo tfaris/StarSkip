@@ -15410,7 +15410,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135980139}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaeeb112e1979b940bd9ff3180902067, type: 3}
   m_Name: 
@@ -15419,7 +15419,7 @@ MonoBehaviour:
   - {fileID: 1939446477542537122, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
   - {fileID: 3912337994830046323, guid: c6eb335683ebb7e4b9785d6f1081f658, type: 3}
   - {fileID: 5814221948980981643, guid: a1059801cdb4bdd4583bab67fc025eb4, type: 3}
-  spawnTimer: 5
+  spawnTimer: 1
   numEnemiesAtOnce: 5
 --- !u!4 &1135980141
 Transform:
@@ -25634,6 +25634,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 411257845}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2033310393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033310392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 674c488225dbb2b408d89eed5e1c4236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpSpaces: 7
 --- !u!114 &2033310394 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8322186740554954980, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
