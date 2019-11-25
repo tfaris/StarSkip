@@ -15312,6 +15312,80 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff9668ad4106d0648859aa4268a7b83b, type: 3}
+--- !u!1001 &1122638918
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5814221948980981643, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_Name
+      value: MonsterRammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981633, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814221948980981637, guid: a1059801cdb4bdd4583bab67fc025eb4,
+        type: 3}
+      propertyPath: trackThisObject
+      value: 
+      objectReference: {fileID: 2033310392}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a1059801cdb4bdd4583bab67fc025eb4, type: 3}
 --- !u!1 &1135980139
 GameObject:
   m_ObjectHideFlags: 0
@@ -15336,13 +15410,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135980139}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaeeb112e1979b940bd9ff3180902067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1939446477542537122, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
+  - {fileID: 3912337994830046323, guid: c6eb335683ebb7e4b9785d6f1081f658, type: 3}
+  - {fileID: 5814221948980981643, guid: a1059801cdb4bdd4583bab67fc025eb4, type: 3}
   spawnTimer: 5
   numEnemiesAtOnce: 5
 --- !u!4 &1135980141

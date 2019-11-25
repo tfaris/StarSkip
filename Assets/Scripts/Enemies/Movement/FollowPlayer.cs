@@ -16,6 +16,15 @@ public class FollowPlayer : MonoBehaviour
     bool _movingTowards = true;
     Rigidbody _body;
 
+    ///
+    /// Get whether the follower is in the deadzone where it will keep
+    /// its preferred distance.
+    ///
+    public bool IsInDeadzone
+    {
+        get; private set;
+    }
+
     void Start()
     {
         _body = GetComponent<Rigidbody>();
@@ -29,7 +38,7 @@ public class FollowPlayer : MonoBehaviour
             var direction = MathUtil.ToroidalDistance(trackThisObject.transform.position, transform.position);
             var dist = Mathf.Abs(direction.magnitude);
 
-            bool inDeadzone = dist >= minKeepDist && dist <= maxKeepDist;
+            IsInDeadzone = dist >= minKeepDist && dist <= maxKeepDist;
 
             float nowSpeed = speed;
             if (slowOnApproach)
@@ -49,7 +58,7 @@ public class FollowPlayer : MonoBehaviour
                 }
             }
             
-            if (!inDeadzone && (dist < keepDistanceToPlayer && keepDistanceToPlayer != 0))
+            if (!IsInDeadzone && (dist < keepDistanceToPlayer && keepDistanceToPlayer != 0))
             {
                 // Move away
                 if (_movingTowards)
@@ -69,7 +78,7 @@ public class FollowPlayer : MonoBehaviour
                     }
                 }
             }
-            else if ((giveUpDistance == 0 || dist < giveUpDistance) && !inDeadzone)
+            else if ((giveUpDistance == 0 || dist < giveUpDistance) && !IsInDeadzone)
             {
                 // Move towards
                 if (!_movingTowards)
