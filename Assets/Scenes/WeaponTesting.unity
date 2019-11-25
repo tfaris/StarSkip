@@ -9980,7 +9980,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8322186740013729129, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322186740013729130, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322186740013729130, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8322186740013729130, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85, type: 3}
 --- !u!1 &418780143
 GameObject:
@@ -25738,6 +25754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674c488225dbb2b408d89eed5e1c4236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warpEffect: {fileID: 0}
   jumpSpaces: 7
 --- !u!114 &2033310394 stripped
 MonoBehaviour:

@@ -22625,6 +22625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674c488225dbb2b408d89eed5e1c4236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warpEffect: {fileID: 2106066027}
   jumpSpaces: 7
 --- !u!1 &1626010488
 GameObject:

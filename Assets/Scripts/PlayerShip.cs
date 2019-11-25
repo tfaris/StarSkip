@@ -59,6 +59,10 @@ public class PlayerShip : Ship
             {
                 CycleMainWeapon();
             }
+            if (!_jump.IsJumping && Input.GetButtonUp("Warp Jump"))
+            {
+                StartCoroutine(_jump.Warp());
+            }
         }
         else
         {

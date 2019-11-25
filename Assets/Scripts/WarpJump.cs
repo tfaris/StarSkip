@@ -5,17 +5,10 @@ using UnityEngine;
 
 public class WarpJump : MonoBehaviour
 {
+    public ParticleSystem warpEffect;
     public int jumpSpaces;
 
-    public bool IsJumping {get; private set;}
-
-    void Update()
-    {
-        if (!IsJumping && Input.GetButtonUp("Warp Jump"))
-        {
-            StartCoroutine(Warp());
-        }
-    }
+    public bool IsJumping {get; private set; }
 
     void ToggleColliders(bool enable)
     {
@@ -25,9 +18,14 @@ public class WarpJump : MonoBehaviour
         }
     }
 
-    IEnumerator Warp()
+    public IEnumerator Warp()
     {
         IsJumping = true;
+
+        if (warpEffect)
+        {
+            warpEffect.gameObject.SetActive(true);
+        }
 
         ToggleColliders(false);
 
@@ -51,6 +49,11 @@ public class WarpJump : MonoBehaviour
             // pull back from user. If they jumped out of world bounds and wrapped,
             // this will get us the right location.
             nextGridWorldLocation = ship.transform.position;
+        }
+
+        if (warpEffect)
+        {
+            warpEffect.gameObject.SetActive(false);
         }
 
         ToggleColliders(true);
