@@ -298,14 +298,12 @@ MonoBehaviour:
   health: 100
   weaponPrefabs:
   - {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33, type: 3}
-  - {fileID: 4544026372797454727, guid: 9570f4e3a7a4be249b2b04df66cdb971, type: 3}
-  missileWeaponPrefab: {fileID: 4077672617601906563, guid: 3de2430c6a57c774a92af94f0a88d8b8,
-    type: 3}
-  minesWeaponPrefab: {fileID: 124913945154443922, guid: 7a3cfde57a7bca5469dc7f307cf70ac7,
-    type: 3}
+  drop: {fileID: 0}
+  dropChance: 0.5
   moveSpeed: 1000
   rotateSpeed: 350
   maxSpeed: 1000
+  warpPoints: 0
 --- !u!54 &8322186740554954981
 Rigidbody:
   m_ObjectHideFlags: 0

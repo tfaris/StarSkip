@@ -109,8 +109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   weaponPrefabs: []
-  missileWeaponPrefab: {fileID: 0}
-  minesWeaponPrefab: {fileID: 0}
+  drop: {fileID: 222799855923441544, guid: d0e6befb281573a46a1ba0a973a8e940, type: 3}
+  dropChance: 0.5
 --- !u!135 &3509628562876051127
 SphereCollider:
   m_ObjectHideFlags: 0

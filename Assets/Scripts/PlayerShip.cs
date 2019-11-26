@@ -8,6 +8,7 @@ public class PlayerShip : Ship
     WarpJump _jump;
 
     public float moveSpeed = 150, rotateSpeed = 50, maxSpeed = 200;
+    public int warpPoints;
     float vertForce, horzForce;
     
     protected override void Start()
@@ -61,7 +62,16 @@ public class PlayerShip : Ship
             }
             if (!_jump.IsJumping && Input.GetButtonUp("Warp Jump"))
             {
-                StartCoroutine(_jump.Warp());
+                _jump.jumpSpaces = this.warpPoints * _jump.spacesPerWarpPoint;
+                if (_jump.jumpSpaces > 0)
+                {
+                    this.warpPoints = 0;
+                    StartCoroutine(_jump.Warp());
+                }
+                else
+                {
+                    // bzzz....
+                }
             }
         }
         else

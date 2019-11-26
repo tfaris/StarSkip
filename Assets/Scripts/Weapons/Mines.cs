@@ -120,4 +120,16 @@ public class Mines : Weapon
             _explosionSize = new Vector3(8, 8, 8);
         }
     }
+
+    public override void AddToShip(Ship ship)
+    {
+        if (ship is PlayerShip)
+        {
+            ship.minesWeaponInstance = this;
+        }
+        else
+        {
+            ship.weapons.Add(this);
+        }
+    }
 }

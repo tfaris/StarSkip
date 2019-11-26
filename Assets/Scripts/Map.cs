@@ -13,6 +13,7 @@ public class Map : MonoBehaviour
     public Material matExplored;
     public Material matCurrent;
     public Material matAsteroidField;
+    public Material matQuestObjective;
     public Camera mapCamera;
 
     bool _fullScreen;
@@ -36,7 +37,8 @@ public class Map : MonoBehaviour
             new SubmeshData(0, matUnexplored),
             new SubmeshData(1, matExplored),
             new SubmeshData(2, matCurrent),
-            new SubmeshData(3, matAsteroidField)
+            new SubmeshData(3, matAsteroidField),
+            new SubmeshData(4, matQuestObjective),
         };
         // Each submesh uses the material in the renderer at the same index.
         _mRenderer.materials = _submeshes
@@ -131,7 +133,11 @@ public class Map : MonoBehaviour
             }
             else
             {
-                if (gridState.explored)
+                if (gridState.hasQuestObjective)
+                {
+                    submesh = 4;
+                }                
+                else if (gridState.explored)
                 {
                     if (gridState.asteroidSpawner != null)
                     {

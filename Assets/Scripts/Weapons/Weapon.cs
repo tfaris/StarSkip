@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour, IAddToShip
 {
     public Ship FromShip {get;set;}
     [Tooltip("Despawn when this far away from the player.")]
@@ -181,5 +181,10 @@ public class Weapon : MonoBehaviour
     {
         damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null , this.damage);
         GameObject.Destroy(sourceObject);
+    }
+
+    public virtual void AddToShip(Ship ship)
+    {
+        //
     }
 }

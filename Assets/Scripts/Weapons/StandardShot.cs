@@ -21,4 +21,9 @@ public class StandardShot : Weapon
     {
         CooldownTimer -= .15f;
     }
+    
+    public override void AddToShip(Ship ship)
+    {
+        ship.weapons.Add(this);
+    }
 }

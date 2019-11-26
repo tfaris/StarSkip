@@ -45,4 +45,8 @@ public class PiercingShot : Weapon
             damage *= 2;
         }
     }
+    public override void AddToShip(Ship ship)
+    {
+        ship.weapons.Add(this);
+    }
 }

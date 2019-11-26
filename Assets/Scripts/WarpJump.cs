@@ -7,6 +7,7 @@ public class WarpJump : MonoBehaviour
 {
     public ParticleSystem warpEffect;
     public int jumpSpaces;
+    public int spacesPerWarpPoint = 3;
 
     public bool IsJumping {get; private set; }
 

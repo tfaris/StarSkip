@@ -6,12 +6,15 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
 {
     public int health;
     public List<Weapon> weaponPrefabs;
-    public HomingMissile missileWeaponPrefab;
-    public Mines minesWeaponPrefab;
     int _currentWeaponIndex;
-    List<Weapon> _weapons;
-    protected HomingMissile missileWeaponInstance;
-    protected Mines minesWeaponInstance;
+    [System.NonSerialized]
+    public List<Weapon> weapons;
+    [System.NonSerialized]
+    public HomingMissile missileWeaponInstance;
+    [System.NonSerialized]
+    public Mines minesWeaponInstance;
+    public Pickup drop;
+    public float dropChance = .5f;
     AttackPlayer _attack;
 
     public virtual GameObject AttackingThis { get => GetCurrentTarget(); }
@@ -20,20 +23,18 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     {
         // Any weapons that are in weaponPrefabs need to have instances
         // created.
-        _weapons = new List<Weapon>();
+        weapons = new List<Weapon>();
         foreach (var wpf in weaponPrefabs)
         {
-            _weapons.Add(GameObject.Instantiate(wpf, this.transform));
-        }
-        if (missileWeaponPrefab)
-        {
-            missileWeaponInstance = GameObject.Instantiate(missileWeaponPrefab, this.transform);
-        }
-        if (minesWeaponPrefab)
-        {
-            minesWeaponInstance = GameObject.Instantiate(minesWeaponPrefab, this.transform);
+            AddWeapon(wpf);
         }
         _attack = GetComponent<AttackPlayer>();
+    }
+
+    public void AddWeapon(Weapon weaponPrefab)
+    {
+        var inst = GameObject.Instantiate(weaponPrefab, this.transform);
+        inst.AddToShip(this);
     }
 
     // Update is called once per frame
@@ -56,17 +57,17 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     ///
     public void FireWeapon()
     {
-        if (_currentWeaponIndex >= 0 && _currentWeaponIndex < _weapons.Count)
+        if (_currentWeaponIndex >= 0 && _currentWeaponIndex < weapons.Count)
         {
             // weapons is a list of prefabs
-            _weapons[_currentWeaponIndex].FireWeapon(this);
+            weapons[_currentWeaponIndex].FireWeapon(this);
         }
     }
 
     public void CycleMainWeapon()
     {
         _currentWeaponIndex++;
-        if (_currentWeaponIndex >= _weapons.Count)
+        if (_currentWeaponIndex >= weapons.Count)
         {
             _currentWeaponIndex = 0;
         }
@@ -77,9 +78,9 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     ///
     public Weapon GetCurrentWeapon()
     {
-        if (_currentWeaponIndex >= 0 && _currentWeaponIndex < _weapons.Count)
+        if (_currentWeaponIndex >= 0 && _currentWeaponIndex < weapons.Count)
         {
-            return _weapons[_currentWeaponIndex];
+            return weapons[_currentWeaponIndex];
         }
         return null;
     }
@@ -87,7 +88,7 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     [ContextMenu("Upgrade all weapons by one")]
     void BumpWeaponUpgradeLevel()
     {
-        foreach (var weapon in _weapons)
+        foreach (var weapon in weapons)
         {
             weapon.UpgradeLevel++;
         }
@@ -110,6 +111,14 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
 
         if (health <= 0)
         {
+            if (!(this is PlayerShip))
+            {
+                // Drop on destroy
+                if (drop && Random.Range(0f, 1f) < dropChance)
+                {
+                    GameObject.Instantiate(drop, this.transform.position, Quaternion.identity);
+                }
+            }
             GameObject.Destroy(this.gameObject);
         }
     }

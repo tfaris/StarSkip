@@ -44,6 +44,12 @@ public class Game : MonoBehaviour
         set => cameraController.trackThis = value;
     }
 
+    public bool IsSetup
+    {
+        get;
+        private set;
+    }
+
     void Start()
     {
         gameSeed = UnityEngine.Random.Range(0, int.MaxValue);
@@ -106,6 +112,7 @@ public class Game : MonoBehaviour
             }
             
             firstGen = false;
+            IsSetup = true;
         }
         
         // for (int x=0; x < worldGridsWide; x++)
@@ -252,7 +259,14 @@ public class Game : MonoBehaviour
 
     public int GetCurrentGrid()
     {
-        return GetGrid(TrackingObject.transform.position);
+        if (TrackingObject)
+        {
+            return GetGrid(TrackingObject.transform.position);
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     string ColumnToLetter(int column) 

@@ -7,6 +7,8 @@ public enum Direction { goUp, goDown, goRight, goLeft };
 public class Asteroid : MonoBehaviour, IDamageable
 {
     public Direction goDirection;
+    public Pickup drop;
+    public float dropChance;
 
     public bool speedy = false;
 
@@ -135,6 +137,12 @@ public class Asteroid : MonoBehaviour, IDamageable
             if (Game.Instance.TrackingObject == this.gameObject)
             {
                 Game.Instance.TrackingObject = source;
+            }
+
+            // Drop on destroy
+            if (drop && Random.Range(0f, 1f) < dropChance)
+            {
+                GameObject.Instantiate(drop, this.transform.position, Quaternion.identity);
             }
 
             GameObject.Destroy(this.gameObject);

@@ -110,8 +110,8 @@ MonoBehaviour:
   health: 50
   weaponPrefabs:
   - {fileID: 4077672617601906563, guid: 3de2430c6a57c774a92af94f0a88d8b8, type: 3}
-  missileWeaponPrefab: {fileID: 0}
-  minesWeaponPrefab: {fileID: 0}
+  drop: {fileID: 222799855923441544, guid: d0e6befb281573a46a1ba0a973a8e940, type: 3}
+  dropChance: 1
 --- !u!114 &5200824967709698945
 MonoBehaviour:
   m_ObjectHideFlags: 0

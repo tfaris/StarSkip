@@ -20,6 +20,18 @@ public class HomingMissile : Weapon
 
     Vector3 _projectileScale = new Vector3(1, 1, 1);
 
+    public override void AddToShip(Ship ship)
+    {
+        if (ship is PlayerShip)
+        {
+            ship.missileWeaponInstance = this;
+        }
+        else
+        {
+            ship.weapons.Add(this);
+        }
+    }
+
     protected override void CheckCooldown()
     {
         if (IsInCooldown)
@@ -132,7 +144,7 @@ public class HomingMissile : Weapon
 
     private bool ShouldCompare(Transform t)
     {
-        return t.root != FromShip.transform;
+        return FromShip != null ? (t.root != FromShip.transform) : true;
     }
 
     public GameObject FindClosestTarget(GameObject projectileObj)
