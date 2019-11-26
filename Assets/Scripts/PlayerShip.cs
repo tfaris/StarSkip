@@ -60,6 +60,18 @@ public class PlayerShip : Ship
             {
                 CycleMainWeapon();
             }
+            if (Input.GetAxis("Fire Laser") > 0)
+            {
+                IsActivatingSuperLaser = true;
+                if (superLaserInstance)
+                {
+                    superLaserInstance.FireWeapon(this);
+                }
+            }
+            else
+            {
+                IsActivatingSuperLaser = false;
+            }
             if (!_jump.IsJumping && Input.GetButtonUp("Warp Jump"))
             {
                 _jump.jumpSpaces = this.warpPoints * _jump.spacesPerWarpPoint;

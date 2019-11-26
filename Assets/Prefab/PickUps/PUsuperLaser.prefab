@@ -4765,6 +4765,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4022306337775242027}
+  - component: {fileID: 5174151807167796696}
+  - component: {fileID: 8539750462525942543}
   m_Layer: 0
   m_Name: PUsuperLaser
   m_TagString: Untagged
@@ -4787,3 +4789,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5174151807167796696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5069455051813331086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f27e1326aea9254fbbc27734642903f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 3016032649614915058, guid: ffb41e737f6ea3249bda6f63d4bb1b2d,
+    type: 3}
+  maxAttractDist: 100
+  attractSpeed: 4
+--- !u!65 &8539750462525942543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5069455051813331086}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

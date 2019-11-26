@@ -13,11 +13,15 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     public HomingMissile missileWeaponInstance;
     [System.NonSerialized]
     public Mines minesWeaponInstance;
+    [System.NonSerialized]
+    public SuperLaser superLaserInstance;
     public Pickup drop;
     public float dropChance = .5f;
     AttackPlayer _attack;
 
     public virtual GameObject AttackingThis { get => GetCurrentTarget(); }
+
+    public bool IsActivatingSuperLaser { get; protected set; }
 
     protected virtual void Start()
     {
@@ -99,6 +103,10 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
         if (missileWeaponInstance)
         {
             missileWeaponInstance.UpgradeLevel++;
+        }
+        if (superLaserInstance)
+        {
+            superLaserInstance.UpgradeLevel++;
         }
     }
 

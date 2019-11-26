@@ -22,11 +22,13 @@ public class Pickup : MonoBehaviour
             {
                 pos += dir.normalized * attractSpeed * Time.deltaTime;
             }
-        }        
+        }
         
         pos.y = 0;
         this.transform.position = pos;
         UpdateMap(this);
+
+        Game.Instance.CheckWorldWrap(this.transform);
     }
 
     void UpdateMap(bool exists)
