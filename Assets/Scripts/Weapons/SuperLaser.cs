@@ -34,7 +34,6 @@ public class SuperLaser : Weapon
             projectileObj.transform.position = FromShip.transform.position;
             projectileObj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
-            Debug.Log(shipBody.velocity);
             if (Mathf.Abs(shipBody.velocity.magnitude) < 10)
             {
                 shipBody.AddForce(-direction.normalized * shipPushbackForce, ForceMode.Impulse);

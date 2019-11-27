@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
     public Rect WorldBoundaries { get; private set; }
     public List<PredefinedStuff> predefinedStuff;
     public AsteroidController worldAmbientAsteroidSpawner;
+    [Tooltip("Upgrade the ship whenever this many grids have been explored.")]
+    public int upgradeOnGridsExplored;
     [HideInInspector]
     [NonSerialized]
     public float gridWidth, gridHeight;
@@ -23,6 +25,7 @@ public class Game : MonoBehaviour
     float lastAspectRatio;
     bool placedPlayer, firstGen = true;
     CameraController cameraController;
+    int _explorationCount;
 
     System.Collections.Generic.Dictionary<int, GridState> gridStates;
 
@@ -48,6 +51,26 @@ public class Game : MonoBehaviour
     {
         get;
         private set;
+    }
+
+    ///
+    /// Total number of explored grid spaces.
+    ///
+    public int ExplorationCount
+    {
+        get => _explorationCount;
+        set
+        {
+            if (value != _explorationCount)
+            {
+                _explorationCount = value;
+
+                if (_explorationCount % this.upgradeOnGridsExplored == 0)
+                {
+                    playerShip?.Upgrade();
+                }
+            }
+        }
     }
 
     void Start()
@@ -206,6 +229,9 @@ public class Game : MonoBehaviour
         }
     }
 
+    ///
+    /// Create random, ambient asteroid spawners around the map.
+    ///
     private IEnumerator SpawnAmbientAsteroids()
     {
         GameObject asteroidsContainer = new GameObject("ambient asteroids container");
@@ -232,7 +258,7 @@ public class Game : MonoBehaviour
             yield return null;
         }
     }
-
+    
     public int GetGrid(Vector3 worldPosition)
     {
         int col = (int)Mathf.Floor(worldPosition.x / gridWidth),

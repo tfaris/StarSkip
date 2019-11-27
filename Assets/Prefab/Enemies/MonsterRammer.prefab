@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   giveUpDistance: 0
   keepDistanceToPlayer: 15
-  speed: 50
+  speed: 80
   distanceDeadzone: 5
   slowOnApproach: 1
   trackThisObject: {fileID: 0}

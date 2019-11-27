@@ -22,8 +22,7 @@ public class PlayerShip : Ship
     protected override void Update()
     {
         base.Update();
-
-        Game.Instance.GetGridState(Game.Instance.GetCurrentGrid()).explored = true;
+        Game.Instance.GetGridState(Game.Instance.GetCurrentGrid()).SetExplored(true);
 
         if (!_jump.IsJumping)
         {
@@ -90,6 +89,16 @@ public class PlayerShip : Ship
         {
             body.velocity = Vector3.zero;
         }
+    }
+
+    ///
+    /// Upgrade the ships current weapon/item.
+    ///
+    public void Upgrade()
+    {
+        this.health = 100;
+        // todo: upgrade weapon with active upgrade selection value
+        Debug.Log("Ship upgraded");
     }
 
     void FixedUpdate()

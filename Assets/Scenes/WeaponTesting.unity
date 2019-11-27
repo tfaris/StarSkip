@@ -10067,11 +10067,6 @@ PrefabInstance:
       propertyPath: weaponPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8322186740013729129, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8322186740013729130, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
         type: 3}
       propertyPath: m_Enabled
@@ -10081,6 +10076,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Convex
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322186740013729129, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8322186740013729130, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85, type: 3}
@@ -15158,6 +15158,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PUsuperLaser
       objectReference: {fileID: 0}
+    - target: {fileID: 5174151807167796696, guid: 65f274fac6a07274993ca4a90579d483,
+        type: 3}
+      propertyPath: maxAttractDist
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174151807167796696, guid: 65f274fac6a07274993ca4a90579d483,
+        type: 3}
+      propertyPath: attractSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4022306337775242027, guid: 65f274fac6a07274993ca4a90579d483,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15212,16 +15222,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5174151807167796696, guid: 65f274fac6a07274993ca4a90579d483,
-        type: 3}
-      propertyPath: maxAttractDist
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5174151807167796696, guid: 65f274fac6a07274993ca4a90579d483,
-        type: 3}
-      propertyPath: attractSpeed
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65f274fac6a07274993ca4a90579d483, type: 3}
@@ -15833,7 +15833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1135980140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20899,6 +20899,7 @@ MonoBehaviour:
   predefinedStuff: []
   worldAmbientAsteroidSpawner: {fileID: 5960077554059432320, guid: 7b30463866a50a54883a27eb91c35862,
     type: 3}
+  upgradeOnGridsExplored: 1
   gameSeed: 0
 --- !u!4 &1732654757
 Transform:

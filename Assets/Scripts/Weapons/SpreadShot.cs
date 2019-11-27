@@ -49,13 +49,10 @@ public class SpreadShot : Weapon
             pelletObj.name = this.name + " " + (i + 1);
             
             float pelletAngle = i * spreadAngle + lowAngle;
-            Debug.Log(i + " -> " + pelletAngle);
             // start off facing same way as ship
             pelletObj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-            Debug.Log(pelletObj.transform.rotation);
             // .... then apply the spread rotation
             pelletObj.transform.Rotate(0, pelletAngle, 0);
-            Debug.Log(pelletObj.transform.rotation);
             pellets.Add(pelletObj);
             pelletObj.SetActive(false);
         }
