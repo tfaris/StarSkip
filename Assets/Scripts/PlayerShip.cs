@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShip : Ship
-{
-    Rigidbody body;
-    WarpJump _jump;
-
+{   
     public float moveSpeed = 150, rotateSpeed = 50, maxSpeed = 200;
     public int warpPoints;
     float vertForce, horzForce;
+    
+    Rigidbody body;
+    WarpJump _jump;
     
     protected override void Start()
     {

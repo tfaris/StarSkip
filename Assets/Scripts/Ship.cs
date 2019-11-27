@@ -95,6 +95,17 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
         foreach (var weapon in weapons)
         {
             weapon.UpgradeLevel++;
+            if (weapon is StandardShot ss)
+            {
+                if (ss.spreadshotUpgrade != null)
+                {
+                    ss.spreadshotUpgrade.UpgradeLevel++;
+                }
+                if (ss.rearShotUpgrade != null)
+                {
+                    ss.rearShotUpgrade.UpgradeLevel++;
+                }
+            }
         }
         if (minesWeaponInstance)
         {

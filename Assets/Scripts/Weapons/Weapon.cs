@@ -83,16 +83,22 @@ public class Weapon : MonoBehaviour, IAddToShip
         {
             FromShip = fromShip;
             this.IsInCooldown = true;
-            var projectileObj = GameObject.Instantiate(this.projectilePrefab, fromShip.transform.position, Quaternion.identity);
-            var cb = projectileObj.AddComponent<ColliderBridge>();
-            cb.HandleOnTriggerEnter = ProjectileOnTriggerEnter;
 
+            GameObject projectileObj = CreateProjectile();
             // Use game instance to start, because once the ship that's using this weapon is destroyed,
             // its coroutines will stop.
             Game.Instance.StartCoroutine(ProjectileUpdate(projectileObj, fromShip.transform.position));
             Game.Instance.StartCoroutine(CheckDestroy(projectileObj, fromShip.transform.position));
             Launched = true;
         }
+    }
+
+    protected virtual GameObject CreateProjectile()
+    {
+        var projectileObj = GameObject.Instantiate(this.projectilePrefab, FromShip.transform.position, Quaternion.identity);
+        var cb = projectileObj.AddComponent<ColliderBridge>();
+        cb.HandleOnTriggerEnter = ProjectileOnTriggerEnter;
+        return projectileObj;
     }
 
     ///
