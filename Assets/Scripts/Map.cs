@@ -14,6 +14,7 @@ public class Map : MonoBehaviour
     public Material matCurrent;
     public Material matAsteroidField;
     public Material matQuestObjective;
+    public Material matEnemyZone;
     public Camera mapCamera;
 
     bool _fullScreen;
@@ -39,6 +40,7 @@ public class Map : MonoBehaviour
             new SubmeshData(2, matCurrent),
             new SubmeshData(3, matAsteroidField),
             new SubmeshData(4, matQuestObjective),
+            new SubmeshData(5, matEnemyZone),
         };
         // Each submesh uses the material in the renderer at the same index.
         _mRenderer.materials = _submeshes
@@ -147,6 +149,10 @@ public class Map : MonoBehaviour
                     {
                         submesh = 1;
                     }
+                }
+                else if (gridState.isEnemyArea)
+                {
+                    submesh = 5;
                 }
                 else
                 {

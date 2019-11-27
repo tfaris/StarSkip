@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a9f6b5b3daaa54c9f006a23fbb46d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  giveUpDistance: 0
+  giveUpDistance: 150
   keepDistanceToPlayer: 15
   speed: 80
   distanceDeadzone: 5

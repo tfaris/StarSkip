@@ -164,6 +164,8 @@ MonoBehaviour:
   predefinedStuff:
   - {fileID: 11400000, guid: c13f9d33f5ccf2a4b8b444dbcf0199be, type: 2}
   - {fileID: 11400000, guid: 36f7dba9cd0c0b0438b75eb64cb0d424, type: 2}
+  - {fileID: 11400000, guid: 10a8968a8e2a5bd47b08e9d3677b2415, type: 2}
+  - {fileID: 11400000, guid: c982a7fc86204134c8d7c8a6530440ae, type: 2}
   worldAmbientAsteroidSpawner: {fileID: 5960077554059432320, guid: 7b30463866a50a54883a27eb91c35862,
     type: 3}
   upgradeOnGridsExplored: 50
@@ -562,6 +564,7 @@ MonoBehaviour:
   matCurrent: {fileID: 2100000, guid: 6d373b8474414424cb6aa58616499410, type: 2}
   matAsteroidField: {fileID: 2100000, guid: 3deaff85f9f255e408973675829d0e78, type: 2}
   matQuestObjective: {fileID: 2100000, guid: 84cec9c08468ece4597487033dff892c, type: 2}
+  matEnemyZone: {fileID: 2100000, guid: 37512182dc260484a8f77e20f31b8c81, type: 2}
   mapCamera: {fileID: 1011409681}
 --- !u!4 &183325130
 Transform:

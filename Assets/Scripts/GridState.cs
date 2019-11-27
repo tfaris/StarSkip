@@ -6,6 +6,7 @@ public class GridState
 {
     public bool explored;
     public bool hasQuestObjective;
+    public bool isEnemyArea;
     public AsteroidController asteroidSpawner;
 
     internal void SetExplored(bool val)
