@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackThis: {fileID: 0}
-  maxDistanceOfAttack: 999
+  maxDistanceOfAttack: 80
   attackSpeed: 4
   precision: 92
 --- !u!135 &1456902273986555870

@@ -11,6 +11,8 @@ public class EnemySpawner : MonoBehaviour
     int _index, _enemyCounter;
     List<GameObject> _spawned = new List<GameObject>();
 
+    public event System.EventHandler<GameObject> enemySpawned;
+
     // Update is called once per frame
     void Update()
     {
@@ -23,24 +25,7 @@ public class EnemySpawner : MonoBehaviour
             }
 
             _spawnTimerCounter = 0;
-
-            GameObject enemyObj = GameObject.Instantiate(enemyPrefabs[_index++], this.transform.position, Quaternion.identity);
-            _spawned.Add(enemyObj);
-
-            AttackPlayer ap = enemyObj.GetComponent<AttackPlayer>();
-            FollowPlayer fp = enemyObj.GetComponent<FollowPlayer>();
-
-            if (Game.Instance.playerShip != null)
-            {
-                if (fp != null)
-                {
-                    fp.trackThisObject = Game.Instance.playerShip.gameObject;
-                }
-                if (ap != null)
-                {
-                    ap.attackThis = Game.Instance.playerShip.gameObject;
-                }
-            }
+            SpawnEnemy();
         }
 
         for (int i=0; i < _spawned.Count; i++)
@@ -51,5 +36,28 @@ public class EnemySpawner : MonoBehaviour
                 i--;
             }
         }
+    }
+
+    public void SpawnEnemy()
+    {
+        GameObject enemyObj = GameObject.Instantiate(enemyPrefabs[_index++], this.transform.position, Quaternion.identity);
+        _spawned.Add(enemyObj);
+
+        AttackPlayer ap = enemyObj.GetComponent<AttackPlayer>();
+        FollowPlayer fp = enemyObj.GetComponent<FollowPlayer>();
+
+        if (Game.Instance.playerShip != null)
+        {
+            if (fp != null)
+            {
+                fp.trackThisObject = Game.Instance.playerShip.gameObject;
+            }
+            if (ap != null)
+            {
+                ap.attackThis = Game.Instance.playerShip.gameObject;
+            }
+        }
+
+        enemySpawned?.Invoke(this, enemyObj);
     }
 }

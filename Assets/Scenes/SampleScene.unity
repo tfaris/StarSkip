@@ -162,11 +162,13 @@ MonoBehaviour:
   singleGridSize: 100
   spawnAmbientAsteroids: 1
   playerShip: {fileID: 1590270799}
+  goalEnemiesPerZone: 15
   predefinedStuff:
   - {fileID: 11400000, guid: c13f9d33f5ccf2a4b8b444dbcf0199be, type: 2}
   - {fileID: 11400000, guid: 36f7dba9cd0c0b0438b75eb64cb0d424, type: 2}
   - {fileID: 11400000, guid: 10a8968a8e2a5bd47b08e9d3677b2415, type: 2}
   - {fileID: 11400000, guid: c982a7fc86204134c8d7c8a6530440ae, type: 2}
+  - {fileID: 11400000, guid: 01e2f585140380448b28dfee3535f05c, type: 2}
   worldAmbientAsteroidSpawner: {fileID: 5960077554059432320, guid: 7b30463866a50a54883a27eb91c35862,
     type: 3}
   upgradeOnGridsExplored: 50

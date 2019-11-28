@@ -20636,6 +20636,7 @@ MonoBehaviour:
   singleGridSize: 100
   spawnAmbientAsteroids: 0
   playerShip: {fileID: 2033310394}
+  goalEnemiesPerZone: 15
   predefinedStuff: []
   worldAmbientAsteroidSpawner: {fileID: 5960077554059432320, guid: 7b30463866a50a54883a27eb91c35862,
     type: 3}
@@ -26077,7 +26078,7 @@ PrefabInstance:
     - target: {fileID: 8001120509376782668, guid: a9b4841a8e8de0a44918f803930dbed9,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8001120509376782664, guid: a9b4841a8e8de0a44918f803930dbed9,
         type: 3}

@@ -9,6 +9,8 @@ public class Game : MonoBehaviour
     public float singleGridSize = 20;
     public bool spawnAmbientAsteroids = true;
     public PlayerShip playerShip;
+    [Tooltip("Number of enemies per zone that should be killed to reach next goal.")]
+    public int goalEnemiesPerZone = 15;
 
     Vector2 worldOrigin = new Vector2(0, 0);
     public Rect WorldBoundaries { get; private set; }
@@ -28,6 +30,8 @@ public class Game : MonoBehaviour
     int _explorationCount;
 
     System.Collections.Generic.Dictionary<int, GridState> gridStates;
+    List<Zone> _zones = new List<Zone>();
+    bool _enoughEnemiesKilled;
 
     private static Game _instance;
     public static Game Instance
@@ -121,6 +125,7 @@ public class Game : MonoBehaviour
                 {
                     StartCoroutine(SpawnAmbientAsteroids());
                 }
+                _zones.AddRange(GameObject.FindObjectsOfType<Zone>());
             }
 
             if (!placedPlayer)
@@ -136,6 +141,28 @@ public class Game : MonoBehaviour
             
             firstGen = false;
             IsSetup = true;
+        }
+
+        if (IsSetup)
+        {
+            if (!_enoughEnemiesKilled)
+            {
+                int zonesCompletedCount = 0;
+                foreach (Zone z in _zones)
+                {
+                    if (z.DestroyedEnemiesCount > goalEnemiesPerZone)
+                    {
+                        zonesCompletedCount++;
+                    }
+                }
+
+                if (zonesCompletedCount == _zones.Count)
+                {
+                    _enoughEnemiesKilled = true;
+                    // todo: spawn boss?
+                    Debug.Log("Destroyed enough enemies!");
+                }
+            }
         }
         
         // for (int x=0; x < worldGridsWide; x++)
