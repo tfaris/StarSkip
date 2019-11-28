@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -197,9 +197,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f32f4d8ca44814429d6958256214cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piratePrefab: {fileID: 3912337994830046331, guid: c6eb335683ebb7e4b9785d6f1081f658,
+  piratePrefab: {fileID: 8373041070567436010, guid: 62f2c78713b7e474987c6528436e6927,
     type: 3}
   drops:
+  - {fileID: 7619207727698876040, guid: 6eaec7888e1be5545b31a5cdf0f8a0c2, type: 3}
   - {fileID: 3252393650116132794, guid: 3d7261f1862ee5643958a6257a2f1dbc, type: 3}
   - {fileID: 657247478574871678, guid: 89cd5e03cd18bf04fa9ccf6fa546162d, type: 3}
   - {fileID: 418630426295922197, guid: fa8a60e1d699b5242832d7dad20c1e40, type: 3}

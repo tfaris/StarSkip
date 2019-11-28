@@ -9990,11 +9990,6 @@ PrefabInstance:
       propertyPath: weaponPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8322186740013729129, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8322186740013729130, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
         type: 3}
       propertyPath: m_Enabled
@@ -10004,6 +9999,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Convex
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322186740013729129, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8322186740013729130, guid: 2a88cd3ab5d80e045bc3b8aff24ceb85, type: 3}
@@ -14814,7 +14814,7 @@ PrefabInstance:
     - target: {fileID: 6305961546654078188, guid: 89cd5e03cd18bf04fa9ccf6fa546162d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6305961546654078188, guid: 89cd5e03cd18bf04fa9ccf6fa546162d,
         type: 3}
@@ -14869,6 +14869,7 @@ MonoBehaviour:
   matCurrent: {fileID: 2100000, guid: 6d373b8474414424cb6aa58616499410, type: 2}
   matAsteroidField: {fileID: 2100000, guid: 3deaff85f9f255e408973675829d0e78, type: 2}
   matQuestObjective: {fileID: 0}
+  matEnemyZone: {fileID: 0}
   mapCamera: {fileID: 981281731}
 --- !u!4 &447809564
 Transform:
@@ -20666,9 +20667,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f32f4d8ca44814429d6958256214cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piratePrefab: {fileID: 3912337994830046331, guid: c6eb335683ebb7e4b9785d6f1081f658,
+  piratePrefab: {fileID: 8373041070567436010, guid: 62f2c78713b7e474987c6528436e6927,
     type: 3}
   drops:
+  - {fileID: 7619207727698876040, guid: 6eaec7888e1be5545b31a5cdf0f8a0c2, type: 3}
   - {fileID: 3252393650116132794, guid: 3d7261f1862ee5643958a6257a2f1dbc, type: 3}
   - {fileID: 418630426295922197, guid: fa8a60e1d699b5242832d7dad20c1e40, type: 3}
   - {fileID: 657247478574871678, guid: 89cd5e03cd18bf04fa9ccf6fa546162d, type: 3}
@@ -25903,7 +25905,7 @@ PrefabInstance:
     - target: {fileID: 4196661238164130910, guid: 4efa02f26d06daa4daa73a70771ac292,
         type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4196661238164130910, guid: 4efa02f26d06daa4daa73a70771ac292,
         type: 3}
@@ -26115,7 +26117,7 @@ PrefabInstance:
     - target: {fileID: 8001120509376782664, guid: a9b4841a8e8de0a44918f803930dbed9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8001120509376782664, guid: a9b4841a8e8de0a44918f803930dbed9,
         type: 3}
