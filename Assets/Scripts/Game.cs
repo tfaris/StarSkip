@@ -67,7 +67,7 @@ public class Game : MonoBehaviour
 
                 if (_explorationCount % this.upgradeOnGridsExplored == 0)
                 {
-                    playerShip?.Upgrade();
+                    playerShip?.Upgrade(playerShip?.GetUpgradeable());
                 }
             }
         }

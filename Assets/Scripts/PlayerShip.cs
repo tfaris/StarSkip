@@ -10,6 +10,28 @@ public class PlayerShip : Ship
     
     Rigidbody body;
     WarpJump _jump;
+
+    public enum UpgradeType : int
+    {
+        NoUpgrades = -1,
+        Standard = 0,
+        ScatterShot = 1,
+        Pierce = 2,
+        Missile = 3,
+        Mine = 4,
+        SuperLaser = 5,
+        RearShot = 6,
+        MaxHealth = 7,
+        MaxSpeed = 8
+    }
+
+    public UpgradeType CurrentUpgradeType
+    {
+        get; set;
+    }
+
+    SpeedUpgrade _speedUpgrade = new SpeedUpgrade();
+    HealthUpgradeable _healthUpgrade = new HealthUpgradeable();
     
     protected override void Start()
     {
@@ -23,6 +45,11 @@ public class PlayerShip : Ship
     {
         base.Update();
         Game.Instance.GetGridState(Game.Instance.GetCurrentGrid()).SetExplored(true);
+
+        if (this.warpPoints > 10)
+        {
+            this.warpPoints = 10;
+        }
 
         if (!_jump.IsJumping)
         {
@@ -91,14 +118,154 @@ public class PlayerShip : Ship
         }
     }
 
+    class HealthUpgradeable : IUpgradeable
+    {
+        int _level;
+
+        public bool CanUpgrade()
+        {
+            return _level < 10;
+        }
+
+        public void Upgrade()
+        {
+            _level++;
+            Game.Instance.playerShip.maxHealth += 50;
+        }
+
+        public bool HasMaxUpgrade()
+        {
+            return _level == 10;
+        }
+    }
+
+    class SpeedUpgrade : IUpgradeable
+    {
+        int _level = 1;
+
+        public bool CanUpgrade()
+        {
+            return _level < 5;
+        }
+
+        public void Upgrade()
+        {
+            _level++;
+            Game.Instance.playerShip.maxSpeed += 100;
+        }
+
+        public bool HasMaxUpgrade()
+        {
+            return _level == 5;
+        }
+    }
+
+    public class NonUpgradeable : IUpgradeable
+    {
+        public bool CanUpgrade()
+        {
+            return false;
+        }
+
+        public bool HasMaxUpgrade()
+        {
+            return false;
+        }
+
+        public void Upgrade()
+        {
+            //
+        }
+    }
+
+
+
     ///
     /// Upgrade the ships current weapon/item.
     ///
-    public void Upgrade()
+    public IUpgradeable GetUpgradeable()
     {
-        this.health = 100;
-        // todo: upgrade weapon with active upgrade selection value
-        Debug.Log("Ship upgraded");
+        return GetUpgradeable(CurrentUpgradeType);
+    }
+
+    public IUpgradeable GetUpgradeable(UpgradeType ug)
+    {
+        Weapon wp = null;
+        switch (ug)
+        {
+            case UpgradeType.NoUpgrades:
+            {
+                break;
+            }
+            case UpgradeType.Standard:
+            {
+                wp = this.weapons[0];
+                break;
+            }
+            case UpgradeType.ScatterShot:
+            {
+                wp = (this.weapons[0] as StandardShot).spreadshotUpgrade;
+                break;
+            }
+            case UpgradeType.Pierce:
+            {
+                if (this.weapons.Count > 1)
+                {
+                    wp = this.weapons[1];
+                }
+                break;
+            }
+            case UpgradeType.Missile:
+            {
+                wp = this.missileWeaponInstance;
+                break;
+            }
+            case UpgradeType.Mine:
+            {
+                wp = this.minesWeaponInstance;
+                break;
+            }
+            case UpgradeType.SuperLaser:
+            {
+                wp = this.superLaserInstance;
+                break;
+            }
+            case UpgradeType.RearShot:
+            {
+                wp = (this.weapons[0] as StandardShot).rearShotUpgrade;
+                break;
+            }
+            case UpgradeType.MaxHealth:
+            {
+                // max health upgrade
+                return _healthUpgrade;
+            }
+            case UpgradeType.MaxSpeed:
+            {
+                // max speed upgrade
+                return _speedUpgrade;
+            }
+            default:
+            {
+                throw new System.Exception("unknown upgrade type " + CurrentUpgradeType);
+            }
+        }
+
+        if (wp != null)
+        {
+            return wp;
+        }
+        return new NonUpgradeable();
+    }
+
+    public void Upgrade(IUpgradeable upgradeable)
+    {
+        // full health recovery
+        this.health = this.maxHealth;
+        if (upgradeable.CanUpgrade())
+        {
+            upgradeable.Upgrade();
+        }
     }
 
     void FixedUpdate()

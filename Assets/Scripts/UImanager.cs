@@ -44,10 +44,54 @@ public class UImanager : MonoBehaviour
     List<Image> juices = new List<Image>();
     List<Image> stars = new List<Image>();
     List<Image> selections = new List<Image>();
+    public List<Image> upgrades = new List<Image>();
+    List<Image> curUpgrdes = new List<Image>();
 
-    int curWarps;
     float curHP;
-    public int curUpgradeSelection;
+
+    public int WarpCount
+    {
+        get
+        {
+            if (Game.Instance.playerShip)
+            {
+                return Game.Instance.playerShip.warpPoints;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        set
+        {
+            if (Game.Instance.playerShip)
+            {
+                Game.Instance.playerShip.warpPoints = value;
+            }
+        }
+    }
+
+    public int CurrentUpgradeSelection
+    {
+        get
+        {
+            if (Game.Instance.playerShip)
+            {
+                return (int)Game.Instance.playerShip.CurrentUpgradeType;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        set
+        {
+            if (Game.Instance.playerShip)
+            {
+                Game.Instance.playerShip.CurrentUpgradeType = (PlayerShip.UpgradeType)value;
+            }
+        }
+    }
 
     void Start()
     {
@@ -59,7 +103,7 @@ public class UImanager : MonoBehaviour
         juices.Add(warpJuice6);
         juices.Add(warpJuice7);
         juices.Add(warpJuice8);
-        juices.Add(warpJuice8);
+        juices.Add(warpJuice9);
         juices.Add(warpJuice10);
 
         stars.Add(star1);
@@ -72,14 +116,23 @@ public class UImanager : MonoBehaviour
         stars.Add(star8);
         stars.Add(star9);
 
+        // standard
         selections.Add(select1);
+        // scatter
         selections.Add(select2);
+        // pierce
         selections.Add(select3);
+        // missile
         selections.Add(select4);
+        // mine
         selections.Add(select5);
+        // super laser
         selections.Add(select6);
+        // rear shot
         selections.Add(select7);
+        // HEALTH NOT ARMOR
         selections.Add(select8);
+        // speed
         selections.Add(select9);
     }
 
@@ -87,61 +140,92 @@ public class UImanager : MonoBehaviour
     {
         curHP = hpBar.fillAmount;
 
-        if (Input.GetButtonDown("Upgrade Selection Down"))
+        var player = Game.Instance.playerShip;
+        if (player)
         {
-            if (curUpgradeSelection == 0)
+            hpBar.fillAmount = player.health / (float)player.maxHealth;
+        }
+        else
+        {
+            hpBar.fillAmount = 0;
+        }
+
+        for (int i=0; i < juices.Count; i++)
+        {
+            juices[i].enabled = (i+1) <= WarpCount;
+        }
+
+        if (CurrentUpgradeSelection != (int)PlayerShip.UpgradeType.NoUpgrades)
+        {
+            if (Input.GetButtonDown("Upgrade Selection Down"))
             {
-                curUpgradeSelection = 8;
+                BumpUpgradeSelection(-1);
             }
-            else
-            curUpgradeSelection--;
 
-            MoveUpgradeSelection();
-        }
-        if (Input.GetButtonDown("Upgrade Selection Up"))
-        {
-            if (curUpgradeSelection == 8)
+            if (Input.GetButtonDown("Upgrade Selection Up"))
             {
-                curUpgradeSelection = 0;
+                BumpUpgradeSelection(1);
             }
-            else
-            curUpgradeSelection++;
 
-            MoveUpgradeSelection();
+            UpdateStarsAndSelections();
+
+            // Automatically bump the upgrade if current is not upgradeable.
+            IUpgradeable upgradeable = Game.Instance.playerShip.GetUpgradeable();
+            if (!upgradeable.CanUpgrade())
+            {
+                BumpUpgradeSelection(1);
+            }
         }
-    }
-
-
-    public void AddJuice()
-    {
-        if (curWarps < 10)
+        else
         {
-            curWarps++;
-            juices[curWarps].enabled = true;
+            // Try to find a new thing we can upgrade.
+            BumpUpgradeSelection(1);
+            UpdateStarsAndSelections();
         }
     }
 
-    public void emptyJuice()
+    void UpdateStarsAndSelections()
     {
-        curWarps = 0;
-        foreach (Image image in juices)
+        for (int i=0; i < selections.Count; i++)
         {
-            image.enabled = false;
+            selections[i].GetComponent<Image>().enabled =
+                i == (int)Game.Instance.playerShip.CurrentUpgradeType;
+                
+            PlayerShip.UpgradeType ut = (PlayerShip.UpgradeType) i;
+            IUpgradeable ug = Game.Instance.playerShip.GetUpgradeable(ut);
+            
+            stars[i].enabled = ug.HasMaxUpgrade();
+            upgrades[i].enabled = !(ug is PlayerShip.NonUpgradeable);
         }
     }
 
-    public void ShowStar()
+    void BumpUpgradeSelection(int adjust)
     {
-        //
-    }
-
-    void MoveUpgradeSelection()
-    {
-        for (int i = 0; i < selections.Count; i++)
+        int newIndex = CurrentUpgradeSelection + adjust;
+        int count = 0;
+        for (int i = CurrentUpgradeSelection + adjust; ;i += adjust)
         {
-            selections[i].GetComponent<Image>().enabled = false;
-        }
-        selections[curUpgradeSelection].GetComponent<Image>().enabled = true;
-    }
+            if (i < 0)
+            {
+                i = selections.Count - 1;
+            }
+            else if (i >= selections.Count)
+            {
+                i = 0;
+            }
+            IUpgradeable ug = Game.Instance.playerShip.GetUpgradeable((PlayerShip.UpgradeType)i);
+            if (ug.CanUpgrade())
+            {
+                CurrentUpgradeSelection = i;
+                break;
+            }
+            count++;
 
+            if (count >= selections.Count)
+            {
+                CurrentUpgradeSelection = (int)PlayerShip.UpgradeType.NoUpgrades;
+                break;
+            }
+        }
+    }
 }

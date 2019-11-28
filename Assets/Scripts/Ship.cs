@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ship : MonoBehaviour, IDamageable, IAmAttacking
 {
     public int health;
+    public int maxHealth=100;
     public List<Weapon> weaponPrefabs;
     int _currentWeaponIndex;
     [System.NonSerialized]

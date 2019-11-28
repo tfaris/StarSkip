@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour, IAddToShip
+public class Weapon : MonoBehaviour, IAddToShip, IUpgradeable
 {
     public Ship FromShip {get;set;}
     [Tooltip("Despawn when this far away from the player.")]
@@ -192,5 +192,20 @@ public class Weapon : MonoBehaviour, IAddToShip
     public virtual void AddToShip(Ship ship)
     {
         //
+    }
+
+    public bool CanUpgrade()
+    {
+        return UpgradeLevel < 5;
+    }
+
+    public void Upgrade()
+    {
+        UpgradeLevel++;
+    }
+
+    public bool HasMaxUpgrade()
+    {
+        return UpgradeLevel == 5;
     }
 }
