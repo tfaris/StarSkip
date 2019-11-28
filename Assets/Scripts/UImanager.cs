@@ -47,7 +47,7 @@ public class UImanager : MonoBehaviour
     public List<Image> upgrades = new List<Image>();
     List<Image> curUpgrdes = new List<Image>();
 
-    float curHP;
+    float _lastSelectionX;
 
     public int WarpCount
     {
@@ -138,8 +138,6 @@ public class UImanager : MonoBehaviour
 
     void Update()
     {
-        curHP = hpBar.fillAmount;
-
         var player = Game.Instance.playerShip;
         if (player)
         {
@@ -157,14 +155,28 @@ public class UImanager : MonoBehaviour
 
         if (CurrentUpgradeSelection != (int)PlayerShip.UpgradeType.NoUpgrades)
         {
-            if (Input.GetButtonDown("Upgrade Selection Down"))
-            {
-                BumpUpgradeSelection(-1);
-            }
+            // if (Input.GetButtonDown("Upgrade Selection Down"))
+            // {
+            //     BumpUpgradeSelection(-1);
+            // }
 
-            if (Input.GetButtonDown("Upgrade Selection Up"))
+            // if (Input.GetButtonDown("Upgrade Selection Up"))
+            // {
+            //     BumpUpgradeSelection(1);
+            // }
+            
+            float axVal = Input.GetAxis("Upgrade Selection");
+            if (axVal != _lastSelectionX)
             {
-                BumpUpgradeSelection(1);
+                if (axVal < 0)
+                {
+                    BumpUpgradeSelection(-1);
+                }
+                else if (axVal > 0)
+                {
+                    BumpUpgradeSelection(1);
+                }
+                _lastSelectionX = axVal;
             }
 
             UpdateStarsAndSelections();
