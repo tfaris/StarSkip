@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warningIcon: {fileID: 466024919721580253, guid: 86e2da1fe9ae49c42b73f2a50bce082d,
     type: 3}
-  stopWarningWhenThisFarFromGridEdge: 9999999
+  stopWarningWhenThisFarFromGridEdge: 25
 --- !u!114 &1939446477542537130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
+  maxHealth: 100
   weaponPrefabs:
   - {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33, type: 3}
   drop: {fileID: 222799855923441544, guid: d0e6befb281573a46a1ba0a973a8e940, type: 3}

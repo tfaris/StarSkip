@@ -33,6 +33,8 @@ public class WarningIcon : MonoBehaviour
                 if (_warningIcon == null)
                 {
                     _warningIcon = GameObject.Instantiate(warningIcon, Game.Instance.GetOutOfBoundsPosition(), Quaternion.identity);
+                    var dwo = _warningIcon.AddComponent<DestructWithObject>();
+                    dwo.other = this.gameObject;
                 }
                 _warningIcon.transform.position = pos;
 

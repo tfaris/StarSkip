@@ -147,4 +147,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warningIcon: {fileID: 466024919721580253, guid: 86e2da1fe9ae49c42b73f2a50bce082d,
     type: 3}
-  stopWarningWhenThisFarFromGridEdge: 5
+  stopWarningWhenThisFarFromGridEdge: 10
