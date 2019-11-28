@@ -61,6 +61,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 5125291151414960465, guid: 77861ac6f0c27c7439a10dfdcdda20ac,
     type: 3}
+  maxAttractDist: 100
+  attractSpeed: 4
+  despawnTimer: 30
 --- !u!1 &6200644069785714157
 GameObject:
   m_ObjectHideFlags: 0

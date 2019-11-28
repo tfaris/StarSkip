@@ -7,6 +7,9 @@ public class Pickup : MonoBehaviour
     public GameObject itemPrefab;
     public float maxAttractDist = 100f;
     public float attractSpeed = 4f;
+    [Tooltip("Despawn after this many seconds if not picked up. If 0, never despawns.")]
+    public float despawnTimer = 0;
+    float _despawnCounter;
     int _prevMapPos = -999;
 
     void Update()
@@ -29,6 +32,16 @@ public class Pickup : MonoBehaviour
         UpdateMap(this);
 
         Game.Instance.CheckWorldWrap(this.transform);
+
+        if (this.despawnTimer != 0)
+        {
+            if (_despawnCounter >= this.despawnTimer)
+            {
+                UpdateMap(false);
+                GameObject.Destroy(this.gameObject);
+            }
+            _despawnCounter += Time.deltaTime;
+        }
     }
 
     void UpdateMap(bool exists)
