@@ -143,32 +143,20 @@ public class Game : MonoBehaviour
             
             firstGen = false;
             IsSetup = true;
+            
+            ShowMessageOnce(UItext.MessageType.Tut1);
+            ShowMessageOnce(UItext.MessageType.Tut2);
+            ShowMessageOnce(UItext.MessageType.Tut3);
+            ShowMessageOnce(UItext.MessageType.WarpTut1);
         }
 
         if (IsSetup)
         {
-            if (ExplorationCount == 1)
-            {
-                ShowMessageOnce(UItext.MessageType.Tut1);
-            }
-            else if (ExplorationCount == 2)
-            {
-                ShowMessageOnce(UItext.MessageType.Tut2);
-            }
-            else if (ExplorationCount == 3)
-            {
-                ShowMessageOnce(UItext.MessageType.Tut3);
-            }
-            else if (ExplorationCount == 4)
-            {
-                ShowMessageOnce(UItext.MessageType.PirateDetected);
-            }
-
             if (playerShip)
             {
                 if (playerShip.warpPoints > 0)
                 {
-                    ShowMessageOnce(UItext.MessageType.WarpTut);
+                    ShowMessageOnce(UItext.MessageType.WarpTut2);
                 }
             }
             else
@@ -258,13 +246,15 @@ public class Game : MonoBehaviour
     ///
     /// Show the specified message only once.
     ///
-    public void ShowMessageOnce(UItext.MessageType messageType, params string[] formatArgs)
+    public bool ShowMessageOnce(UItext.MessageType messageType, params string[] formatArgs)
     {
         if (!_messagesShownOnce.Contains(messageType))
         {
             _messagesShownOnce.Add(messageType);
             ShowMessage(messageType, formatArgs);
+            return true;
         }
+        return false;
     }
 
     public int GetRank()

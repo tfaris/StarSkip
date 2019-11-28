@@ -52,6 +52,7 @@ public class UImanager : MonoBehaviour
 
     float _lastSelectionX, _textTimerCounter;
     bool _showingText;
+    Queue<string> _messageQueue = new Queue<string>();
 
     public int WarpCount
     {
@@ -153,7 +154,16 @@ public class UImanager : MonoBehaviour
         }
 
         // text
-        if (_showingText)
+        if (!_showingText && _messageQueue.Count > 0)
+        {
+            // show the next message
+            textForPlayer.text = _messageQueue.Dequeue();
+            textForPlayer.enabled = true;
+            textForPlayer.transform.parent.gameObject.SetActive(true);
+            _textTimerCounter = 0;
+            _showingText = true;
+        }
+        else if (_showingText)
         {
             if (_textTimerCounter >= textTimer)
             {
@@ -263,10 +273,6 @@ public class UImanager : MonoBehaviour
     public void ShowMessage(UItext.MessageType messageType, params string[] formatArgs)
     {
         string msg = this.textManager.GetMessage(messageType, formatArgs);
-        textForPlayer.text = msg;
-        textForPlayer.enabled = true;
-        textForPlayer.transform.parent.gameObject.SetActive(true);
-        _showingText = true;
-        _textTimerCounter = 0;
+        _messageQueue.Enqueue(msg);
     }
 }

@@ -11,21 +11,22 @@ public class UItext : MonoBehaviour
 
     public enum MessageType : int
     {
-        Tut1 = 0,
-        Tut2 = 1,
-        Tut3 = 2,
-        PirateDetected = 3,
-        WarpTut = 4,
-        RankUp = 5,
+        Tut1,
+        Tut2,
+        Tut3,
+        PirateDetected,
+        WarpTut1,
+        WarpTut2,
+        RankUp,
         
-        WeaponAcquired = 6,
-        StandarShotPassiveUpgrade = 7,
+        WeaponAcquired,
+        StandarShotPassiveUpgrade,
 
-        NewArea = 12,
-        BigBad = 13,
+        NewArea,
+        BigBad,
 
-        GameOverLoss = 14,
-        GameOverWin = 15,
+        GameOverLoss,
+        GameOverWin,
     }
 
 
@@ -36,12 +37,13 @@ public class UItext : MonoBehaviour
         //Moving to second grid space
         textForPlayer.Add(MessageType.Tut2, "Explore to receive upgrades");
         //Moving to third grid space
-        textForPlayer.Add(MessageType.Tut3, "Use d-left and d-right, or Z and C, to choose which part of your ship will receive upgrades");
+        textForPlayer.Add(MessageType.Tut3, "Use d-left and d-right, or Z and C, to choose which part of your ship will receive upgrades as you explore");
         //Moving to fourth grid space/whenever a pirate spawns
         textForPlayer.Add(MessageType.PirateDetected, "Pirate detected. Check map (Select, or M)");
 
         //Picking up first warp token
-        textForPlayer.Add(MessageType.WarpTut, "Press Y (controller) or J (keyboard) to warp jump. The more warp tokens you collect, the further you can jump.");
+        textForPlayer.Add(MessageType.WarpTut1, "Warp tokens can sometimes be collected from asteroids or enemies. The more you collect, the further you can jump.");
+        textForPlayer.Add(MessageType.WarpTut2, "Press Y (controller) or J (keyboard) to warp jump.");
         //After upgrading
         textForPlayer.Add(MessageType.RankUp, "Rank Up! {0} explored");
         //Weapon picked up

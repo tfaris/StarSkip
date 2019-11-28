@@ -253,7 +253,7 @@ MonoBehaviour:
   hpBar: {fileID: 1286748425}
   textForPlayer: {fileID: 1257971825}
   textManager: {fileID: 3949654}
-  textTimer: 15
+  textTimer: 5
   upgrades:
   - {fileID: 542415397}
   - {fileID: 379056583}

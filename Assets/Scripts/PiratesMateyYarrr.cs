@@ -27,15 +27,18 @@ public class PiratesMateyYarrr : MonoBehaviour
 
                 if (drops.Count > 0)
                 {
-                    Game.Instance.ShowMessage(UItext.MessageType.PirateDetected);
+                    if (Game.Instance.ExplorationCount > 1)
+                    {
+                        Game.Instance.ShowMessage(UItext.MessageType.PirateDetected);
 
-                    _pirateInstance = GameObject.Instantiate(piratePrefab, GetSpawnLocationForPirate(), Quaternion.identity);
+                        _pirateInstance = GameObject.Instantiate(piratePrefab, GetSpawnLocationForPirate(), Quaternion.identity);
 
-                    var attack = _pirateInstance.GetComponent<AttackPlayer>();
-                    var follow = _pirateInstance.GetComponent<FollowPlayer>();
+                        var attack = _pirateInstance.GetComponent<AttackPlayer>();
+                        var follow = _pirateInstance.GetComponent<FollowPlayer>();
 
-                    attack.attackThis = Game.Instance.playerShip.gameObject;
-                    follow.trackThisObject = Game.Instance.playerShip.gameObject;
+                        attack.attackThis = Game.Instance.playerShip.gameObject;
+                        follow.trackThisObject = Game.Instance.playerShip.gameObject;
+                    }
                 }
                 else
                 {
