@@ -98,6 +98,11 @@ public class SuperLaser : Weapon
         {
             ship.weapons.Add(this);
         }
+        
+        if (ship is PlayerShip)
+        {
+            Game.Instance.ShowMessage(UItext.MessageType.WeaponAcquired, "Super Laser", "LT, x, or right click");
+        }
     }
 
     protected override void OnDamageableCollision(GameObject sourceObject, IDamageable damageable)

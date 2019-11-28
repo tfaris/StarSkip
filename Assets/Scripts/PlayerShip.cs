@@ -258,6 +258,9 @@ public class PlayerShip : Ship
         return new NonUpgradeable();
     }
 
+    ///
+    /// Upgrade the ship and the specified upgradeble.
+    ///
     public void Upgrade(IUpgradeable upgradeable)
     {
         // full health recovery
@@ -266,6 +269,7 @@ public class PlayerShip : Ship
         {
             upgradeable.Upgrade();
         }
+        Game.Instance.ShowMessage(UItext.MessageType.RankUp, Game.Instance.ExplorationCount.ToString());
     }
 
     void FixedUpdate()

@@ -126,6 +126,8 @@ public class Mines : Weapon
         if (ship is PlayerShip)
         {
             ship.minesWeaponInstance = this;
+            
+            Game.Instance.ShowMessage(UItext.MessageType.WeaponAcquired, "Mines", "RB or Alt");
         }
         else
         {

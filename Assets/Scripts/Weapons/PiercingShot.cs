@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PiercingShot : Weapon
 {
-    bool _piercing;
+    bool _piercing = true;
 
     public override IEnumerator ProjectileUpdate(GameObject projectileObj, Vector3 startPosition)
     {
@@ -30,11 +30,11 @@ public class PiercingShot : Weapon
     {
         if (newLevel == 2)
         {
-            _piercing = true;
+            CooldownTimer *= .85f;
         }
         else if (newLevel == 3)
         {
-            // longer range
+            CooldownTimer *= .75f;
         }
         else if (newLevel == 4)
         {
@@ -48,5 +48,10 @@ public class PiercingShot : Weapon
     public override void AddToShip(Ship ship)
     {
         ship.weapons.Add(this);
+        
+        if (ship is PlayerShip)
+        {
+            Game.Instance.ShowMessage(UItext.MessageType.WeaponAcquired, "Piercing Shot", "select with B or Left Ctrl\n. Fire with RT, Spacebar, or left click");
+        }
     }
 }

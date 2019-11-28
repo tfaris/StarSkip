@@ -11,6 +11,8 @@ public class Zone : MonoBehaviour
 
     List<GameObject> enemies = new List<GameObject>();
 
+    bool _playerHasDiscovered = false;
+
     public int DestroyedEnemiesCount
     {
         get; private set;
@@ -41,6 +43,19 @@ public class Zone : MonoBehaviour
     {
         if (Game.Instance && Game.Instance.IsSetup)
         {
+            if (Game.Instance.playerShip)
+            {
+                if (!_playerHasDiscovered)
+                {
+                    Bounds zoneBounds = backgroundRenderer.bounds;
+                    if (zoneBounds.Contains(Game.Instance.playerShip.transform.position))
+                    {
+                        _playerHasDiscovered = true;
+                        Game.Instance.ShowMessage(UItext.MessageType.NewArea);
+                    }
+                }
+            }
+
             for (int i=0; i < enemies.Count; i++)
             {
                 GameObject enemyObj = enemies[i];

@@ -40,6 +40,9 @@ public class UImanager : MonoBehaviour
 
     public Text textForPlayer;
 
+    public UItext textManager;
+    public float textTimer;
+
 
     List<Image> juices = new List<Image>();
     List<Image> stars = new List<Image>();
@@ -47,7 +50,8 @@ public class UImanager : MonoBehaviour
     public List<Image> upgrades = new List<Image>();
     List<Image> curUpgrdes = new List<Image>();
 
-    float _lastSelectionX;
+    float _lastSelectionX, _textTimerCounter;
+    bool _showingText;
 
     public int WarpCount
     {
@@ -148,6 +152,21 @@ public class UImanager : MonoBehaviour
             hpBar.fillAmount = 0;
         }
 
+        // text
+        if (_showingText)
+        {
+            if (_textTimerCounter >= textTimer)
+            {
+                textForPlayer.enabled = false;
+                textForPlayer.transform.parent.gameObject.SetActive(false);
+                textForPlayer.text = string.Empty;
+                _showingText = false;
+                _textTimerCounter = 0;
+            }
+            _textTimerCounter += Time.deltaTime;
+        }
+        //
+
         for (int i=0; i < juices.Count; i++)
         {
             juices[i].enabled = (i+1) <= WarpCount;
@@ -239,5 +258,15 @@ public class UImanager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void ShowMessage(UItext.MessageType messageType, params string[] formatArgs)
+    {
+        string msg = this.textManager.GetMessage(messageType, formatArgs);
+        textForPlayer.text = msg;
+        textForPlayer.enabled = true;
+        textForPlayer.transform.parent.gameObject.SetActive(true);
+        _showingText = true;
+        _textTimerCounter = 0;
     }
 }

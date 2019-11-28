@@ -5,38 +5,57 @@ using UnityEngine;
 public class UItext : MonoBehaviour
 {
 
-    public List<string> textForPlayer = new List<string>();
+    public Dictionary<MessageType, string> textForPlayer = new Dictionary<MessageType, string>();
 
     public List<string> upgradeNames = new List<string>();
+
+    public enum MessageType : int
+    {
+        Tut1 = 0,
+        Tut2 = 1,
+        Tut3 = 2,
+        PirateDetected = 3,
+        WarpTut = 4,
+        RankUp = 5,
+        
+        WeaponAcquired = 6,
+        StandarShotPassiveUpgrade = 7,
+
+        NewArea = 12,
+        BigBad = 13,
+
+        GameOverLoss = 14,
+        GameOverWin = 15,
+    }
 
 
     void Start()
     {
-
         //On spawn:
-        textForPlayer.Add("Fire with R");
+        textForPlayer.Add(MessageType.Tut1, "Fire with RT, Left Click, or Spacebar.");
         //Moving to second grid space
-        textForPlayer.Add("Explore to receive upgrades");
+        textForPlayer.Add(MessageType.Tut2, "Explore to receive upgrades");
         //Moving to third grid space
-        textForPlayer.Add("Use d-left and d-right to choose which part of your ship will receive upgrades");
-        //Moving to fifth grid space/whenever a pirate spawns
-        textForPlayer.Add("New pirate detected. Check map (select)");
+        textForPlayer.Add(MessageType.Tut3, "Use d-left and d-right, or Z and C, to choose which part of your ship will receive upgrades");
+        //Moving to fourth grid space/whenever a pirate spawns
+        textForPlayer.Add(MessageType.PirateDetected, "Pirate detected. Check map (Select, or M)");
 
         //Picking up first warp token
-        textForPlayer.Add("Press Y to warp jump");
+        textForPlayer.Add(MessageType.WarpTut, "Press Y (controller) or J (keyboard) to warp jump. The more warp tokens you collect, the further you can jump.");
         //After upgrading
-        textForPlayer.Add("Rank Up! 50/100/150/... explored");
+        textForPlayer.Add(MessageType.RankUp, "Rank Up! {0} explored");
         //Weapon picked up
-        textForPlayer.Add("Use X to fire Super Laser/Pierce Shot/Missile/...");
+        textForPlayer.Add(MessageType.WeaponAcquired, "Acquired: {0}\nUse: {1}");
+        textForPlayer.Add(MessageType.StandarShotPassiveUpgrade, "{0} added to primary weapon.\nUse: Select primary weapon with {1}\nFire with {2}");
         //Finding new enemy area
-        textForPlayer.Add("New area detected");
+        textForPlayer.Add(MessageType.NewArea, "New area detected");
         //After completing all three areas
-        textForPlayer.Add("Massive energy surge detected. Check map");
+        textForPlayer.Add(MessageType.BigBad, "Massive energy surge detected! Check map");
 
         //Game Over
-        textForPlayer.Add("Game Over");
+        textForPlayer.Add(MessageType.GameOverLoss, "Game Over!\nRank: {0}");
         //Victory
-        textForPlayer.Add("Thanks for playing! Your rank: X");
+        textForPlayer.Add(MessageType.GameOverWin, "Thanks for playing!\nRank: {0}");
 
         //
 
@@ -58,6 +77,16 @@ public class UItext : MonoBehaviour
 
         upgradeNames.Add("Speed");
 
+    }
+
+    public string GetMessage(MessageType messageType, params string[] formatArgs)
+    {
+        string msg = this.textForPlayer[messageType];
+        if (formatArgs.Length > 0)
+        {
+            msg = string.Format(msg, formatArgs);
+        }
+        return msg;
     }
 
 }

@@ -27,6 +27,8 @@ public class PiratesMateyYarrr : MonoBehaviour
 
                 if (drops.Count > 0)
                 {
+                    Game.Instance.ShowMessage(UItext.MessageType.PirateDetected);
+
                     _pirateInstance = GameObject.Instantiate(piratePrefab, GetSpawnLocationForPirate(), Quaternion.identity);
 
                     var attack = _pirateInstance.GetComponent<AttackPlayer>();

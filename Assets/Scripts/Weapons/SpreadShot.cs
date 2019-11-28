@@ -110,5 +110,10 @@ public class SpreadShot : Weapon
         {
             ss.spreadshotUpgrade = this;
         }
+
+        if (ship is PlayerShip)
+        {
+            Game.Instance.ShowMessage(UItext.MessageType.StandarShotPassiveUpgrade, "Spread Shot", "B or Left Ctrl", "RT, Spacebar, or left click");
+        }
     }
 }

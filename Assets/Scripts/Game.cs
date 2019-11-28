@@ -23,11 +23,13 @@ public class Game : MonoBehaviour
     public float gridWidth, gridHeight;
     [HideInInspector]
     public int gameSeed;
+    public UImanager uIManager;
 
     float lastAspectRatio;
     bool placedPlayer, firstGen = true;
     CameraController cameraController;
     int _explorationCount;
+    List<UItext.MessageType> _messagesShownOnce = new List<UItext.MessageType>();
 
     System.Collections.Generic.Dictionary<int, GridState> gridStates;
     List<Zone> _zones = new List<Zone>();
@@ -145,6 +147,36 @@ public class Game : MonoBehaviour
 
         if (IsSetup)
         {
+            if (ExplorationCount == 1)
+            {
+                ShowMessageOnce(UItext.MessageType.Tut1);
+            }
+            else if (ExplorationCount == 2)
+            {
+                ShowMessageOnce(UItext.MessageType.Tut2);
+            }
+            else if (ExplorationCount == 3)
+            {
+                ShowMessageOnce(UItext.MessageType.Tut3);
+            }
+            else if (ExplorationCount == 4)
+            {
+                ShowMessageOnce(UItext.MessageType.PirateDetected);
+            }
+
+            if (playerShip)
+            {
+                if (playerShip.warpPoints > 0)
+                {
+                    ShowMessageOnce(UItext.MessageType.WarpTut);
+                }
+            }
+            else
+            {
+                // no playership? loss....
+                Game.Instance.ShowMessageOnce(UItext.MessageType.GameOverLoss, Game.Instance.GetRank().ToString());
+            }
+
             if (!_enoughEnemiesKilled)
             {
                 int zonesCompletedCount = 0;
@@ -160,7 +192,7 @@ public class Game : MonoBehaviour
                 {
                     _enoughEnemiesKilled = true;
                     // todo: spawn boss?
-                    Debug.Log("Destroyed enough enemies!");
+                    ShowMessageOnce(UItext.MessageType.BigBad);
                 }
             }
         }
@@ -210,6 +242,34 @@ public class Game : MonoBehaviour
         //         // lr.SetPosition(4, new Vector3(xMin, 0, zMin));
         //     }
         // }
+    }
+
+    ///
+    /// Show the specified message.
+    ///
+    public void ShowMessage(UItext.MessageType messageType, params string[] formatArgs)
+    {
+        if (uIManager)
+        {
+            uIManager.ShowMessage(messageType, formatArgs);
+        }
+    }
+
+    ///
+    /// Show the specified message only once.
+    ///
+    public void ShowMessageOnce(UItext.MessageType messageType, params string[] formatArgs)
+    {
+        if (!_messagesShownOnce.Contains(messageType))
+        {
+            _messagesShownOnce.Add(messageType);
+            ShowMessage(messageType, formatArgs);
+        }
+    }
+
+    public int GetRank()
+    {
+        return ExplorationCount;
     }
 
     ///

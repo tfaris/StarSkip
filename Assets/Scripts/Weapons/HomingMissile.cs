@@ -25,6 +25,8 @@ public class HomingMissile : Weapon
         if (ship is PlayerShip)
         {
             ship.missileWeaponInstance = this;
+            
+            Game.Instance.ShowMessage(UItext.MessageType.WeaponAcquired, "Homing Missile", "LB or shift");
         }
         else
         {
