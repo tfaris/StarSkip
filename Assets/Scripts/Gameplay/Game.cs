@@ -133,11 +133,12 @@ public class Game : MonoBehaviour
             if (!placedPlayer)
             {
                 // Randomly place the player.
-                playerShip.transform.position = new Vector3(
+                var worldPos = new Vector3(
                     UnityEngine.Random.Range(WorldBoundaries.xMin + 1, WorldBoundaries.xMax - 1),
                     playerShip.transform.position.y,
                     UnityEngine.Random.Range(WorldBoundaries.yMin + 1, WorldBoundaries.yMax - 1)
                 );
+                playerShip.transform.position = GetCenterPositionForGrid(GetGrid(worldPos));
                 placedPlayer = true;
             }
             
