@@ -2783,7 +2783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &543215446
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -8169,7 +8169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &739992015
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -12937,7 +12937,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &799267373
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -19455,7 +19455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1095921148
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -24222,6 +24222,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: c5ff56886fdc8314c8c2192d90965018, type: 3}
       propertyPath: m_Name
       value: bossSAT
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c5ff56886fdc8314c8c2192d90965018, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c5ff56886fdc8314c8c2192d90965018, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34588,6 +34592,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Star
       objectReference: {fileID: 0}
+    - target: {fileID: 942684032624550836, guid: ff9668ad4106d0648859aa4268a7b83b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 942684032624550833, guid: ff9668ad4106d0648859aa4268a7b83b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -34656,6 +34665,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Explode
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217671660592394807, guid: 125b2288b5770bb43a6bfb2339631764,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1217671660592394806, guid: 125b2288b5770bb43a6bfb2339631764,
         type: 3}
@@ -34877,6 +34891,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nebula
       objectReference: {fileID: 0}
+    - target: {fileID: 2864223856325308735, guid: 33a09513c1e59ab4f94f51fd3e729ec3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2864223856325308734, guid: 33a09513c1e59ab4f94f51fd3e729ec3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -34946,6 +34965,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring Green
       objectReference: {fileID: 0}
+    - target: {fileID: 3584564036508451363, guid: 68f906b1f9b0e914fbe73f0e519ee2df,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3584564036508451367, guid: 68f906b1f9b0e914fbe73f0e519ee2df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35014,6 +35038,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ring Purple
+      objectReference: {fileID: 0}
+    - target: {fileID: 3684967593973157318, guid: f401e9e81ec31084784ccf264c980b46,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3684967593973157314, guid: f401e9e81ec31084784ccf264c980b46,
         type: 3}
@@ -35208,6 +35237,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring Yellow
       objectReference: {fileID: 0}
+    - target: {fileID: 4065618282517081670, guid: 64248019d44a10048a01ce761d3eef0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4065618282517081666, guid: 64248019d44a10048a01ce761d3eef0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35276,6 +35310,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Planet Green
+      objectReference: {fileID: 0}
+    - target: {fileID: 4446503933981192196, guid: dc679507eadae1e49b20c7ba28c6b3d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4446503933981192192, guid: dc679507eadae1e49b20c7ba28c6b3d8,
         type: 3}
@@ -35594,6 +35633,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring Red
       objectReference: {fileID: 0}
+    - target: {fileID: 7593150363980121813, guid: 681737f7efe56444395919a8e5c9c2dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7593150363980121809, guid: 681737f7efe56444395919a8e5c9c2dd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35662,6 +35706,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Nebs2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626990457960518641, guid: 6939e667233ce4a458ea579ceffb3b09,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7626990457960518653, guid: 6939e667233ce4a458ea579ceffb3b09,
         type: 3}
