@@ -190,6 +190,8 @@ MonoBehaviour:
   - {fileID: 4077672617601906563, guid: 3de2430c6a57c774a92af94f0a88d8b8, type: 3}
   drop: {fileID: 0}
   dropChance: 0
+  destructionEffect: {fileID: 8389063632026313578, guid: 33f04b4062362d442a09a40a7d08a6ab,
+    type: 3}
 --- !u!114 &744611335574642960
 MonoBehaviour:
   m_ObjectHideFlags: 0

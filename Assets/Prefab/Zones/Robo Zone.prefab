@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 1939446477542537122, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
+  - {fileID: 4766424430607595665, guid: e925ff9994ec0854bb7c2addda6f044f, type: 3}
+  - {fileID: 4859463695769473007, guid: 6e952a8bf67082f47a25964ff72df261, type: 3}
   spawnTimer: 20
   numEnemiesAtOnce: 3
 --- !u!1 &4138077882395747864
@@ -92,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1939446477542537122, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
+  - {fileID: 4766424430607595665, guid: e925ff9994ec0854bb7c2addda6f044f, type: 3}
   spawnTimer: 10
   numEnemiesAtOnce: 1
 --- !u!1 &4138077882537598525
@@ -139,6 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1939446477542537122, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
+  - {fileID: 4766424430607595665, guid: e925ff9994ec0854bb7c2addda6f044f, type: 3}
+  - {fileID: 4859463695769473007, guid: 6e952a8bf67082f47a25964ff72df261, type: 3}
   spawnTimer: 20
   numEnemiesAtOnce: 2
 --- !u!1 &4138077882815470092
@@ -152,7 +156,7 @@ GameObject:
   - component: {fileID: 4138077882815470095}
   - component: {fileID: 4138077882815470094}
   m_Layer: 0
-  m_Name: RoboZone
+  m_Name: Robo Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1939446477542537122, guid: cae2d3ac8f391214e80cf80c18a49f40, type: 3}
+  - {fileID: 4859463695769473007, guid: 6e952a8bf67082f47a25964ff72df261, type: 3}
   spawnTimer: 10
   numEnemiesAtOnce: 2
 --- !u!1 &4138077882959126065

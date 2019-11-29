@@ -296,10 +296,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 100
   weaponPrefabs:
   - {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33, type: 3}
   drop: {fileID: 0}
   dropChance: 0.5
+  destructionEffect: {fileID: 8389063632026313578, guid: 33f04b4062362d442a09a40a7d08a6ab,
+    type: 3}
   moveSpeed: 1000
   rotateSpeed: 350
   maxSpeed: 1000

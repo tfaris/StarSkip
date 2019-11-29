@@ -37,6 +37,22 @@ public class Zone : MonoBehaviour
     void OnEnemyDestroyed()
     {
         DestroyedEnemiesCount++;
+        if (DestroyedEnemiesCount <= Game.Instance.goalEnemiesPerZone)
+        {
+            Game.Instance.ShowMessage(
+                UItext.MessageType.EnemiesDestroyedGoalUpdate,
+                this.name.Replace("(Clone)", string.Empty),
+                DestroyedEnemiesCount.ToString(),
+                Game.Instance.goalEnemiesPerZone.ToString()
+            );
+        }
+    }
+
+    public bool ZoneContainsPoint(Vector3 point)
+    {
+        // we don't care about y
+        point.y = backgroundRenderer.bounds.min.y;
+        return backgroundRenderer.bounds.Contains(point);
     }
 
     void Update()
@@ -51,7 +67,7 @@ public class Zone : MonoBehaviour
                     if (zoneBounds.Contains(Game.Instance.playerShip.transform.position))
                     {
                         _playerHasDiscovered = true;
-                        Game.Instance.ShowMessage(UItext.MessageType.NewArea);
+                        Game.Instance.ShowMessage(UItext.MessageType.NewArea, this.name.Replace("(Clone)", string.Empty));
                     }
                 }
             }

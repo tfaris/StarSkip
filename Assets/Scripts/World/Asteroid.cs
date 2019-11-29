@@ -23,6 +23,8 @@ public class Asteroid : MonoBehaviour, IDamageable
     [HideInInspector]
     public AsteroidController spawner;
 
+    public GameObject destructionEffect;
+
     float rh;
     float rv;
 
@@ -55,6 +57,19 @@ public class Asteroid : MonoBehaviour, IDamageable
                 GameObject.Destroy(this.gameObject);
             }
         }
+
+        // clear zones of asteroids
+        // if (Random.Range(0f, 1f) < .5f)
+        // {
+        //     foreach (Zone zone in Game.Instance.Zones)
+        //     {
+        //         if (zone.ZoneContainsPoint(this.transform.position))
+        //         {
+        //             GameObject.Destroy(this.gameObject);
+        //         }
+        //     }
+        // }
+
         Game.Instance.CheckWorldWrap(this.transform);
     }
 
@@ -124,12 +139,12 @@ public class Asteroid : MonoBehaviour, IDamageable
                         ForceMode.Impulse
                     );
                 }
-                dmg.ApplyDamage(this.gameObject, this.damage);
+                dmg.ApplyDamage(this.gameObject, other.collider, this.damage);
             }
         }
     }
 
-    public void ApplyDamage(GameObject source, int damage)
+    public bool ApplyDamage(GameObject source, Collider collider, int damage)
     {
         health -= damage;
         if (health <= 0)
@@ -145,7 +160,12 @@ public class Asteroid : MonoBehaviour, IDamageable
                 GameObject.Instantiate(drop, this.transform.position, Quaternion.identity);
             }
 
+            if (destructionEffect)
+            {
+                GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
+            }
             GameObject.Destroy(this.gameObject);
         }
+        return true;
     }
 }

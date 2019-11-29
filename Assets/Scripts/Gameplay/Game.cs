@@ -24,6 +24,7 @@ public class Game : MonoBehaviour
     [HideInInspector]
     public int gameSeed;
     public UImanager uIManager;
+    public Boss bossPrefab;
 
     float lastAspectRatio;
     bool placedPlayer, firstGen = true;
@@ -41,6 +42,11 @@ public class Game : MonoBehaviour
         get {
             return _instance;
         }
+    }
+
+    public List<Zone> Zones
+    {
+        get => _zones;
     }
 
     ///
@@ -180,8 +186,7 @@ public class Game : MonoBehaviour
                 if (zonesCompletedCount == _zones.Count)
                 {
                     _enoughEnemiesKilled = true;
-                    // todo: spawn boss?
-                    ShowMessageOnce(UItext.MessageType.BigBad);
+                    SpawnBoss();
                 }
             }
         }
@@ -231,6 +236,24 @@ public class Game : MonoBehaviour
         //         // lr.SetPosition(4, new Vector3(xMin, 0, zMin));
         //     }
         // }
+    }
+
+    void SpawnBoss()
+    {
+        var spawnLoc = new Vector3(
+            WorldBoundaries.xMin + (WorldBoundaries.width / 2f),
+            0,
+            WorldBoundaries.yMin + (WorldBoundaries.height / 2f) 
+        );
+        GameObject.Instantiate(
+            bossPrefab,
+            spawnLoc,
+            Quaternion.identity
+        );
+        ShowMessageOnce(UItext.MessageType.BigBad);
+
+        GridState gs = GetGridState(GetGrid(spawnLoc));
+        gs.isBossLocation = true;
     }
 
     ///
@@ -317,20 +340,24 @@ public class Game : MonoBehaviour
         {
             for (int x=0; x < worldGridsWide; x++)
             {
-                bool asteroidsHere = UnityEngine.Random.Range(0f, 1f) >= .8f;
-                if (asteroidsHere)
+                GridState gs = GetGridState(x, z);
+                if (!gs.isEnemyArea)
                 {
-                    var worldPos = GetCenterPositionForGrid(x, z);
-                    float adjustX = UnityEngine.Random.Range(0, 1),
-                        adjustZ = UnityEngine.Random.Range(0, 1);
-                    worldPos.x -= gridWidth / 2 - adjustX * gridWidth;
-                    worldPos.z -= gridHeight / 2 - adjustZ * gridHeight;
-                    GameObject.Instantiate(
-                        worldAmbientAsteroidSpawner,
-                        worldPos,
-                        Quaternion.identity,
-                        asteroidsContainer.transform
-                    );
+                    bool asteroidsHere = UnityEngine.Random.Range(0f, 1f) >= .8f;
+                    if (asteroidsHere)
+                    {
+                        var worldPos = GetCenterPositionForGrid(x, z);
+                        float adjustX = UnityEngine.Random.Range(0, 1),
+                            adjustZ = UnityEngine.Random.Range(0, 1);
+                        worldPos.x -= gridWidth / 2 - adjustX * gridWidth;
+                        worldPos.z -= gridHeight / 2 - adjustZ * gridHeight;
+                        GameObject.Instantiate(
+                            worldAmbientAsteroidSpawner,
+                            worldPos,
+                            Quaternion.identity,
+                            asteroidsContainer.transform
+                        );
+                    }
                 }
             }
             yield return null;

@@ -14,11 +14,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int cameraGrid = Game.Instance.GetGrid(Camera.main.transform.position),
-            objGrid = Game.Instance.GetGrid(trackThis.transform.position);
-        if (cameraGrid != objGrid)
+        if (trackThis)
         {
-            CenterCameraOn(trackThis.transform);
+            int cameraGrid = Game.Instance.GetGrid(Camera.main.transform.position),
+                objGrid = Game.Instance.GetGrid(trackThis.transform.position);
+            if (cameraGrid != objGrid)
+            {
+                CenterCameraOn(trackThis.transform);
+            }
         }
     }
 

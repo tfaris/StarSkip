@@ -135,7 +135,7 @@ public class Map : MonoBehaviour
             }
             else
             {
-                if (gridState.hasQuestObjective)
+                if (gridState.hasQuestObjective || gridState.isBossLocation)
                 {
                     submesh = 4;
                 }                

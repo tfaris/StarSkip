@@ -175,7 +175,7 @@ public class Weapon : MonoBehaviour, IAddToShip, IUpgradeable
             {
                 return;
             }
-            OnDamageableCollision(sourceObject, dmg);
+            OnDamageableCollision(sourceObject, other, dmg);
         }
     }
 
@@ -183,10 +183,12 @@ public class Weapon : MonoBehaviour, IAddToShip, IUpgradeable
     /// Called when a projectile fired from this weapon collides with
     /// a damageable object.
     ///
-    protected virtual void OnDamageableCollision(GameObject sourceObject, IDamageable damageable)
+    protected virtual void OnDamageableCollision(GameObject sourceObject, Collider collider, IDamageable damageable)
     {
-        damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null , this.damage);
-        GameObject.Destroy(sourceObject);
+        if (damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null, collider, this.damage))
+        {
+            GameObject.Destroy(sourceObject);
+        }
     }
 
     public virtual void AddToShip(Ship ship)

@@ -68,15 +68,20 @@ public class RamAttack : MonoBehaviour
         IDamageable dmg = other.gameObject.GetComponent<IDamageable>();
         if (dmg != null)
         {
-            var otherBody = other.gameObject.GetComponent<Rigidbody>();
-            if (otherBody != null)
+            // Rammers can spawn into each other and that's no good.
+            var otherRamAttack = other.gameObject.GetComponent<RamAttack>();
+            if (otherRamAttack == null)
             {
-                otherBody.AddForce(_lastRamDirection.normalized * ramSpeed * .5f, ForceMode.Impulse);
+                var otherBody = other.gameObject.GetComponent<Rigidbody>();
+                if (otherBody != null)
+                {
+                    otherBody.AddForce(_lastRamDirection.normalized * ramSpeed * .5f, ForceMode.Impulse);
+                }
+                dmg.ApplyDamage(this.gameObject, other.collider, this.ramDamage);
+                _isRamming = false;
+                _cooldown = true;
+                _followScript.enabled = true;
             }
-            dmg.ApplyDamage(this.gameObject, this.ramDamage);
-            _isRamming = false;
-            _cooldown = true;
-            _followScript.enabled = true;
         }
     }
 }

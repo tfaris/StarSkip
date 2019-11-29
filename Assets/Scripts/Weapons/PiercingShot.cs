@@ -17,9 +17,9 @@ public class PiercingShot : Weapon
         }
     }
 
-    protected override void OnDamageableCollision(GameObject sourceObject, IDamageable damageable)
+    protected override void OnDamageableCollision(GameObject sourceObject, Collider collider, IDamageable damageable)
     {
-        damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null , this.damage);
+        damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null, collider, this.damage);
         if (!_piercing)
         {
             GameObject.Destroy(sourceObject);

@@ -39,7 +39,7 @@ public class AsteroidController : MonoBehaviour
 
         timer += .2f * Time.deltaTime;
 
-        if (timer > spawnRate)
+        if (timer > spawnRate && Game.Instance.TrackingObject)
         {
             // Don't spawn if player isn't close
             float distToPlayer = Mathf.Abs((Game.Instance.TrackingObject.transform.position - transform.position).magnitude);

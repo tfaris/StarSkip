@@ -22,6 +22,8 @@ public class UItext : MonoBehaviour
         WeaponAcquired,
         StandarShotPassiveUpgrade,
 
+        EnemiesDestroyedGoalUpdate,
+
         NewArea,
         BigBad,
 
@@ -50,9 +52,11 @@ public class UItext : MonoBehaviour
         textForPlayer.Add(MessageType.WeaponAcquired, "Acquired: {0}\nUse: {1}");
         textForPlayer.Add(MessageType.StandarShotPassiveUpgrade, "{0} added to primary weapon.\nUse: Select primary weapon with {1}\nFire with {2}");
         //Finding new enemy area
-        textForPlayer.Add(MessageType.NewArea, "New area detected");
+        textForPlayer.Add(MessageType.NewArea, "New area detected: {0}");
         //After completing all three areas
         textForPlayer.Add(MessageType.BigBad, "Massive energy surge detected! Check map");
+
+        textForPlayer.Add(MessageType.EnemiesDestroyedGoalUpdate, "{0}: {1} / {2}");
 
         //Game Over
         textForPlayer.Add(MessageType.GameOverLoss, "Game Over!\nRank: {0}");

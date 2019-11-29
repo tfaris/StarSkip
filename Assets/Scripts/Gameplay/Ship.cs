@@ -20,6 +20,8 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     public float dropChance = .5f;
     AttackPlayer _attack;
 
+    public GameObject destructionEffect;
+
     public virtual GameObject AttackingThis { get => GetCurrentTarget(); }
 
     public bool IsActivatingSuperLaser { get; protected set; }
@@ -125,7 +127,7 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     ///
     /// Apply damage to this ship.
     ///
-    public virtual void ApplyDamage(GameObject source, int damage)
+    public virtual bool ApplyDamage(GameObject source, Collider collider, int damage)
     {
         health -= damage;
 
@@ -139,7 +141,12 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
                     GameObject.Instantiate(drop, this.transform.position, Quaternion.identity);
                 }
             }
+            if (destructionEffect != null)
+            {
+                GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
+            }
             GameObject.Destroy(this.gameObject);
         }
+        return true;
     }
 }

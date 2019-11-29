@@ -141,7 +141,7 @@ public class PlayerShip : Ship
 
     class SpeedUpgrade : IUpgradeable
     {
-        int _level = 1;
+        int _level;
 
         public bool CanUpgrade()
         {
@@ -151,7 +151,8 @@ public class PlayerShip : Ship
         public void Upgrade()
         {
             _level++;
-            Game.Instance.playerShip.maxSpeed += 100;
+            Game.Instance.playerShip.maxSpeed += 280;
+            Game.Instance.playerShip.rotateSpeed += 20;
         }
 
         public bool HasMaxUpgrade()
@@ -282,7 +283,7 @@ public class PlayerShip : Ship
         );
     }
 
-    public override void ApplyDamage(GameObject source, int damage)
+    public override bool ApplyDamage(GameObject source, Collider collider, int damage)
     {
         health -= damage;
         if (health <= 0)
@@ -299,7 +300,12 @@ public class PlayerShip : Ship
                     Game.Instance.TrackingObject = source;
                 }
             }
+            if (destructionEffect != null)
+            {
+                GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
+            }
             GameObject.Destroy(this.gameObject);
         }
+        return true;
     }
 }

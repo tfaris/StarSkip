@@ -74,15 +74,14 @@ public class Mines : Weapon
         _minesNotOnScreen.Remove(projectileObj);
     }
 
-    protected override void OnDamageableCollision(GameObject sourceObject, IDamageable damageable)
+    protected override void OnDamageableCollision(GameObject sourceObject, Collider collider, IDamageable damageable)
     {
         // The update method needs to know when the mine objects are exploding
         if (!_explodingProjectiles.Contains(sourceObject))
         {
             _explodingProjectiles.Add(sourceObject);
         }
-
-        damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null , this.damage);
+        damageable.ApplyDamage(this && this.gameObject != null ? this.gameObject : null, collider, this.damage);
     }
 
     protected override void CheckCooldown()
