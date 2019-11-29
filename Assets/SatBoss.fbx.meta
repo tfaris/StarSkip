@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: c5ff56886fdc8314c8c2192d90965018
+guid: 1d665c549353603409ce584b089ed345
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: bossSat
+    2100000: satBoss
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube
@@ -65,7 +65,7 @@ ModelImporter:
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
