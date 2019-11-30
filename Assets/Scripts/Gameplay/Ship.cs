@@ -47,7 +47,12 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
 
     // Update is called once per frame
     protected virtual void Update()
-    {
+    {    
+        // Prevent rotation on other axes. RigidBody constraints aren't doing the job.
+        var rot = this.transform.rotation;
+        rot.x = rot.z = 0;
+        this.transform.rotation = rot;
+
         Game.Instance.CheckWorldWrap(this.transform);
     }
 

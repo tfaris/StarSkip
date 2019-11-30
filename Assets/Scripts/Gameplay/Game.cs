@@ -61,6 +61,12 @@ public class Game : MonoBehaviour
         set => cameraController.trackThis = value;
     }
 
+    public GameObject SpecialObjectsContainer
+    {
+        get;
+        private set;
+    }
+
     public bool IsSetup
     {
         get;
@@ -310,7 +316,7 @@ public class Game : MonoBehaviour
     ///
     private void SpawnPredefinedObjects()
     {
-        GameObject predefinedContainer = new GameObject("SpecialObjects");
+        SpecialObjectsContainer = new GameObject("SpecialObjects");
         foreach (PredefinedStuff ps in predefinedStuff)
         {
             int gridX, gridZ; 
@@ -332,11 +338,13 @@ public class Game : MonoBehaviour
             
             if (ps.objectToSpawn != null)
             {
+                worldPos.y = ps.objectToSpawn.transform.position.y;
+
                 var obj = GameObject.Instantiate(
                     ps.objectToSpawn,
                     worldPos,
                     Quaternion.identity,
-                    predefinedContainer.transform
+                    SpecialObjectsContainer.transform
                 );
 
                 // Setup various grid states here after creation.

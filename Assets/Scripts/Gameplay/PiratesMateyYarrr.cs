@@ -13,6 +13,8 @@ public class PiratesMateyYarrr : MonoBehaviour
 
     List<int> _previousSpawnLocations = new List<int>();
 
+    List<int> _usedSpecialObjectForPos = new List<int>();
+
     void Update()
     {
         if (Game.Instance.playerShip)
@@ -67,15 +69,44 @@ public class PiratesMateyYarrr : MonoBehaviour
 
     Vector3 GetSpawnLocationForPirate()
     {
+        // Try to spawn the pirate at a special object first. Maybe they're robbing a planet
+        // or something, etc...
+        int childCount = Game.Instance.SpecialObjectsContainer.transform.childCount;
+        if (_usedSpecialObjectForPos.Count < childCount)
+        {
+            bool foundGoodPos = false;
+            int attemptCounter = 0;
+            while (!foundGoodPos && attemptCounter < childCount)
+            {
+                int specIndex = Random.Range(0, Game.Instance.SpecialObjectsContainer.transform.childCount);
+                if (!_usedSpecialObjectForPos.Contains(specIndex))
+                {
+                    var tr = Game.Instance.SpecialObjectsContainer.transform.GetChild(specIndex);
+                    // Don't spawn pirates at enemy zones
+                    if (tr.GetComponent<Zone>() == null)
+                    {
+                        _usedSpecialObjectForPos.Add(specIndex);
+                        Vector3 specPos = tr.position;
+                        specPos.y = 0;
+                        return specPos;
+                    }
+                }
+            }
+        }
+        // Fall back to random if there's nothing left to spawn at.
+        return GetRandomPiratePos();
+    }
+
+    Vector3 GetRandomPiratePos()
+    {
         bool foundGoodPos = false;
         int pirateGridPos = 0;
         int attemptCounter = 0, totalGrids = Game.Instance.worldGridsHigh * Game.Instance.worldGridsWide;
         while (!foundGoodPos && attemptCounter < totalGrids)
         {
             pirateGridPos = Random.Range(0, totalGrids);
-            // TODO: We should use grid state to check if this is an enemy area.
-            bool isEnemyArea = false;
             GridState gs = Game.Instance.GetGridState(pirateGridPos);
+            bool isEnemyArea = gs.isEnemyArea;
             
             bool hasSpawnedHereAlready = _previousSpawnLocations.Contains(pirateGridPos);
             if (!isEnemyArea && !hasSpawnedHereAlready)
