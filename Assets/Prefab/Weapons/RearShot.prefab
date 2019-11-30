@@ -50,5 +50,6 @@ MonoBehaviour:
   speed: 15
   projectilePrefab: {fileID: 8278625875665442383, guid: 615752178d54a8047aa80d60e9c3b717,
     type: 3}
+  weaponFireSound: {fileID: 8300000, guid: 1f79b401eeaa99e428169c7748ab5ac4, type: 3}
   spreadDegrees: 0
   delayBetweenPellets: 0

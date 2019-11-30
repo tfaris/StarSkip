@@ -50,5 +50,6 @@ MonoBehaviour:
   speed: 20
   projectilePrefab: {fileID: 1821712754267971820, guid: bda7fd5dc9b888744a402629f693655a,
     type: 3}
+  weaponFireSound: {fileID: 8300000, guid: 4ac19c84191fed5449837b667f8f4d1e, type: 3}
   maximumHomingDistance: 100
   retargetTimer: 5

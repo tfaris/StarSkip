@@ -12,11 +12,14 @@ public class Boss : MonoBehaviour, IDamageable
 
     public List<Collider> weakPoints = new List<Collider>();
 
+    public List<AudioClip> weakPointDamagedSounds, weakPointDestroyedSounds;
+
     public GameObject weakPointDamageEffect, weakPointDestructionEffect;
 
     Dictionary<Collider, int> _weakPointHealthRemaining = new Dictionary<Collider, int>();
 
     Planet _rotator;
+    bool _destroying;
     
     void Start()
     {
@@ -31,26 +34,40 @@ public class Boss : MonoBehaviour, IDamageable
     {
         if (_weakPointHealthRemaining.Count == 0)
         {
-            OnDestroyed();
+            if (!_destroying)
+            {
+                Game.Instance.StartCoroutine(OnDestroyed());
+                _destroying = true;
+            }
             Game.Instance.ShowMessage(UItext.MessageType.GameOverWin, Game.Instance.GetRank().ToString());
-            GameObject.Destroy(this.gameObject);
         }
     }
 
-    void OnDestroyed()
+    IEnumerator OnDestroyed()
     {
-        if (weakPointDestructionEffect)
+        if (this)
         {
-            MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
-            for (int i=0; i < 10; i++)
+            if (weakPointDestructionEffect)
             {
-                Vector3 explodePoint = new Vector3(
-                    Random.Range(mr.bounds.min.x, mr.bounds.max.x),
-                    0,
-                    Random.Range(mr.bounds.min.z, mr.bounds.max.z)
-                );
-                GameObject.Instantiate(weakPointDestructionEffect, explodePoint, Quaternion.identity);
+                MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
+                for (int i=0; i < 10; i++)
+                {
+                    Vector3 explodePoint = new Vector3(
+                        Random.Range(mr.bounds.min.x, mr.bounds.max.x),
+                        0,
+                        Random.Range(mr.bounds.min.z, mr.bounds.max.z)
+                    );
+                    GameObject.Instantiate(weakPointDestructionEffect, explodePoint, Quaternion.identity);
+                    
+                    if (weakPointDestroyedSounds != null && weakPointDestroyedSounds.Count > 0)
+                    {
+                        Game.Instance.effectsAudioSource.PlayOneShot(weakPointDestroyedSounds[Random.Range(0, weakPointDestroyedSounds.Count)]);
+                    }
+                    
+                    yield return new WaitForSeconds(.5f);
+                }
             }
+            GameObject.Destroy(this.gameObject);
         }
     }
 
@@ -89,6 +106,10 @@ public class Boss : MonoBehaviour, IDamageable
                     {
                         GameObject.Instantiate(weakPointDamageEffect, collider.gameObject.transform.position, Quaternion.identity);
                     }
+                    if (weakPointDamagedSounds != null && weakPointDamagedSounds.Count > 0)
+                    {
+                        Game.Instance.effectsAudioSource.PlayOneShot(weakPointDamagedSounds[Random.Range(0, weakPointDamagedSounds.Count)]);
+                    }
                 }
                 return true;
             }
@@ -107,6 +128,10 @@ public class Boss : MonoBehaviour, IDamageable
         if (weakPointDestructionEffect != null)
         {
             GameObject.Instantiate(weakPointDestructionEffect, weakPointCollider.gameObject.transform.position, Quaternion.identity);
+        }
+        if (weakPointDestroyedSounds != null && weakPointDestroyedSounds.Count > 0)
+        {
+            Game.Instance.effectsAudioSource.PlayOneShot(weakPointDestroyedSounds[Random.Range(0, weakPointDestroyedSounds.Count)]);
         }
         GameObject.Destroy(weakPointCollider.gameObject);
         _weakPointHealthRemaining.Remove(weakPointCollider);

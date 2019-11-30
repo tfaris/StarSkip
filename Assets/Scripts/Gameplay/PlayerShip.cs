@@ -300,11 +300,22 @@ public class PlayerShip : Ship
                     Game.Instance.TrackingObject = source;
                 }
             }
+            if (destructionSounds != null && destructionSounds.Count > 0)
+            {
+                Game.Instance.effectsAudioSource.PlayOneShot(destructionSounds[Random.Range(0, destructionSounds.Count)]);
+            }
             if (destructionEffect != null)
             {
                 GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
             }
             GameObject.Destroy(this.gameObject);
+        }
+        else
+        {
+            if (takeDamageSounds != null && takeDamageSounds.Count > 0)
+            {
+                Game.Instance.effectsAudioSource.PlayOneShot(takeDamageSounds[Random.Range(0, takeDamageSounds.Count)]);
+            }
         }
         return true;
     }

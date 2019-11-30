@@ -115,6 +115,10 @@ MonoBehaviour:
   dropChance: 1
   destructionEffect: {fileID: 8389063632026313578, guid: 33f04b4062362d442a09a40a7d08a6ab,
     type: 3}
+  destructionSounds:
+  - {fileID: 8300000, guid: c3b754bcbf47ebd49adc8f4aed4ad5f2, type: 3}
+  - {fileID: 8300000, guid: 0a8af15c27d7cc9469b1527b11cb0501, type: 3}
+  - {fileID: 8300000, guid: 6003a5a2e0fb83a4a8262999f1b11c70, type: 3}
 --- !u!114 &4342558185233692515
 MonoBehaviour:
   m_ObjectHideFlags: 0

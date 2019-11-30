@@ -25,6 +25,8 @@ public class Asteroid : MonoBehaviour, IDamageable
 
     public GameObject destructionEffect;
 
+    public List<AudioClip> destructionSounds;
+
     float rh;
     float rv;
 
@@ -159,10 +161,17 @@ public class Asteroid : MonoBehaviour, IDamageable
             {
                 GameObject.Instantiate(drop, this.transform.position, Quaternion.identity);
             }
-
-            if (destructionEffect)
+            
+            if (Game.Instance.IsInPlayerGrid(this.gameObject))
             {
-                GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
+                if (destructionEffect)
+                {
+                    GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
+                }
+                if (destructionSounds != null && destructionSounds.Count > 0)
+                {
+                    Game.Instance.effectsAudioSource.PlayOneShot(destructionSounds[Random.Range(0, destructionSounds.Count)]);
+                }
             }
             GameObject.Destroy(this.gameObject);
         }

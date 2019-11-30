@@ -7,6 +7,7 @@ public class SuperLaser : Weapon
     public float timeToStartDiminish = 1f;
     public float timeToDiminish = 1f;
     public float shipPushbackForce = .5f;
+    public AudioSource superLaserAudioSource;
     bool noDiminishUntilPlayerLetsGo = false;
 
     Vector3 _scale = new Vector3(1, 1, 1);
@@ -26,6 +27,8 @@ public class SuperLaser : Weapon
         //bc.size = Vector3.Scale(bc.size, _scale);
 
         float startWidth = lr.startWidth, widthT = 0;
+
+        superLaserAudioSource.Play();
 
         while (projectileObj != null && FromShip != null)
         {
@@ -58,6 +61,8 @@ public class SuperLaser : Weapon
                 GameObject.Destroy(projectileObj);
             }
         }
+
+        superLaserAudioSource.Stop();
 
         if (projectileObj)
         {

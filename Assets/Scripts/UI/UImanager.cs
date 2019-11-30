@@ -43,6 +43,8 @@ public class UImanager : MonoBehaviour
     public UItext textManager;
     public float textTimer;
 
+    public AudioClip notificationSound;
+
 
     List<Image> juices = new List<Image>();
     List<Image> stars = new List<Image>();
@@ -160,6 +162,12 @@ public class UImanager : MonoBehaviour
             textForPlayer.text = _messageQueue.Dequeue();
             textForPlayer.enabled = true;
             textForPlayer.transform.parent.gameObject.SetActive(true);
+        
+            if (notificationSound)
+            {
+                Game.Instance.effectsAudioSource.PlayOneShot(notificationSound);
+            }
+            
             _textTimerCounter = 0;
             _showingText = true;
         }

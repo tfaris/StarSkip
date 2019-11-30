@@ -62,6 +62,8 @@ MonoBehaviour:
     type: 3}
   maxAttractDist: 100
   attractSpeed: 4
+  despawnTimer: 0
+  pickupSound: {fileID: 8300000, guid: 4ac19c84191fed5449837b667f8f4d1e, type: 3}
 --- !u!1 &6807151409202702520
 GameObject:
   m_ObjectHideFlags: 0

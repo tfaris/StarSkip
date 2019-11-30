@@ -15,6 +15,8 @@ public class Weapon : MonoBehaviour, IAddToShip, IUpgradeable
     public float speed;
     public GameObject projectilePrefab;
 
+    public AudioClip weaponFireSound;
+
     public bool IsInCooldown 
     {
         get => _isInCooldown; 
@@ -90,7 +92,17 @@ public class Weapon : MonoBehaviour, IAddToShip, IUpgradeable
             Game.Instance.StartCoroutine(ProjectileUpdate(projectileObj, fromShip.transform.position));
             Game.Instance.StartCoroutine(CheckDestroy(projectileObj, fromShip.transform.position));
             Launched = true;
+
+            if (weaponFireSound != null)
+            {
+                PlayFireSound();
+            }
         }
+    }
+
+    protected virtual void PlayFireSound()
+    {
+        Game.Instance.effectsAudioSource.PlayOneShot(weaponFireSound);
     }
 
     protected virtual GameObject CreateProjectile()

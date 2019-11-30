@@ -9,6 +9,7 @@ public class Pickup : MonoBehaviour
     public float attractSpeed = 4f;
     [Tooltip("Despawn after this many seconds if not picked up. If 0, never despawns.")]
     public float despawnTimer = 0;
+    public AudioClip pickupSound;
     float _despawnCounter;
     int _prevMapPos = -999;
 
@@ -68,6 +69,10 @@ public class Pickup : MonoBehaviour
             instance
                 .GetComponent<IAddToShip>()
                 .AddToShip(ps);
+            if (pickupSound)
+            {
+                Game.Instance.effectsAudioSource.PlayOneShot(pickupSound);
+            }
             UpdateMap(false);
             GameObject.Destroy(this.gameObject);
         }

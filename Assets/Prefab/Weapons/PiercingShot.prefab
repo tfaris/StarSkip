@@ -50,3 +50,4 @@ MonoBehaviour:
   speed: 20
   projectilePrefab: {fileID: 5980816592723166050, guid: 8447b56a6ee4d8a4d821e1f222364486,
     type: 3}
+  weaponFireSound: {fileID: 8300000, guid: 1f79b401eeaa99e428169c7748ab5ac4, type: 3}

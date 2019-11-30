@@ -47,6 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 4077672617601906562, guid: 3de2430c6a57c774a92af94f0a88d8b8,
     type: 3}
+  maxAttractDist: 100
+  attractSpeed: 4
+  despawnTimer: 0
+  pickupSound: {fileID: 8300000, guid: 2c36e27908263754ba73bcb860971190, type: 3}
 --- !u!65 &7103803954017845032
 BoxCollider:
   m_ObjectHideFlags: 0

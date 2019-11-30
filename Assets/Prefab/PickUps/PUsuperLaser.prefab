@@ -4805,6 +4805,8 @@ MonoBehaviour:
     type: 3}
   maxAttractDist: 100
   attractSpeed: 4
+  despawnTimer: 0
+  pickupSound: {fileID: 8300000, guid: 2c36e27908263754ba73bcb860971190, type: 3}
 --- !u!65 &8539750462525942543
 BoxCollider:
   m_ObjectHideFlags: 0

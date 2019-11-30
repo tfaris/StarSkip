@@ -8,6 +8,8 @@ public class WarpJump : MonoBehaviour
     public ParticleSystem warpEffect;
     public int jumpSpaces;
     public int spacesPerWarpPoint = 3;
+    public AudioClip warpStartingSoundEffect;
+    public AudioSource warpSoundSource;
 
     public bool IsJumping {get; private set; }
 
@@ -23,12 +25,21 @@ public class WarpJump : MonoBehaviour
     {
         IsJumping = true;
 
+        ToggleColliders(false);
+
         if (warpEffect)
         {
             warpEffect.gameObject.SetActive(true);
         }
-
-        ToggleColliders(false);
+        if (warpStartingSoundEffect)
+        {
+            Game.Instance.effectsAudioSource.PlayOneShot(warpStartingSoundEffect);
+            yield return new WaitForSeconds(4.2f);
+        }
+        if (warpSoundSource)
+        {
+            warpSoundSource.Play();
+        }
 
         var ship = Game.Instance.playerShip;
 
@@ -50,6 +61,12 @@ public class WarpJump : MonoBehaviour
             // pull back from user. If they jumped out of world bounds and wrapped,
             // this will get us the right location.
             nextGridWorldLocation = ship.transform.position;
+        }
+
+        
+        if (warpSoundSource)
+        {
+            warpSoundSource.Stop();
         }
 
         if (warpEffect)

@@ -303,6 +303,12 @@ MonoBehaviour:
   dropChance: 0.5
   destructionEffect: {fileID: 8389063632026313578, guid: 33f04b4062362d442a09a40a7d08a6ab,
     type: 3}
+  destructionSounds:
+  - {fileID: 8300000, guid: 0a8af15c27d7cc9469b1527b11cb0501, type: 3}
+  - {fileID: 8300000, guid: 6003a5a2e0fb83a4a8262999f1b11c70, type: 3}
+  takeDamageSounds:
+  - {fileID: 8300000, guid: a7e5c79fa70f7bb4eb250a69ed0100c5, type: 3}
+  - {fileID: 8300000, guid: 34349cd5fa650a441ae0372979cf46a0, type: 3}
   moveSpeed: 1000
   rotateSpeed: 350
   maxSpeed: 1000

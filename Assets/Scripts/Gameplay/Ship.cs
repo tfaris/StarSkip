@@ -21,6 +21,7 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
     AttackPlayer _attack;
 
     public GameObject destructionEffect;
+    public List<AudioClip> destructionSounds, takeDamageSounds;
 
     public virtual GameObject AttackingThis { get => GetCurrentTarget(); }
 
@@ -141,11 +142,28 @@ public class Ship : MonoBehaviour, IDamageable, IAmAttacking
                     GameObject.Instantiate(drop, this.transform.position, Quaternion.identity);
                 }
             }
-            if (destructionEffect != null)
+            if (Game.Instance.IsInPlayerGrid(this.gameObject))
             {
-                GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
+                if (destructionSounds != null && destructionSounds.Count > 0)
+                {
+                    Game.Instance.effectsAudioSource.PlayOneShot(destructionSounds[Random.Range(0, destructionSounds.Count)]);
+                }
+                if (destructionEffect != null)
+                {
+                    GameObject.Instantiate(destructionEffect, this.transform.position, Quaternion.identity);
+                }
             }
             GameObject.Destroy(this.gameObject);
+        }
+        else
+        {
+            if (Game.Instance.IsInPlayerGrid(this.gameObject))
+            {
+                if (takeDamageSounds != null && takeDamageSounds.Count > 0)
+                {
+                    Game.Instance.effectsAudioSource.PlayOneShot(takeDamageSounds[Random.Range(0, takeDamageSounds.Count)]);
+                }
+            }
         }
         return true;
     }

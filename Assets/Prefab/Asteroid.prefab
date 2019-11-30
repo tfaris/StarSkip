@@ -105,6 +105,9 @@ MonoBehaviour:
   spawner: {fileID: 0}
   destructionEffect: {fileID: 1217671660592394807, guid: 125b2288b5770bb43a6bfb2339631764,
     type: 3}
+  destructionSounds:
+  - {fileID: 8300000, guid: a7e5c79fa70f7bb4eb250a69ed0100c5, type: 3}
+  - {fileID: 8300000, guid: 34349cd5fa650a441ae0372979cf46a0, type: 3}
 --- !u!136 &214538720469380651
 CapsuleCollider:
   m_ObjectHideFlags: 0

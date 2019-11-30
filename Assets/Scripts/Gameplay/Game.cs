@@ -26,6 +26,8 @@ public class Game : MonoBehaviour
     public UImanager uIManager;
     public Boss bossPrefab;
 
+    public AudioSource effectsAudioSource;
+
     float lastAspectRatio;
     bool placedPlayer, firstGen = true;
     CameraController cameraController;
@@ -151,10 +153,7 @@ public class Game : MonoBehaviour
             firstGen = false;
             IsSetup = true;
             
-            ShowMessageOnce(UItext.MessageType.Tut1);
-            ShowMessageOnce(UItext.MessageType.Tut2);
-            ShowMessageOnce(UItext.MessageType.Tut3);
-            ShowMessageOnce(UItext.MessageType.WarpTut1);
+            StartCoroutine(ShowTutorialMessages());
         }
 
         if (IsSetup)
@@ -238,6 +237,15 @@ public class Game : MonoBehaviour
         // }
     }
 
+    IEnumerator ShowTutorialMessages()
+    {
+        yield return new WaitForSeconds(2f);
+        ShowMessageOnce(UItext.MessageType.Tut1);
+        ShowMessageOnce(UItext.MessageType.Tut2);
+        ShowMessageOnce(UItext.MessageType.Tut3);
+        ShowMessageOnce(UItext.MessageType.WarpTut1);
+    }
+
     void SpawnBoss()
     {
         var spawnLoc = new Vector3(
@@ -284,6 +292,17 @@ public class Game : MonoBehaviour
     public int GetRank()
     {
         return ExplorationCount;
+    }
+
+    ///
+    /// Returns true if the specified object is in the same world
+    /// grid as the player.
+    ///
+    public bool IsInPlayerGrid(GameObject obj)
+    {
+        int playerGrid = Game.Instance.GetCurrentGrid();
+        int objGrid = Game.Instance.GetGrid(obj.transform.position);
+        return playerGrid == objGrid;
     }
 
     ///

@@ -190,8 +190,11 @@ MonoBehaviour:
   - {fileID: 2291828101625725533, guid: 7fb6f31f3043804458448120fb4ebf33, type: 3}
   drop: {fileID: 222799855923441544, guid: d0e6befb281573a46a1ba0a973a8e940, type: 3}
   dropChance: 0.5
-  destructionEffect: {fileID: 9215245957778800279, guid: c2b2e1ec18d543e40b6c3d47daa0b670,
+  destructionEffect: {fileID: 8389063632026313578, guid: 33f04b4062362d442a09a40a7d08a6ab,
     type: 3}
+  destructionSounds:
+  - {fileID: 8300000, guid: 7f468d517150c7741aa8d596ba1a3ccd, type: 3}
+  - {fileID: 8300000, guid: be9ad28c0aed5ed4f897719b989eebb0, type: 3}
 --- !u!114 &3985633055345477439
 MonoBehaviour:
   m_ObjectHideFlags: 0
