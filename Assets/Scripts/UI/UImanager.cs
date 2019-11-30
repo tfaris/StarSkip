@@ -41,6 +41,7 @@ public class UImanager : MonoBehaviour
     public Image hpBar;
 
     public Text textForPlayer;
+    public Text textCurrentSector;
 
     public Text totalExplored;
 
@@ -160,6 +161,9 @@ public class UImanager : MonoBehaviour
         {
             hpBar.fillAmount = 0;
         }
+        
+        int gridNum = Game.Instance.GetCurrentGrid();
+        textCurrentSector.text = "Sector: " + Game.Instance.GetSectorName(gridNum);
 
         // text
         if (!_showingText && _messageQueue.Count > 0)

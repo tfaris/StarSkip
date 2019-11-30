@@ -157,7 +157,6 @@ public class Game : MonoBehaviour
             }
             
             firstGen = false;
-            IsSetup = true;
             
             StartCoroutine(ShowTutorialMessages());
         }
@@ -250,6 +249,7 @@ public class Game : MonoBehaviour
         ShowMessageOnce(UItext.MessageType.Tut2);
         ShowMessageOnce(UItext.MessageType.Tut3);
         ShowMessageOnce(UItext.MessageType.WarpTut1);
+        IsSetup = true;
     }
 
     void SpawnBoss()
@@ -333,6 +333,14 @@ public class Game : MonoBehaviour
 
             GridState gridState = GetGridState(gridX, gridZ);
             var worldPos = GetCenterPositionForGrid(gridX, gridZ);
+            if (ps.xWithinGrid == 0)
+            {
+                ps.xWithinGrid = UnityEngine.Random.Range(0, 1f);
+            }
+            if (ps.zWithinGrid == 0)
+            {
+                ps.zWithinGrid = UnityEngine.Random.Range(0, 1f);
+            }
             worldPos.x -= gridWidth / 2 - ps.xWithinGrid * gridWidth;
             worldPos.z -= gridHeight / 2 - ps.zWithinGrid * gridHeight;
             

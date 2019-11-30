@@ -151,6 +151,7 @@ public class PlayerShip : Ship
         public void Upgrade()
         {
             _level++;
+            Game.Instance.playerShip.moveSpeed += 280;
             Game.Instance.playerShip.maxSpeed += 280;
             Game.Instance.playerShip.rotateSpeed += 20;
         }

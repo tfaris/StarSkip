@@ -29,7 +29,7 @@ public class PiratesMateyYarrr : MonoBehaviour
 
                 if (drops.Count > 0)
                 {
-                    if (Game.Instance.ExplorationCount > 1)
+                    //if (Game.Instance.ExplorationCount > 1)
                     {
                         Game.Instance.ShowMessage(UItext.MessageType.PirateDetected);
 
