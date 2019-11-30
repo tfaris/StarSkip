@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   giveUpDistance: 150
-  keepDistanceToPlayer: 45
+  keepDistanceToPlayer: 35
   speed: 100
   distanceDeadzone: 1
   slowOnApproach: 1
@@ -195,6 +195,7 @@ MonoBehaviour:
   destructionSounds:
   - {fileID: 8300000, guid: 6bc5e0fc943818c4c815e8d3a68abcc9, type: 3}
   - {fileID: 8300000, guid: 9d0060ae8e37c964aa572cbc709b2a80, type: 3}
+  takeDamageSounds: []
 --- !u!114 &5015560044943483792
 MonoBehaviour:
   m_ObjectHideFlags: 0

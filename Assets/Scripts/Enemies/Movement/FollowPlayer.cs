@@ -25,6 +25,19 @@ public class FollowPlayer : MonoBehaviour
         get; private set;
     }
 
+    ///
+    /// Get whether the follower has given up following.
+    ///
+    public bool HasGivenUp
+    {
+        get; private set;
+    }
+
+    public bool IsIdle
+    {
+        get; private set;
+    } = true;
+
     void Start()
     {
         _body = GetComponent<Rigidbody>();
@@ -60,6 +73,9 @@ public class FollowPlayer : MonoBehaviour
             
             if (!IsInDeadzone && (dist < keepDistanceToPlayer && keepDistanceToPlayer != 0))
             {
+                HasGivenUp = false;
+                IsIdle = false;
+
                 // Move away
                 if (_movingTowards)
                 {
@@ -80,6 +96,9 @@ public class FollowPlayer : MonoBehaviour
             }
             else if ((giveUpDistance == 0 || dist < giveUpDistance) && !IsInDeadzone)
             {
+                HasGivenUp = false;
+                IsIdle = false;
+
                 // Move towards
                 if (!_movingTowards)
                 {
@@ -97,6 +116,15 @@ public class FollowPlayer : MonoBehaviour
                         transform.position += direction.normalized * nowSpeed * Time.deltaTime;
                     }
                 }
+            }
+            else if (dist >= giveUpDistance && !IsIdle)
+            {
+                HasGivenUp = true;
+                IsIdle = true;
+            }
+            else if (IsIdle)
+            {
+                HasGivenUp = false;
             }
 
             transform.rotation = Quaternion.LookRotation(direction, transform.up);
