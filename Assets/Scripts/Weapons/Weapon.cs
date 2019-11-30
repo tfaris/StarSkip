@@ -220,6 +220,6 @@ public class Weapon : MonoBehaviour, IAddToShip, IUpgradeable
 
     public bool HasMaxUpgrade()
     {
-        return UpgradeLevel == 5;
+        return UpgradeLevel >= 5;
     }
 }
