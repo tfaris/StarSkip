@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UImanager : MonoBehaviour
 {
+    public Game game;
+
     public Image select1;
     public Image select2;
     public Image select3;
@@ -39,6 +41,8 @@ public class UImanager : MonoBehaviour
     public Image hpBar;
 
     public Text textForPlayer;
+
+    public Text totalExplored;
 
     public UItext textManager;
     public float textTimer;
@@ -145,6 +149,8 @@ public class UImanager : MonoBehaviour
 
     void Update()
     {
+        totalExplored.text = game.ExplorationCount.ToString();
+
         var player = Game.Instance.playerShip;
         if (player)
         {

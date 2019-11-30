@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93e893dba1c3be4087dc47ac6c8dab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 3949650}
   select1: {fileID: 672891248}
   select2: {fileID: 979535242}
   select3: {fileID: 1592085262}
@@ -266,6 +267,7 @@ MonoBehaviour:
   warpJuice10: {fileID: 944996483}
   hpBar: {fileID: 1286748425}
   textForPlayer: {fileID: 1257971825}
+  totalExplored: {fileID: 1488221848}
   textManager: {fileID: 3949654}
   textTimer: 5
   notificationSound: {fileID: 8300000, guid: 544f6329c2e0cd742ab0f7085e08a698, type: 3}
@@ -26608,7 +26610,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: 50}
+  m_AnchoredPosition: {x: 33, y: 50}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!132 &1488221847
@@ -26657,7 +26659,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: a96e45aa8560b1e418398158c1693274, type: 3}
-    m_FontSize: 26
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
