@@ -98,7 +98,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        if (Camera.main.aspect != lastAspectRatio)
+        if (!IsSetup && Camera.main.aspect != lastAspectRatio)
         {
             // Aspect ratio changed. Now we need to adjust our grids.
             lastAspectRatio = Camera.main.aspect;
