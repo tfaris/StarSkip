@@ -56,7 +56,7 @@ public class FollowPlayer : MonoBehaviour
             float nowSpeed = speed;
             if (slowOnApproach)
             {
-                float maxDistForMaxSpeed = 100;
+                float maxDistForMaxSpeed = speed;
                 if ( dist > maxDistForMaxSpeed)
                 {
                     nowSpeed = speed;
