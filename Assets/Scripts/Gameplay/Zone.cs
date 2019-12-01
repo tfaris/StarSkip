@@ -5,6 +5,7 @@ using UnityEngine;
 public class Zone : MonoBehaviour
 {
     public GameObject backgroundPlane;
+    public ZoneType zoneType;
 
     Renderer backgroundRenderer;
     bool _positionChecked;
@@ -16,6 +17,13 @@ public class Zone : MonoBehaviour
     public int DestroyedEnemiesCount
     {
         get; private set;
+    }
+
+    public enum ZoneType
+    {
+        Monster,
+        Empire,
+        Robo
     }
 
     void Start()
@@ -45,6 +53,11 @@ public class Zone : MonoBehaviour
                 DestroyedEnemiesCount.ToString(),
                 Game.Instance.goalEnemiesPerZone.ToString()
             );
+        }
+        
+        if (DestroyedEnemiesCount >= Game.Instance.goalEnemiesPerZone)
+        {
+            Game.Instance.uIManager.SetZoneCompleted(this);
         }
     }
 

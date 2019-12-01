@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 4859463695769473007, guid: 6e952a8bf67082f47a25964ff72df261, type: 3}
   spawnTimer: 20
   numEnemiesAtOnce: 3
+  returnToSpawnerTime: 10
 --- !u!1 &4138077882395747864
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +97,7 @@ MonoBehaviour:
   - {fileID: 4766424430607595665, guid: e925ff9994ec0854bb7c2addda6f044f, type: 3}
   spawnTimer: 10
   numEnemiesAtOnce: 1
+  returnToSpawnerTime: 10
 --- !u!1 &4138077882537598525
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +147,7 @@ MonoBehaviour:
   - {fileID: 4859463695769473007, guid: 6e952a8bf67082f47a25964ff72df261, type: 3}
   spawnTimer: 20
   numEnemiesAtOnce: 2
+  returnToSpawnerTime: 10
 --- !u!1 &4138077882815470092
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundPlane: {fileID: 4138077882959126065}
+  zoneType: 2
 --- !u!1 &4138077882919406599
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +242,7 @@ MonoBehaviour:
   - {fileID: 4859463695769473007, guid: 6e952a8bf67082f47a25964ff72df261, type: 3}
   spawnTimer: 10
   numEnemiesAtOnce: 2
+  returnToSpawnerTime: 10
 --- !u!1 &4138077882959126065
 GameObject:
   m_ObjectHideFlags: 0

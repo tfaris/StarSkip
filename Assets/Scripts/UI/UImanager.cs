@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class ZoneUI
+{
+    public Zone.ZoneType zoneType;
+    public Image completionImage;
+}
+
 public class UImanager : MonoBehaviour
 {
     public Game game;
@@ -49,8 +56,7 @@ public class UImanager : MonoBehaviour
     public float textTimer;
 
     public AudioClip notificationSound;
-
-    public List<Image> completions = new List<Image>();
+    public List<ZoneUI> completions = new List<ZoneUI>();
 
     List<Image> juices = new List<Image>();
     List<Image> stars = new List<Image>();
@@ -293,5 +299,16 @@ public class UImanager : MonoBehaviour
     {
         string msg = this.textManager.GetMessage(messageType, formatArgs);
         _messageQueue.Enqueue(msg);
+    }
+
+    public void SetZoneCompleted(Zone zone)
+    {
+        foreach (var zu in completions)
+        {
+            if (zu.zoneType == zone.zoneType)
+            {
+                zu.completionImage.enabled = true;
+            }
+        }
     }
 }
