@@ -50,6 +50,7 @@ public class UImanager : MonoBehaviour
 
     public AudioClip notificationSound;
 
+    public List<Image> completions = new List<Image>();
 
     List<Image> juices = new List<Image>();
     List<Image> stars = new List<Image>();
